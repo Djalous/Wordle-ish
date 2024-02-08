@@ -1,7 +1,6 @@
 import java.util.Arrays;
 
 public class Word {
-    private int freq = 0;
     private char[] chars;
 
     public Word(int wordSize) {
@@ -22,5 +21,10 @@ public class Word {
         if (o == null || getClass() != o.getClass()) return false;
         Word word = (Word) o;
         return Arrays.equals(chars, word.chars);
+    }
+
+    @Override
+    public String toString() {
+        return new String(chars);
     }
 }

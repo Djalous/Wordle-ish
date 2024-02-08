@@ -1,16 +1,36 @@
+import java.util.HashMap;
 import java.util.List;
 
 public class GameState {
-    private WordBank bank;
     private Word targetWord;
     private List<Word> guesses;
     private Word currentGuess;
 
-    public boolean isCorrect() {
-        return false; //TODO: implement me!
+    public GameState(Word targetWord) {
+
     }
 
-    public boolean isValid() {
-        return false; //TODO: implement me!
+    public Word getTargetWord() {
+        return null; //TODO: Implement me!
+    }
+
+    public List<Word> getGuessList() {
+        return null; //TODO: Implement me!
+    }
+
+    public Word getCurrentGuess() {
+        return currentGuess;
+    }
+
+    public HashMap<Character, Integer> getLetterFreq() {
+        return null; //TODO: Implement me!
+    }
+
+    public HashMap<String, Integer> getWordFreq() {
+        return null; //TODO: Implement me!
+    }
+
+    public int getGuessCount() {
+        return guesses.size();
     }
 }
