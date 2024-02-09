@@ -1,3 +1,5 @@
+import javafx.scene.paint.Color;
+
 import java.util.HashMap;
 import java.util.List;
 
@@ -5,6 +7,7 @@ public class GameState {
     private Word targetWord;
     private List<Word> guesses;
     private Word currentGuess;
+
 
     public GameState(Word targetWord) {
 
