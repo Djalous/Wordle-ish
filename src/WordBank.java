@@ -50,7 +50,7 @@ public class WordBank {
         }
     }
 
-    public boolean getCorrect(Word word) {
-
+    public boolean isValid(Word word) {
+        return validWords.contains(word);
     }
 }
