@@ -1,14 +1,34 @@
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.ResourceBundle;
+import java.util.function.UnaryOperator;
 
-public class Controller {
+public class Controller implements Initializable {
+
+    @FXML
+    private TextField firstLetterTyped;
+    @FXML
+    private TextField secondLetterTyped;
+    @FXML
+    private TextField thirdLetterTyped;
+    @FXML
+    private TextField fourthLetterTyped;
+    @FXML
+    private TextField fifthLetterTyped;
+
+
     private GameState state;
     private WordBank bank;
     private UserType user;
@@ -95,5 +115,15 @@ public class Controller {
 
     public void selectRandomGuesses() {
         //TODO: Implement me!
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        firstLetterTyped.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
+            if (change.isContentChange() && change.getControlNewText().length() > 1) {
+                return null;
+            }
+            return change;
+        }));
     }
 }
