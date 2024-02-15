@@ -6,7 +6,7 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
    <children>
-      <TextField fx:id="firstLetterTyped" layoutX="48.0" layoutY="161.0" prefHeight="78.0" prefWidth="77.0">
+      <TextField fx:id="firstLetterTyped" layoutX="48.0" layoutY="161.0" prefHeight="78.0" prefWidth="77.0" onKeyReleased="#firstLetterTyped" >
          <font>
             <Font name="Arial Black" size="36.0" />
          </font>

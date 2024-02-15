@@ -117,9 +117,39 @@ public class Controller implements Initializable {
         //TODO: Implement me!
     }
 
+    /**
+     * The following method was generated using ChatGPT on 2/15 https://chat.openai.com/ with the prompt:
+     * "how to make fxml textfield only accept one character in FXML"
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         firstLetterTyped.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
+            if (change.isContentChange() && change.getControlNewText().length() > 1) {
+                return null;
+            }
+            return change;
+        }));
+        secondLetterTyped.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
+            if (change.isContentChange() && change.getControlNewText().length() > 1) {
+                return null;
+            }
+            return change;
+        }));
+        thirdLetterTyped.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
+            if (change.isContentChange() && change.getControlNewText().length() > 1) {
+                return null;
+            }
+            return change;
+        }));
+        fourthLetterTyped.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
+            if (change.isContentChange() && change.getControlNewText().length() > 1) {
+                return null;
+            }
+            return change;
+        }));
+        fifthLetterTyped.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
             if (change.isContentChange() && change.getControlNewText().length() > 1) {
                 return null;
             }
