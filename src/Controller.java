@@ -10,6 +10,8 @@ import java.util.List;
 
 public class Controller {
     private GameState state;
+    private final List<GameState> history = new ArrayList<>();
+
     private WordBank bank;
     private UserType user;
 
@@ -23,6 +25,7 @@ public class Controller {
     private static final Color GREY = Color.color(0.6, 0.6, 0.6);
     private static final Color YELLOW = Color.color(.96, 0.85, 0.21);
 
+    private boolean gameIsActive;
 
     public Controller() {
 

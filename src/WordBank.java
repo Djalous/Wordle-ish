@@ -50,7 +50,7 @@ public class WordBank {
         }
     }
 
-    public CharValidity[] getCorrect(Word word) {
-        return null; //TODO: implement me!
+    public boolean getCorrect(Word word) {
+
     }
 }
