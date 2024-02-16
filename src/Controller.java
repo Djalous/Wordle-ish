@@ -33,15 +33,7 @@ public class Controller {
     }
 
     public void keyboardPressed(KeyEvent key) {
-        String str = key.getCharacter();
-
-        if (str == null || str.isEmpty()) {
-            return;
-        }
-
-        char c = str.charAt(0);
-
-        state.getCurrentGuess().pushChar(c);
+        //TODO: Implement me!
     }
 
     public void updateGuess(String letter) {
@@ -53,7 +45,7 @@ public class Controller {
     }
 
     public boolean isCorrect() {
-        return state.getCurrentGuess().equals(state.getTargetWord());
+        return false; //TODO: Implement me!
     }
 
     public void updateVocab() {
