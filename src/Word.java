@@ -2,17 +2,30 @@ import java.util.Arrays;
 
 public class Word {
     private char[] chars;
+    private int bufferInd = 0;
 
     public Word(int wordSize) {
         chars = new char[wordSize];
     }
 
     public boolean pushChar(char c) {
-        return false; //TODO: implement me!
+        if (bufferInd >= chars.length) {
+            return false;
+        }
+
+        chars[bufferInd] = c;
+        bufferInd++;
+
+        return true;
     }
 
     public void backspace() {
-        //TODO: implement me!
+        if (bufferInd <= 0) {
+            return;
+        }
+
+        chars[bufferInd] = '\u0000'; //reset char to null character
+        bufferInd--;
     }
 
     @Override
