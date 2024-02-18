@@ -3,6 +3,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -118,8 +119,8 @@ public class Controller implements Initializable {
     }
 
     /**
-     * The following method was generated using ChatGPT on 2/15 https://chat.openai.com/ with the prompt:
-     * "how to make fxml textfield only accept one character in FXML"
+     * The following method was generated using ChatGPT on 2/15 https://chat.openai.com/
+     * with the prompt: "how to make fxml textfield only accept one character in FXML"
      * @param url
      * @param resourceBundle
      */
@@ -155,5 +156,77 @@ public class Controller implements Initializable {
             }
             return change;
         }));
+        filterTextField(firstLetterTyped, secondLetterTyped);
+        filterTextField(secondLetterTyped, thirdLetterTyped);
+        filterTextField(thirdLetterTyped, fourthLetterTyped);
+        filterTextField(fourthLetterTyped, fifthLetterTyped);
+        filterLastTextField(fifthLetterTyped);
+    }
+
+    /**
+     * The following method was generated using ChatGPT on 2/17 https://chat.openai.com/
+     * with the prompt: "how to make textfield in fxml only allow letters, be case-insensitive,
+     * move cursor to next textfield automatically, and keep a cursor present in a textfield
+     * after deleting its value"
+     * @param textField the current textField
+     * @param nextField the next textField
+     */
+    private void filterTextField(TextField textField, TextField nextField) {
+        textField.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
+            String newText = change.getControlNewText();
+            if (newText.matches("[a-zA-Z]") || newText.isEmpty()) {
+                change.setText(newText.toUpperCase());
+                change.setRange(0, change.getControlText().length());
+                return change;
+            } else {
+                return null;
+            }
+        }));
+
+        textField.setOnKeyTyped(event -> {
+            if (textField.getText().length() == 1) {
+                nextField.requestFocus();
+            }
+        });
+
+        textField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.BACK_SPACE && textField.getText().isEmpty()) {
+                event.consume();
+                textField.positionCaret(0);
+            }
+        });
+    }
+
+    /**
+     * The following method was generated using ChatGPT on 2/17 https://chat.openai.com/ with
+     * the prompt: "how to make textfield in fxml only allow letters, be case-insensitive,
+     * move cursor to next textfield automatically, and keep a cursor present in a textfield
+     * after deleting its value"
+     * @param lastTextField the last (fifth) textField
+     */
+    private void filterLastTextField(TextField lastTextField) {
+        lastTextField.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
+            String newText = change.getControlNewText();
+            if (newText.matches("[a-zA-Z]") || newText.isEmpty()) {
+                change.setText(newText.toUpperCase());
+                change.setRange(0, change.getControlText().length());
+                return change;
+            } else {
+                return null;
+            }
+        }));
+
+        lastTextField.setOnKeyTyped(event -> {
+            if (lastTextField.getText().length() == 1) {
+                lastTextField.getParent().requestFocus();
+            }
+        });
+
+        lastTextField.setOnKeyReleased(event -> {
+            if (event.getCode() == KeyCode.BACK_SPACE && lastTextField.getText().isEmpty()) {
+                event.consume();
+                lastTextField.positionCaret(0);
+            }
+        });
     }
 }
