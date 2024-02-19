@@ -20,7 +20,7 @@ public class Word {
      * @param word String to construct a word out of.
      */
     public Word(String word) {
-        chars = word.toCharArray();
+        chars = word.toLowerCase().toCharArray();
         bufferInd = word.length();
     }
 
@@ -29,7 +29,7 @@ public class Word {
             return false;
         }
 
-        chars[bufferInd] = c;
+        chars[bufferInd] = Character.toLowerCase(c);
         bufferInd++;
 
         return true;
