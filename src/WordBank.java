@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.InvalidPathException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -18,7 +19,7 @@ public class WordBank {
         updateValidBank(validFile);
     }
 
-    public void updateTargetBank(File targetFile) {
+    public void updateTargetBank(File targetFile) throws InvalidPathException {
         try (Scanner in = new Scanner(targetFile)) {
             checkFileExtension(targetFile, in);
             addToWordList(targetWords, in);
@@ -27,7 +28,7 @@ public class WordBank {
         }
     }
 
-    public void updateValidBank(File validFile) {
+    public void updateValidBank(File validFile) throws InvalidPathException {
         try (Scanner in = new Scanner(validFile)) {
             checkFileExtension(validFile, in);
             addToWordList(validWords, in);
@@ -54,7 +55,10 @@ public class WordBank {
 
     private void checkFileExtension(File file, Scanner scanner) {
         String filePath = file.getPath();
-        if (filePath.endsWith(".csv"))
+        if (filePath.endsWith(".csv")) {
             scanner.useDelimiter(",");
+        } else if (!filePath.endsWith(".txt")) {
+            throw new InvalidPathException(filePath, "Unsupported file type.");
+        }
     }
 }
