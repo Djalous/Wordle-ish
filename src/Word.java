@@ -1,12 +1,27 @@
 import java.security.InvalidParameterException;
 import java.util.Arrays;
 
+/**
+ * A unit class which handles the comparison of words and their current state.
+ */
 public class Word {
     private char[] chars;
     private int bufferInd = 0;
 
+    /** Construct a word of a given size.
+     * @param wordSize The number of characters the word will contain.
+     */
     public Word(int wordSize) {
         chars = new char[wordSize];
+    }
+
+    /** Creates a word based on the given input string. NOTE: The max accepted word size will be the
+     * size of the input string.
+     * @param word String to construct a word out of.
+     */
+    public Word(String word) {
+        chars = word.toCharArray();
+        bufferInd = word.length();
     }
 
     public boolean pushChar(char c) {
@@ -30,7 +45,7 @@ public class Word {
     }
 
 
-    
+
     public CharValidity[] getCorrect(Word targetWord) {
         String wordStr = this.toString();
         String targetStr = targetWord.toString();
@@ -66,6 +81,11 @@ public class Word {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Word word = (Word) o;
+
+        if (word.chars.length != this.chars.length) {
+            return false;
+        }
+
         return word.toString().equals(this.toString());
     }
 
