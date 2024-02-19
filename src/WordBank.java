@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class WordBank {
-    private final List<Word> targetWords = new ArrayList<>();
-    private final List<Word> validWords = new ArrayList<>();
+    private final List<Word> TARGET_WORDS = new ArrayList<>();
+    private final List<Word> VALID_WORDS = new ArrayList<>();
 
     public WordBank() {
         updateTargetBank(new File("./wordle-official.txt"));
@@ -22,7 +22,7 @@ public class WordBank {
     public void updateTargetBank(File targetFile) throws InvalidPathException {
         try (Scanner in = new Scanner(targetFile)) {
             checkFileExtension(targetFile, in);
-            addToWordList(targetWords, in);
+            addToWordList(TARGET_WORDS, in);
         } catch (FileNotFoundException e) {
             System.out.println("File cannot be found or does not exist.");
         }
@@ -31,14 +31,14 @@ public class WordBank {
     public void updateValidBank(File validFile) throws InvalidPathException {
         try (Scanner in = new Scanner(validFile)) {
             checkFileExtension(validFile, in);
-            addToWordList(validWords, in);
+            addToWordList(VALID_WORDS, in);
         } catch (FileNotFoundException e) {
             System.out.println("File cannot be found or does not exist.");
         }
     }
 
     public boolean isValid(Word word) {
-        return validWords.contains(word);
+        return VALID_WORDS.contains(word);
     }
 
     private void addToWordList(List<Word> list, Scanner scanner) {
