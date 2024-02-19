@@ -1,5 +1,6 @@
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 public class WordTests {
 
@@ -12,18 +13,18 @@ public class WordTests {
         w1.pushChar('o');
         w1.pushChar('l');
 
-        Assertions.assertEquals(w1.toString(), "cool");
+        Assert.assertEquals(w1.toString(), "cool");
 
         w1.backspace();
 
-        Assertions.assertEquals(w1.toString(), "coo");
+        Assert.assertEquals(w1.toString(), "coo");
 
         w1.pushChar('l');
         w1.pushChar('l');
 
-        Assertions.assertEquals(w1.toString(), "cooll");
-        Assertions.assertFalse(w1.pushChar('l'));
-        Assertions.assertEquals(w1.toString(), "cooll");
+        Assert.assertEquals(w1.toString(), "cooll");
+        Assert.assertFalse(w1.pushChar('l'));
+        Assert.assertEquals(w1.toString(), "cooll");
     }
 
     @Test
@@ -41,11 +42,11 @@ public class WordTests {
         w2.pushChar('o');
         w2.pushChar('l');
 
-        Assertions.assertEquals(w1, w2);
+        Assert.assertEquals(w1, w2);
 
         w2.backspace();
 
-        Assertions.assertNotEquals(w1, w2);
+        Assert.assertNotEquals(w1, w2);
 
         Word w3 = new Word(6);
 
@@ -54,8 +55,8 @@ public class WordTests {
         w3.pushChar('o');
         w3.pushChar('l');
 
-        Assertions.assertNotEquals(w1, w3);
-        Assertions.assertEquals(w1.toString(), w3.toString());
+        Assert.assertNotEquals(w1, w3);
+        Assert.assertEquals(w1.toString(), w3.toString());
     }
 
     @Test
@@ -77,7 +78,7 @@ public class WordTests {
                 CharValidity.CORRECT_POSITION,
         };
 
-        Assertions.assertArrayEquals(test, data);
+        Assert.assertArrayEquals(test, data);
 
         CharValidity[] test2 = new CharValidity[] {
                 CharValidity.CORRECT_POSITION,
@@ -89,7 +90,7 @@ public class WordTests {
 
         CharValidity[] data2 = w1.getCorrect(new Word("colol"));
 
-        Assertions.assertArrayEquals(test2, data2);
+        Assert.assertArrayEquals(test2, data2);
 
         CharValidity[] test3 = new CharValidity[] {
                 CharValidity.PRESENT_CHAR,
@@ -101,7 +102,7 @@ public class WordTests {
 
         CharValidity[] data3 = w1.getCorrect(new Word("aodcf"));
 
-        Assertions.assertArrayEquals(test3, data3);
+        Assert.assertArrayEquals(test3, data3);
 
         CharValidity[] data4 = w1.getCorrect(new Word("12345"));
 
@@ -113,7 +114,7 @@ public class WordTests {
                 CharValidity.INCORRECT,
         };
 
-        Assertions.assertArrayEquals(test4, data4);
+        Assert.assertArrayEquals(test4, data4);
 
     }
 }

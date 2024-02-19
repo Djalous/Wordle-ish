@@ -95,6 +95,6 @@ public class Word {
             return "";
         }
 
-        return new String(Arrays.copyOfRange(chars, 0, bufferInd));
+        return new String(Arrays.copyOfRange(chars, 0, bufferInd)).toLowerCase();
     }
 }
