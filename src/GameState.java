@@ -35,6 +35,10 @@ public class GameState {
         return guesses.size();
     }
 
+    /**
+     * Adding to method for storing guess
+     * @param word Word object
+     */
     public void setCurrentGuess(Word word) {
         this.currentGuess = word;
     }
