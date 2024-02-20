@@ -21,7 +21,7 @@ public class ControllerTests {
         controller.setFifthTextField("E");
         Assert.assertFalse(controller.validateGuess());
         Assert.assertEquals("Please enter a valid word.", controller.getLabelText());
-        controller.setFourthTextField("P");
+        controller.setFourthTextField("L");
         Assert.assertTrue(controller.validateGuess());
     }
 }
