@@ -135,21 +135,32 @@ public class Controller implements Initializable {
         // truth value returned from this method
 
         // Create for loop to check if textfields are empty
-        String tempGuess = firstLetterTyped.getText() + secondLetterTyped.getText() +
-                thirdLetterTyped.getText() + fourthLetterTyped.getText() +
-                fifthLetterTyped.getText();
-
-        Word temp = new Word(tempGuess.length());
-        for (int i = 0; i < tempGuess.length(); i++) {
-            temp.pushChar(tempGuess.charAt(i));
-        }
-        // call isValid of WordBank class
-
-        if (tempGuess.length() != wordLength) {
+        if (firstLetterTyped.getText().isEmpty()) {
+            errMsgLabel.setText("Please enter a " + wordLength + " letter word.");
+            return false;
+        } else if (secondLetterTyped.getText().isEmpty()) {
+            errMsgLabel.setText("Please enter a " + wordLength + " letter word.");
+            return false;
+        } else if (thirdLetterTyped.getText().isEmpty()) {
+            errMsgLabel.setText("Please enter a " + wordLength + " letter word.");
+            return false;
+        } else if (fourthLetterTyped.getText().isEmpty()) {
+            errMsgLabel.setText("Please enter a " + wordLength + " letter word.");
+            return false;
+        } else if (fifthLetterTyped.getText().isEmpty()) {
             errMsgLabel.setText("Please enter a " + wordLength + " letter word.");
             return false;
         } else {
-            if (!bank.getValidWords().contains(tempGuess)) {
+            String tempGuess = firstLetterTyped.getText() + secondLetterTyped.getText() +
+                    thirdLetterTyped.getText() + fourthLetterTyped.getText() +
+                    fifthLetterTyped.getText();
+
+            Word tempWord = new Word(tempGuess.length());
+            for (int i = 0; i < tempGuess.length(); i++) {
+                tempWord.pushChar(tempGuess.charAt(i));
+            }
+
+            if (bank.isValid(tempWord)) {
                 errMsgLabel.setText("Please enter a valid word.");
                 return false;
             } else {
@@ -268,5 +279,63 @@ public class Controller implements Initializable {
                 lastTextField.positionCaret(0);
             }
         });
+    }
+
+    /**
+     * setFirstTextField() method that sets text of the first text field for testing purposes
+     * @param text string being passed to the text field
+     */
+    public void setFirstTextField(String text) {
+        firstLetterTyped.setText(text);
+    }
+
+    /**
+     * setSecondTextField() method that sets text of the second text field for testing purposes
+     * @param text string being passed to the text field
+     */
+    public void setSecondTextField(String text) {
+        secondLetterTyped.setText(text);
+    }
+
+    /**
+     * setThirdTextField() method that sets text of the third text field for testing purposes
+     * @param text string being passed to the text field
+     */
+    public void setThirdTextField(String text) {
+        thirdLetterTyped.setText(text);
+    }
+
+    /**
+     * setFourthTextField() method that sets text of the fourth text field for testing purposes
+     * @param text string being passed to the text field
+     */
+    public void setFourthTextField(String text) {
+        fourthLetterTyped.setText(text);
+    }
+
+    /**
+     * setFifthTextField() method that sets text of the fifth text field for testing purposes
+     * @param text string being passed to the text field
+     */
+    public void setFifthTextField(String text) {
+        fifthLetterTyped.setText(text);
+    }
+
+    /**
+     * getLabelText() method which returns current val of the error message label for testing
+     * purposes
+     * @return String label text
+     */
+    public String getLabelText() {
+        return errMsgLabel.getText();
+    }
+
+    /**
+     * getWordLength() method which returns the currently set guess word length for testing
+     * purposes
+     * @return int word length currently set
+     */
+    public int getWordLength() {
+        return wordLength;
     }
 }

@@ -61,9 +61,4 @@ public class WordBank {
             throw new InvalidPathException(filePath, "Unsupported file type.");
         }
     }
-
-    public List<Word> getValidWords() {
-        return validWords;
-        //TODO: Implement me!
-    }
 }
