@@ -10,7 +10,6 @@ public class GuessTests {
 
 
 
-
     @Test(expected = IllegalArgumentException.class)
     public void testStoredGuess_InvalidLength() {
         //Arrange
