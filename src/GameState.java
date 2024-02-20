@@ -1,11 +1,9 @@
-import javafx.scene.paint.Color;
-
 import java.util.HashMap;
 import java.util.List;
 
 public class GameState {
     private Word targetWord;
-    private List<Word> guesses;
+    private HashMap<String, Integer> guesses;
     private Word currentGuess;
 
 
@@ -25,11 +23,11 @@ public class GameState {
         return currentGuess;
     }
 
-    public HashMap<Character, Integer> getLetterFreq() {
+    public HashMap<Character, Integer> getLetterAndFreq() {
         return null; //TODO: Implement me!
     }
 
-    public HashMap<String, Integer> getWordFreq() {
+    public HashMap<String, Integer> getWordAndFreq() {
         return null; //TODO: Implement me!
     }
 
