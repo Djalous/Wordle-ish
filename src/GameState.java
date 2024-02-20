@@ -34,4 +34,10 @@ public class GameState {
     public int getGuessCount() {
         return guesses.size();
     }
+
+    public void setCurrentGuess(Word word) {
+        this.currentGuess = word;
+    }
+
+
 }
