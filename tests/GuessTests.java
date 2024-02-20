@@ -17,6 +17,6 @@ public class GuessTests {
     public void testStoredGuess_InvalidLength() {
         //Arrange
         GameState state = new GameState(new Word(3));
-        state.stor
+        state.setCurrentGuess(new Word("ABC"));
     }
 }
