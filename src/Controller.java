@@ -135,19 +135,9 @@ public class Controller implements Initializable {
         // truth value returned from this method
 
         // Create for loop to check if textfields are empty
-        if (firstLetterTyped.getText().isEmpty()) {
-            errMsgLabel.setText("Please enter a " + wordLength + " letter word.");
-            return false;
-        } else if (secondLetterTyped.getText().isEmpty()) {
-            errMsgLabel.setText("Please enter a " + wordLength + " letter word.");
-            return false;
-        } else if (thirdLetterTyped.getText().isEmpty()) {
-            errMsgLabel.setText("Please enter a " + wordLength + " letter word.");
-            return false;
-        } else if (fourthLetterTyped.getText().isEmpty()) {
-            errMsgLabel.setText("Please enter a " + wordLength + " letter word.");
-            return false;
-        } else if (fifthLetterTyped.getText().isEmpty()) {
+        if (firstLetterTyped.getText().isEmpty() || secondLetterTyped.getText().isEmpty() ||
+                thirdLetterTyped.getText().isEmpty() || fourthLetterTyped.getText().isEmpty() ||
+                fifthLetterTyped.getText().isEmpty()) {
             errMsgLabel.setText("Please enter a " + wordLength + " letter word.");
             return false;
         } else {
@@ -160,7 +150,7 @@ public class Controller implements Initializable {
                 tempWord.pushChar(tempGuess.charAt(i));
             }
 
-            if (bank.isValid(tempWord)) {
+            if (!bank.isValid(tempWord)) {
                 errMsgLabel.setText("Please enter a valid word.");
                 return false;
             } else {
