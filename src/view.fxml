@@ -31,5 +31,6 @@
             <Font name="Arial Black" size="36.0" />
          </font>
       </TextField>
+      <Label fx:id="errMsgLabel" layoutX="450.0" layoutY="296.0" prefHeight="50.0" prefWidth="77.0" />
    </children>
 </AnchorPane>

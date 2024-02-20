@@ -27,4 +27,5 @@ public class Word {
     public String toString() {
         return new String(chars);
     }
+
 }

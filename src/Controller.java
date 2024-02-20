@@ -1,6 +1,7 @@
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.input.KeyCode;
@@ -28,8 +29,8 @@ public class Controller implements Initializable {
     private TextField fourthLetterTyped;
     @FXML
     private TextField fifthLetterTyped;
-
-
+    @FXML
+    private Label errMsgLabel;
     private GameState state;
     private WordBank bank;
     private UserType user;
@@ -116,6 +117,42 @@ public class Controller implements Initializable {
 
     public void selectRandomGuesses() {
         //TODO: Implement me!
+    }
+
+    /**
+     * validateGuess() method which checks for any invalidity in the user's guess when enter
+     * is pressed; displays error messages accordingly
+     * @return a boolean depending on if the user's guess word is valid or not
+     */
+    public boolean validateGuess() {
+        // will be tied to enterPressed() method which calls this every time enter is pressed
+        // through some sort of event listener maybe similar to filterTextField() methods below
+
+        // Additionally method will be used to check whether currentGuess should be stored based
+        // truth value returned from this method
+
+        // Create for loop to check if textfields are empty
+        String tempGuess = firstLetterTyped.getText() + secondLetterTyped.getText() +
+                thirdLetterTyped.getText() + fourthLetterTyped.getText() +
+                fifthLetterTyped.getText();
+
+        Word temp = new Word(tempGuess.length());
+        for (int i = 0; i < tempGuess.length(); i++) {
+            temp.pushChar(tempGuess.charAt(i));
+        }
+        // call isValid of WordBank class
+
+        if (tempGuess.length() != wordLength) {
+            errMsgLabel.setText("Please enter a " + wordLength + " letter word.");
+            return false;
+        } else {
+            if (!bank.getValidWords().contains(tempGuess)) {
+                errMsgLabel.setText("Please enter a valid word.");
+                return false;
+            } else {
+                return true;
+            }
+        }
     }
 
     /**

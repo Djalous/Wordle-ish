@@ -25,4 +25,9 @@ public class WordBank {
     public CharValidity[] getCorrect(Word word) {
         return null; //TODO: implement me!
     }
+
+    public List<Word> getValidWords() {
+        return validWords;
+        //TODO: Implement me!
+    }
 }
