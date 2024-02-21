@@ -36,7 +36,7 @@ Within a particular ecosystem, there may be a common way of installing things, s
 
 
 ## Contributers
-- Duaa(DJ) Aljalous
+- Duaa"DJ" Aljalous
 - Lazar Jovanovic
 - Theresa Kettner
 - Jack Rosenbecker
