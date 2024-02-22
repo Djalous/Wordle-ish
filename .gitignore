@@ -3,6 +3,8 @@ out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 .idea/
+SWE-2710-Lab-3.iml
+s24-riley-b.iml
 
 ### Eclipse ###
 .apt_generated

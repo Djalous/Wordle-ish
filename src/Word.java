@@ -97,4 +97,5 @@ public class Word {
 
         return new String(Arrays.copyOfRange(chars, 0, bufferInd)).toLowerCase();
     }
+
 }
