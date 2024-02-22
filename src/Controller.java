@@ -40,7 +40,7 @@ public class Controller implements Initializable {
     private GridPane keyboard;
     private GridPane letterBoxes;
 
-    private List<Button> changedButtons = new ArrayList<>();
+    private final List<Button> changedButtons = new ArrayList<>();
     private int wordLength = 5;
 
     private static final Color GREEN = Color.color(0.1, 0.7, 0.1);
@@ -175,31 +175,31 @@ public class Controller implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        firstLetterTyped.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
+        firstLetterTyped.setTextFormatter(new TextFormatter<String>(change -> {
             if (change.isContentChange() && change.getControlNewText().length() > 1) {
                 return null;
             }
             return change;
         }));
-        secondLetterTyped.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
+        secondLetterTyped.setTextFormatter(new TextFormatter<String>(change -> {
             if (change.isContentChange() && change.getControlNewText().length() > 1) {
                 return null;
             }
             return change;
         }));
-        thirdLetterTyped.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
+        thirdLetterTyped.setTextFormatter(new TextFormatter<String>(change -> {
             if (change.isContentChange() && change.getControlNewText().length() > 1) {
                 return null;
             }
             return change;
         }));
-        fourthLetterTyped.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
+        fourthLetterTyped.setTextFormatter(new TextFormatter<String>(change -> {
             if (change.isContentChange() && change.getControlNewText().length() > 1) {
                 return null;
             }
             return change;
         }));
-        fifthLetterTyped.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
+        fifthLetterTyped.setTextFormatter(new TextFormatter<String>(change -> {
             if (change.isContentChange() && change.getControlNewText().length() > 1) {
                 return null;
             }
@@ -221,7 +221,7 @@ public class Controller implements Initializable {
      * @param nextField the next textField
      */
     private void filterTextField(TextField textField, TextField nextField) {
-        textField.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
+        textField.setTextFormatter(new TextFormatter<String>(change -> {
             String newText = change.getControlNewText();
             if (newText.matches("[a-zA-Z]") || newText.isEmpty()) {
                 change.setText(newText.toUpperCase());
@@ -254,7 +254,7 @@ public class Controller implements Initializable {
      * @param lastTextField the last (fifth) textField
      */
     private void filterLastTextField(TextField lastTextField) {
-        lastTextField.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
+        lastTextField.setTextFormatter(new TextFormatter<String>(change -> {
             String newText = change.getControlNewText();
             if (newText.matches("[a-zA-Z]") || newText.isEmpty()) {
                 change.setText(newText.toUpperCase());

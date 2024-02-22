@@ -5,7 +5,7 @@ import java.util.Arrays;
  * A unit class which handles the comparison of words and their current state.
  */
 public class Word {
-    private char[] chars;
+    private final char[] chars;
     private int bufferInd = 0;
 
     /** Construct a word of a given size.
@@ -24,6 +24,11 @@ public class Word {
         bufferInd = word.length();
     }
 
+    /** Adds a char to the character buffer
+     * @param c Char to add
+     * @return If the buffer is full and was not able to add the char this will be false.
+     * Otherwise, will be true if successful
+     */
     public boolean pushChar(char c) {
         if (bufferInd >= chars.length) {
             return false;
@@ -35,6 +40,9 @@ public class Word {
         return true;
     }
 
+    /**
+     * Removes the last character in the buffer, if there is a character there
+     */
     public void backspace() {
         if (bufferInd <= 0) {
             return;
@@ -44,8 +52,11 @@ public class Word {
         bufferInd--;
     }
 
-
-
+    /** Returns the per character correctness comparing the target word as the correct word to
+     * the current word.
+     * @param targetWord Correct word to compare to
+     * @return An array of each character's own correctness
+     */
     public CharValidity[] getCorrect(Word targetWord) {
         String wordStr = this.toString();
         String targetStr = targetWord.toString();
