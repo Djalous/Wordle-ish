@@ -58,7 +58,15 @@ public class Controller implements Initializable {
     }
 
     public void keyboardPressed(KeyEvent key) {
-        //TODO: Implement me!
+        String str = key.getCharacter();
+
+        if (str == null || str.isEmpty()) {
+            return;
+        }
+
+        char c = str.charAt(0);
+
+        state.getCurrentGuess().pushChar(c);
     }
 
     public void updateGuess(String letter) {
@@ -70,7 +78,7 @@ public class Controller implements Initializable {
     }
 
     public boolean isCorrect() {
-        return false; //TODO: Implement me!
+        return state.getCurrentGuess().equals(state.getTargetWord());
     }
 
     public void updateVocab() {
