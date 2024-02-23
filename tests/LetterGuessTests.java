@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 public class LetterGuessTests {
 
     @Test
-    public void testPushChar_ValidLength(){
+    public void testPushChar_ValidLength() {
         Word word = new Word(5);
         for (char c = 'a'; c <= 'e'; c++ ) {
             word.pushChar(c);
@@ -22,7 +22,7 @@ public class LetterGuessTests {
         assertEquals("abcde", word.toString());
     }
     @Test
-    public void testPushChar_ExceedLength(){
+    public void testPushChar_ExceedLength() {
         Word word = new Word(5);
         for(char c = 'a'; c <= 'f'; c++) {
             word.pushChar(c);
@@ -31,7 +31,7 @@ public class LetterGuessTests {
         assertFalse(word.pushChar('g'));
     }
     @Test
-    public void testBackspace_Empty(){
+    public void testBackspace_Empty() {
         Word word  = new Word(5);
         word.backspace();
         assertEquals("", word.toString());
@@ -45,13 +45,35 @@ public class LetterGuessTests {
         word.backspace();
         assertEquals("a",word.toString());
     }
-@Test
-    public void testPushChar_NonAlpha(){
+
+    /**
+     * NonAlpha Test
+     */
+    @Test
+    public void testPushChar_NonAlpha() {
         Word word = new Word(5);
         assertFalse(word.pushChar('1'));
         assertFalse(word.pushChar('!'));
         assertFalse(word.pushChar('&'));
         assertTrue(word.pushChar('a'));
-}
+    }
+
+    /**
+     * Case Sensitive Test
+     */
+    @Test
+    public void testPushChar_CaseSensitivity() {
+        Word word = new Word(5);
+        word.pushChar('A');
+        word.pushChar('b');
+        word.pushChar('C');
+
+        assertEquals("abc",word.toString()); //should convert to lowercase
+
+        word.backspace(); //remove 'C'
+        word.pushChar('c');
+
+        assertEquals("abc", word.toString()); //match lowercase 'c'
+    }
 }
 
