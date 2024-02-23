@@ -53,7 +53,25 @@ public class Controller implements Initializable {
     }
 
     public boolean enterPressed() {
-        return false; //TODO: Implement me!
+        Word targetWord = bank.generateTargetWord();
+
+        GameState state = new GameState(targetWord);
+        gameIsActive = true;
+
+        boolean isValidWord = bank.isValid(targetWord);
+        if (!isValidWord) {
+            //TODO: Indicate to user the word is invalid
+        }
+        
+        CharValidity[] letterStatus = state.getCurrentGuess().getCorrect(targetWord);
+        for (CharValidity status: letterStatus) {
+            switch (status) {
+                case INCORRECT -> letterColors.add(GREY);
+                case PRESENT_CHAR -> letterColors.add(YELLOW);
+                case CORRECT_POSITION -> letterColors.add(GREEN);
+            }
+
+        }
     }
 
     public void keyboardPressed(KeyEvent key) {

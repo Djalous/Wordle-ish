@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.nio.file.InvalidPathException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class WordBank {
@@ -38,6 +39,7 @@ public class WordBank {
     }
 
     public boolean isValid(Word word) {
+        if (word.toString().matches("[^A-Za-z]+")) return false;
         return validWords.contains(word);
     }
 
@@ -60,5 +62,10 @@ public class WordBank {
         } else if (!filePath.endsWith(".txt")) {
             throw new InvalidPathException(filePath, "Unsupported file type.");
         }
+    }
+
+    public Word generateTargetWord() {
+        Random rand = new Random();
+        return targetWords.get(rand.nextInt(targetWords.size()));
     }
 }
