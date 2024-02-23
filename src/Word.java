@@ -28,7 +28,7 @@ public class Word {
         if (bufferInd >= chars.length) {
             return false;
         }
-
+        //TODO Test failed for nonalpha
         chars[bufferInd] = Character.toLowerCase(c);
         bufferInd++;
 
