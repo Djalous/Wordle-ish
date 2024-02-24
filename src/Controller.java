@@ -33,7 +33,7 @@ public class Controller implements Initializable {
     private GridPane letterBoxes;
 
     private final List<Button> changedButtons = new ArrayList<>();
-    private final List<Node> letterFields = letterGrid.getChildren();
+    private List<Node> letterFields;
     private int wordLength = 5;
 
     private static final Color GREEN = Color.color(0.1, 0.7, 0.1);
@@ -44,7 +44,6 @@ public class Controller implements Initializable {
     private int currentGuessRow = 0;
 
     public Controller() {
-
     }
 
     public boolean enterPressed() {
@@ -187,6 +186,7 @@ public class Controller implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        letterFields = letterGrid.getChildren();
         for  (int i = 0; i < letterFields.size(); ++i) {
             TextField letterField =  ((TextField) letterFields.get(i));
             letterField.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
