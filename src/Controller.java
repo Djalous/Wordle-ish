@@ -1,5 +1,8 @@
+import javafx.beans.Observable;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
@@ -19,16 +22,7 @@ import java.util.function.UnaryOperator;
 public class Controller implements Initializable {
 
     @FXML
-    private TextField firstLetterTyped;
-    @FXML
-    private TextField secondLetterTyped;
-    @FXML
-    private TextField thirdLetterTyped;
-    @FXML
-    private TextField fourthLetterTyped;
-    @FXML
-    private TextField fifthLetterTyped;
-
+    private GridPane letterGrid;
 
     private GameState state;
     private final List<GameState> history = new ArrayList<>();
@@ -62,16 +56,19 @@ public class Controller implements Initializable {
         if (!isValidWord) {
             //TODO: Indicate to user the word is invalid
         }
-        
+
         CharValidity[] letterStatus = state.getCurrentGuess().getCorrect(targetWord);
+
+        int i = 0;
         for (CharValidity status: letterStatus) {
-            switch (status) {
-                case INCORRECT -> letterColors.add(GREY);
-                case PRESENT_CHAR -> letterColors.add(YELLOW);
-                case CORRECT_POSITION -> letterColors.add(GREEN);
-            }
+//            switch (status) {
+//                case INCORRECT -> textFields[i].;
+//                case PRESENT_CHAR -> letterColors.add(YELLOW);
+//                case CORRECT_POSITION -> letterColors.add(GREEN);
+//            }
 
         }
+        return true;
     }
 
     public void keyboardPressed(KeyEvent key) {
@@ -155,41 +152,22 @@ public class Controller implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        firstLetterTyped.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
-            if (change.isContentChange() && change.getControlNewText().length() > 1) {
-                return null;
+        List<Node> letterFields = letterGrid.getChildren();
+        for  (int i = 0; i < letterFields.size(); ++i) {
+            TextField letterField =  ((TextField) letterFields.get(i));
+            letterField.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
+                if (change.isContentChange() && change.getControlNewText().length() > 1) {
+                    return null;
+                }
+                return change;
+            }));
+
+            if ((i+1) % 5 == 0) {
+                filterLastTextField(letterField);
+            } else {
+                filterTextField(letterField, (TextField) letterFields.get(i+1));
             }
-            return change;
-        }));
-        secondLetterTyped.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
-            if (change.isContentChange() && change.getControlNewText().length() > 1) {
-                return null;
-            }
-            return change;
-        }));
-        thirdLetterTyped.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
-            if (change.isContentChange() && change.getControlNewText().length() > 1) {
-                return null;
-            }
-            return change;
-        }));
-        fourthLetterTyped.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
-            if (change.isContentChange() && change.getControlNewText().length() > 1) {
-                return null;
-            }
-            return change;
-        }));
-        fifthLetterTyped.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
-            if (change.isContentChange() && change.getControlNewText().length() > 1) {
-                return null;
-            }
-            return change;
-        }));
-        filterTextField(firstLetterTyped, secondLetterTyped);
-        filterTextField(secondLetterTyped, thirdLetterTyped);
-        filterTextField(thirdLetterTyped, fourthLetterTyped);
-        filterTextField(fourthLetterTyped, fifthLetterTyped);
-        filterLastTextField(fifthLetterTyped);
+        }
     }
 
     /**
@@ -212,13 +190,12 @@ public class Controller implements Initializable {
             }
         }));
 
-        textField.setOnKeyTyped(event -> {
+        textField.setOnKeyPressed(event -> {
+            textField.setText(event.getText());
             if (textField.getText().length() == 1) {
                 nextField.requestFocus();
             }
-        });
 
-        textField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.BACK_SPACE && textField.getText().isEmpty()) {
                 event.consume();
                 textField.positionCaret(0);
@@ -245,7 +222,8 @@ public class Controller implements Initializable {
             }
         }));
 
-        lastTextField.setOnKeyTyped(event -> {
+        lastTextField.setOnKeyPressed(event -> {
+            lastTextField.setText(event.getText());
             if (lastTextField.getText().length() == 1) {
                 lastTextField.getParent().requestFocus();
             }
