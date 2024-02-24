@@ -1,5 +1,3 @@
-import javafx.beans.Observable;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -8,6 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
@@ -33,7 +32,8 @@ public class Controller implements Initializable {
     private GridPane keyboard;
     private GridPane letterBoxes;
 
-    private List<Button> changedButtons = new ArrayList<>();
+    private final List<Button> changedButtons = new ArrayList<>();
+    private final List<Node> letterFields = letterGrid.getChildren();
     private int wordLength = 5;
 
     private static final Color GREEN = Color.color(0.1, 0.7, 0.1);
@@ -41,6 +41,7 @@ public class Controller implements Initializable {
     private static final Color YELLOW = Color.color(.96, 0.85, 0.21);
 
     private boolean gameIsActive;
+    private int currentGuessRow = 0;
 
     public Controller() {
 
@@ -58,16 +59,50 @@ public class Controller implements Initializable {
         }
 
         CharValidity[] letterStatus = state.getCurrentGuess().getCorrect(targetWord);
+        List<TextField> currentFields = new ArrayList<>();
 
-        int i = 0;
-        for (CharValidity status: letterStatus) {
-//            switch (status) {
-//                case INCORRECT -> textFields[i].;
-//                case PRESENT_CHAR -> letterColors.add(YELLOW);
-//                case CORRECT_POSITION -> letterColors.add(GREEN);
-//            }
-
+        for (Node letterField: letterFields) {
+            if (GridPane.getRowIndex(letterField) == currentGuessRow) {
+                currentFields.add((TextField) letterField);
+                letterField.setDisable(true);
+            }
         }
+
+        String cssColor = null;
+        for (int i = 0 ; i < letterStatus.length; ++i) {
+            switch (letterStatus[i]) {
+                case INCORRECT -> {
+                    cssColor = String.format("#%02X%02X%02X",
+                            (int) (GREY.getRed() * 255),
+                            (int) (GREY.getGreen() * 255),
+                            (int) (GREY.getBlue() * 255));
+                }
+                case PRESENT_CHAR -> {
+                    cssColor = String.format("#%02X%02X%02X",
+                            (int) (YELLOW.getRed() * 255),
+                            (int) (YELLOW.getGreen() * 255),
+                            (int) (YELLOW.getBlue() * 255));
+                }
+                case CORRECT_POSITION -> {
+                    cssColor = String.format("#%02X%02X%02X",
+                            (int) (GREEN.getRed() * 255),
+                            (int) (GREEN.getGreen() * 255),
+                            (int) (GREEN.getBlue() * 255));
+                }
+            }
+
+            currentFields.get(i).setStyle("-fx-control-inner-background: " + cssColor + ";");
+        }
+
+        ++currentGuessRow;
+        for (Node letterField: letterFields) {
+            if (GridPane.getRowIndex(letterField) == currentGuessRow &&
+                GridPane.getColumnIndex(letterField) == 0) {
+                letterField.requestFocus();
+                break;
+            }
+        }
+
         return true;
     }
 
@@ -152,7 +187,6 @@ public class Controller implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        List<Node> letterFields = letterGrid.getChildren();
         for  (int i = 0; i < letterFields.size(); ++i) {
             TextField letterField =  ((TextField) letterFields.get(i));
             letterField.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
@@ -162,23 +196,30 @@ public class Controller implements Initializable {
                 return change;
             }));
 
-            if ((i+1) % 5 == 0) {
-                filterLastTextField(letterField);
-            } else {
-                filterTextField(letterField, (TextField) letterFields.get(i+1));
+            int count = (i+1) % wordLength;
+
+            TextField nextField = null;
+            TextField prevField = null;
+            if (count != 1) {
+                prevField = (TextField) letterFields.get(i-1);
             }
+            if (count != 0) {
+                nextField = (TextField) letterFields.get(i+1);
+            }
+
+            filterTextField(prevField, letterField, nextField);
         }
     }
 
     /**
-     * The following method was generated using ChatGPT on 2/17 https://chat.openai.com/
+     * Part of the following method was generated using ChatGPT on 2/17 https://chat.openai.com/
      * with the prompt: "how to make textfield in fxml only allow letters, be case-insensitive,
      * move cursor to next textfield automatically, and keep a cursor present in a textfield
      * after deleting its value"
      * @param textField the current textField
      * @param nextField the next textField
      */
-    private void filterTextField(TextField textField, TextField nextField) {
+    private void filterTextField(TextField prevField, TextField textField, TextField nextField) {
         textField.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
             String newText = change.getControlNewText();
             if (newText.matches("[a-zA-Z]") || newText.isEmpty()) {
@@ -191,48 +232,19 @@ public class Controller implements Initializable {
         }));
 
         textField.setOnKeyPressed(event -> {
-            textField.setText(event.getText());
-            if (textField.getText().length() == 1) {
-                nextField.requestFocus();
-            }
-
-            if (event.getCode() == KeyCode.BACK_SPACE && textField.getText().isEmpty()) {
-                event.consume();
-                textField.positionCaret(0);
-            }
-        });
-    }
-
-    /**
-     * The following method was generated using ChatGPT on 2/17 https://chat.openai.com/ with
-     * the prompt: "how to make textfield in fxml only allow letters, be case-insensitive,
-     * move cursor to next textfield automatically, and keep a cursor present in a textfield
-     * after deleting its value"
-     * @param lastTextField the last (fifth) textField
-     */
-    private void filterLastTextField(TextField lastTextField) {
-        lastTextField.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
-            String newText = change.getControlNewText();
-            if (newText.matches("[a-zA-Z]") || newText.isEmpty()) {
-                change.setText(newText.toUpperCase());
-                change.setRange(0, change.getControlText().length());
-                return change;
+            if (event.getCode() == KeyCode.BACK_SPACE) {
+                if (textField.getText().isEmpty() && prevField != null) {
+                    prevField.requestFocus();
+                } else {
+                    textField.clear();
+                }
+                //event.consume();
+                //textField.positionCaret(0);
             } else {
-                return null;
-            }
-        }));
-
-        lastTextField.setOnKeyPressed(event -> {
-            lastTextField.setText(event.getText());
-            if (lastTextField.getText().length() == 1) {
-                lastTextField.getParent().requestFocus();
-            }
-        });
-
-        lastTextField.setOnKeyReleased(event -> {
-            if (event.getCode() == KeyCode.BACK_SPACE && lastTextField.getText().isEmpty()) {
-                event.consume();
-                lastTextField.positionCaret(0);
+                textField.setText(event.getText());
+                if (textField.getText().length() == 1 && nextField != null) {
+                    nextField.requestFocus();
+                }
             }
         });
     }
