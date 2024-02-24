@@ -1,11 +1,13 @@
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
@@ -20,17 +22,8 @@ import java.util.function.UnaryOperator;
 public class Controller implements Initializable {
 
     @FXML
-    private TextField firstLetterTyped;
-    @FXML
-    private TextField secondLetterTyped;
-    @FXML
-    private TextField thirdLetterTyped;
-    @FXML
-    private TextField fourthLetterTyped;
-    @FXML
-    private TextField fifthLetterTyped;
-    @FXML
-    private Label errMsgLabel;
+    private GridPane letterGrid;
+
     private GameState state;
     private final List<GameState> history = new ArrayList<>();
 
@@ -40,7 +33,8 @@ public class Controller implements Initializable {
     private GridPane keyboard;
     private GridPane letterBoxes;
 
-    private List<Button> changedButtons = new ArrayList<>();
+    private final List<Button> changedButtons = new ArrayList<>();
+    private List<Node> letterFields;
     private int wordLength = 5;
 
     private static final Color GREEN = Color.color(0.1, 0.7, 0.1);
@@ -48,13 +42,68 @@ public class Controller implements Initializable {
     private static final Color YELLOW = Color.color(.96, 0.85, 0.21);
 
     private boolean gameIsActive;
+    private int currentGuessRow = 0;
 
     public Controller() {
-
     }
 
     public boolean enterPressed() {
-        return false; //TODO: Implement me!
+        Word targetWord = bank.generateTargetWord();
+
+        GameState state = new GameState(targetWord);
+        gameIsActive = true;
+
+        boolean isValidWord = bank.isValid(targetWord);
+        if (!isValidWord) {
+            //TODO: Indicate to user the word is invalid
+        }
+
+        CharValidity[] letterStatus = state.getCurrentGuess().getCorrect(targetWord);
+        List<TextField> currentFields = new ArrayList<>();
+
+        for (Node letterField: letterFields) {
+            if (GridPane.getRowIndex(letterField) == currentGuessRow) {
+                currentFields.add((TextField) letterField);
+                letterField.setDisable(true);
+            }
+        }
+
+        String cssColor = null;
+        for (int i = 0 ; i < letterStatus.length; ++i) {
+            switch (letterStatus[i]) {
+                case INCORRECT -> {
+                    cssColor = String.format("#%02X%02X%02X",
+                            (int) (GREY.getRed() * 255),
+                            (int) (GREY.getGreen() * 255),
+                            (int) (GREY.getBlue() * 255));
+                }
+                case PRESENT_CHAR -> {
+                    cssColor = String.format("#%02X%02X%02X",
+                            (int) (YELLOW.getRed() * 255),
+                            (int) (YELLOW.getGreen() * 255),
+                            (int) (YELLOW.getBlue() * 255));
+                }
+                case CORRECT_POSITION -> {
+                    cssColor = String.format("#%02X%02X%02X",
+                            (int) (GREEN.getRed() * 255),
+                            (int) (GREEN.getGreen() * 255),
+                            (int) (GREEN.getBlue() * 255));
+                }
+            }
+
+            currentFields.get(i).setStyle("-fx-control-inner-background: " + cssColor + ";");
+        }
+
+        ++currentGuessRow;
+        for (Node letterField: letterFields) {
+            if (GridPane.getRowIndex(letterField) == currentGuessRow &&
+                GridPane.getColumnIndex(letterField) == 0) {
+                letterField.requestFocus();
+                break;
+            }
+        }
+
+        return true;
     }
 
     public void keyboardPressed(KeyEvent key) {
@@ -175,52 +224,40 @@ public class Controller implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        firstLetterTyped.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
-            if (change.isContentChange() && change.getControlNewText().length() > 1) {
-                return null;
+        letterFields = letterGrid.getChildren();
+        for  (int i = 0; i < letterFields.size(); ++i) {
+            TextField letterField =  ((TextField) letterFields.get(i));
+            letterField.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
+                if (change.isContentChange() && change.getControlNewText().length() > 1) {
+                    return null;
+                }
+                return change;
+            }));
+
+            int count = (i+1) % wordLength;
+
+            TextField nextField = null;
+            TextField prevField = null;
+            if (count != 1) {
+                prevField = (TextField) letterFields.get(i-1);
             }
-            return change;
-        }));
-        secondLetterTyped.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
-            if (change.isContentChange() && change.getControlNewText().length() > 1) {
-                return null;
+            if (count != 0) {
+                nextField = (TextField) letterFields.get(i+1);
             }
-            return change;
-        }));
-        thirdLetterTyped.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
-            if (change.isContentChange() && change.getControlNewText().length() > 1) {
-                return null;
-            }
-            return change;
-        }));
-        fourthLetterTyped.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
-            if (change.isContentChange() && change.getControlNewText().length() > 1) {
-                return null;
-            }
-            return change;
-        }));
-        fifthLetterTyped.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
-            if (change.isContentChange() && change.getControlNewText().length() > 1) {
-                return null;
-            }
-            return change;
-        }));
-        filterTextField(firstLetterTyped, secondLetterTyped);
-        filterTextField(secondLetterTyped, thirdLetterTyped);
-        filterTextField(thirdLetterTyped, fourthLetterTyped);
-        filterTextField(fourthLetterTyped, fifthLetterTyped);
-        filterLastTextField(fifthLetterTyped);
+
+            filterTextField(prevField, letterField, nextField);
+        }
     }
 
     /**
-     * The following method was generated using ChatGPT on 2/17 https://chat.openai.com/
+     * Part of the following method was generated using ChatGPT on 2/17 https://chat.openai.com/
      * with the prompt: "how to make textfield in fxml only allow letters, be case-insensitive,
      * move cursor to next textfield automatically, and keep a cursor present in a textfield
      * after deleting its value"
      * @param textField the current textField
      * @param nextField the next textField
      */
-    private void filterTextField(TextField textField, TextField nextField) {
+    private void filterTextField(TextField prevField, TextField textField, TextField nextField) {
         textField.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
             String newText = change.getControlNewText();
             if (newText.matches("[a-zA-Z]") || newText.isEmpty()) {
@@ -232,49 +269,20 @@ public class Controller implements Initializable {
             }
         }));
 
-        textField.setOnKeyTyped(event -> {
-            if (textField.getText().length() == 1) {
-                nextField.requestFocus();
-            }
-        });
-
         textField.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.BACK_SPACE && textField.getText().isEmpty()) {
-                event.consume();
-                textField.positionCaret(0);
-            }
-        });
-    }
-
-    /**
-     * The following method was generated using ChatGPT on 2/17 https://chat.openai.com/ with
-     * the prompt: "how to make textfield in fxml only allow letters, be case-insensitive,
-     * move cursor to next textfield automatically, and keep a cursor present in a textfield
-     * after deleting its value"
-     * @param lastTextField the last (fifth) textField
-     */
-    private void filterLastTextField(TextField lastTextField) {
-        lastTextField.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
-            String newText = change.getControlNewText();
-            if (newText.matches("[a-zA-Z]") || newText.isEmpty()) {
-                change.setText(newText.toUpperCase());
-                change.setRange(0, change.getControlText().length());
-                return change;
+            if (event.getCode() == KeyCode.BACK_SPACE) {
+                if (textField.getText().isEmpty() && prevField != null) {
+                    prevField.requestFocus();
+                } else {
+                    textField.clear();
+                }
+                //event.consume();
+                //textField.positionCaret(0);
             } else {
-                return null;
-            }
-        }));
-
-        lastTextField.setOnKeyTyped(event -> {
-            if (lastTextField.getText().length() == 1) {
-                lastTextField.getParent().requestFocus();
-            }
-        });
-
-        lastTextField.setOnKeyReleased(event -> {
-            if (event.getCode() == KeyCode.BACK_SPACE && lastTextField.getText().isEmpty()) {
-                event.consume();
-                lastTextField.positionCaret(0);
+                textField.setText(event.getText());
+                if (textField.getText().length() == 1 && nextField != null) {
+                    nextField.requestFocus();
+                }
             }
         });
     }
