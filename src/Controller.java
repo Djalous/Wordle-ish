@@ -167,8 +167,8 @@ public class Controller implements Initializable {
         //TODO: Implement me!
     }
 
-    /**
-     * @param length
+    /** Change the length of the guessed words
+     * @param length New word length
      */
     public void updateWordLength(int length) {
         wordLength = length;
