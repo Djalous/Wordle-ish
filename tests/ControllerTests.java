@@ -1,12 +1,23 @@
+import javafx.embed.swing.JFXPanel;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.IOException;
+
 public class ControllerTests {
     static Controller controller;
+    /*@BeforeClass
+    public static void initToolkit() {
+        new JFXPanel();
+    }*/
     @BeforeClass
-    public static void setUp() {
+    public static void setUp() throws IOException {
         controller = new Controller();
+        //FXMLLoader loader = new FXMLLoader(ControllerTests.class.getResource("/view.fxml"));
+        //Parent root = loader.load();
     }
 
     @Test

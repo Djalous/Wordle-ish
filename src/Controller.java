@@ -18,11 +18,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
 
 public class Controller implements Initializable {
 
     @FXML
     private GridPane letterGrid;
+    @FXML
+    private Label errMsgLabel;
+    @FXML
+    private TextField firstLetterTyped;
+    @FXML
+    private TextField secondLetterTyped;
+    @FXML
+    private TextField thirdLetterTyped;
+    @FXML
+    private TextField fourthLetterTyped;
+    @FXML
+    private TextField fifthLetterTyped;
 
     private GameState state;
     private final List<GameState> history = new ArrayList<>();
@@ -190,29 +203,29 @@ public class Controller implements Initializable {
 
         // Additionally method will be used to check whether currentGuess should be stored based
         // truth value returned from this method
-
-        // Create for loop to check if textfields are empty
-        if (firstLetterTyped.getText().isEmpty() || secondLetterTyped.getText().isEmpty() ||
-                thirdLetterTyped.getText().isEmpty() || fourthLetterTyped.getText().isEmpty() ||
-                fifthLetterTyped.getText().isEmpty()) {
-            errMsgLabel.setText("Please enter a " + wordLength + " letter word.");
-            return false;
-        } else {
-            String tempGuess = firstLetterTyped.getText() + secondLetterTyped.getText() +
-                    thirdLetterTyped.getText() + fourthLetterTyped.getText() +
-                    fifthLetterTyped.getText();
-
-            Word tempWord = new Word(tempGuess.length());
-            for (int i = 0; i < tempGuess.length(); i++) {
-                tempWord.pushChar(tempGuess.charAt(i));
-            }
-
-            if (!bank.isValid(tempWord)) {
-                errMsgLabel.setText("Please enter a valid word.");
+        ArrayList<String> temp = new ArrayList<>();
+        List<TextField> textFieldList = letterGrid.getChildren().stream()
+                .filter(node -> node instanceof TextField).map(node -> (TextField) node)
+                .collect(Collectors.toList());
+        for (int i = state.getGuessCount() * wordLength; i < state.getGuessCount() + (wordLength - 1); i++) {
+            if (textFieldList.get(i).getText().isEmpty()) {
+                errMsgLabel.setText("Please enter a " + wordLength + " letter word.");
+                errMsgLabel.setVisible(true);
                 return false;
             } else {
-                return true;
+                temp.add(textFieldList.get(i).getText());
             }
+        }
+        Word guess = new Word(temp.size());
+        for (String s : temp) {
+            guess.pushChar(s.charAt(0));
+        }
+        if (!bank.isValid(guess)) {
+            errMsgLabel.setVisible(true);
+            errMsgLabel.setText("Please enter a valid word.");
+            return false;
+        } else {
+            return true;
         }
     }
 
