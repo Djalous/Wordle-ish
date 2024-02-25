@@ -8,7 +8,7 @@ public class GameState {
 
 
     public GameState(Word targetWord) {
-
+        this.guesses = new HashMap<>();
     }
 
     public Word getTargetWord() {
@@ -33,5 +33,16 @@ public class GameState {
 
     public int getGuessCount() {
         return guesses.size();
+    }
+
+    public void updateCurrentGuess(Word guess) {
+        this.currentGuess = guess;
+        String guessStr = guess.toString();
+        if (guesses.containsKey(guessStr)) {
+            int count = guesses.get(guessStr);
+            guesses.put(guessStr, count + 1);
+        } else {
+            guesses.put(guessStr, 1);
+        }
     }
 }

@@ -7,8 +7,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
 import java.io.File;
@@ -18,11 +20,26 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.UnaryOperator;
+import java.util.stream.Collectors;
 
 public class Controller implements Initializable {
 
     @FXML
     private GridPane letterGrid;
+    @FXML
+    private Label errMsgLabel;
+    @FXML
+    private StackPane stackPane;
+    @FXML
+    private TextField firstLetterTyped;
+    @FXML
+    private TextField secondLetterTyped;
+    @FXML
+    private TextField thirdLetterTyped;
+    @FXML
+    private TextField fourthLetterTyped;
+    @FXML
+    private TextField fifthLetterTyped;
 
     private GameState state;
     private final List<GameState> history = new ArrayList<>();
@@ -46,66 +63,7 @@ public class Controller implements Initializable {
 
     public Controller() {
     }
-
-    public boolean enterPressed() {
-        Word targetWord = bank.generateTargetWord();
-
-        GameState state = new GameState(targetWord);
-        gameIsActive = true;
-
-        boolean isValidWord = bank.isValid(targetWord);
-        if (!isValidWord) {
-            //TODO: Indicate to user the word is invalid
-        }
-
-        CharValidity[] letterStatus = state.getCurrentGuess().getCorrect(targetWord);
-        List<TextField> currentFields = new ArrayList<>();
-
-        for (Node letterField: letterFields) {
-            if (GridPane.getRowIndex(letterField) == currentGuessRow) {
-                currentFields.add((TextField) letterField);
-                letterField.setDisable(true);
-            }
-        }
-
-        String cssColor = null;
-        for (int i = 0 ; i < letterStatus.length; ++i) {
-            switch (letterStatus[i]) {
-                case INCORRECT -> {
-                    cssColor = String.format("#%02X%02X%02X",
-                            (int) (GREY.getRed() * 255),
-                            (int) (GREY.getGreen() * 255),
-                            (int) (GREY.getBlue() * 255));
-                }
-                case PRESENT_CHAR -> {
-                    cssColor = String.format("#%02X%02X%02X",
-                            (int) (YELLOW.getRed() * 255),
-                            (int) (YELLOW.getGreen() * 255),
-                            (int) (YELLOW.getBlue() * 255));
-                }
-                case CORRECT_POSITION -> {
-                    cssColor = String.format("#%02X%02X%02X",
-                            (int) (GREEN.getRed() * 255),
-                            (int) (GREEN.getGreen() * 255),
-                            (int) (GREEN.getBlue() * 255));
-                }
-            }
-
-            currentFields.get(i).setStyle("-fx-control-inner-background: " + cssColor + ";");
-        }
-
-        ++currentGuessRow;
-        for (Node letterField: letterFields) {
-            if (GridPane.getRowIndex(letterField) == currentGuessRow &&
-                GridPane.getColumnIndex(letterField) == 0) {
-                letterField.requestFocus();
-                break;
-            }
-        }
-
-        return true;
-    }
-
+    
     public void keyboardPressed(KeyEvent key) {
         String str = key.getCharacter();
 
@@ -136,6 +94,9 @@ public class Controller implements Initializable {
 
     public void startGame() {
         //TODO: Implement me!
+        Word targetWord = bank.generateTargetWord(); // this logic should ideally be here
+        state = new GameState(targetWord);
+        gameIsActive = true;
     }
 
     public void endGame() {
@@ -185,35 +146,95 @@ public class Controller implements Initializable {
      * @return a boolean depending on if the user's guess word is valid or not
      */
     public boolean validateGuess() {
-        // will be tied to enterPressed() method which calls this every time enter is pressed
-        // through some sort of event listener maybe similar to filterTextField() methods below
-
-        // Additionally method will be used to check whether currentGuess should be stored based
-        // truth value returned from this method
-
-        // Create for loop to check if textfields are empty
-        if (firstLetterTyped.getText().isEmpty() || secondLetterTyped.getText().isEmpty() ||
-                thirdLetterTyped.getText().isEmpty() || fourthLetterTyped.getText().isEmpty() ||
-                fifthLetterTyped.getText().isEmpty()) {
-            errMsgLabel.setText("Please enter a " + wordLength + " letter word.");
-            return false;
-        } else {
-            String tempGuess = firstLetterTyped.getText() + secondLetterTyped.getText() +
-                    thirdLetterTyped.getText() + fourthLetterTyped.getText() +
-                    fifthLetterTyped.getText();
-
-            Word tempWord = new Word(tempGuess.length());
-            for (int i = 0; i < tempGuess.length(); i++) {
-                tempWord.pushChar(tempGuess.charAt(i));
-            }
-
-            if (!bank.isValid(tempWord)) {
-                errMsgLabel.setText("Please enter a valid word.");
+        ArrayList<String> temp = new ArrayList<>();
+        List<TextField> textFieldList = letterGrid.getChildren().stream()
+                .filter(node -> node instanceof TextField).map(node -> (TextField) node)
+                .collect(Collectors.toList());
+        int startIndex = currentGuessRow * wordLength;
+        int endIndex = startIndex + wordLength;
+        for (int i = startIndex; i < endIndex; i++) {
+            if (textFieldList.get(i).getText().isEmpty()) {
+                errMsgLabel.setText("Please enter a " + wordLength + " letter word.");
+                errMsgLabel.setVisible(true);
                 return false;
             } else {
-                return true;
+                temp.add(textFieldList.get(i).getText());
             }
         }
+        String guessStr = String.join("", temp);
+        Word guess = new Word(guessStr);
+        if (!bank.isValid(guess)) { // need initialized bank to properly run
+            errMsgLabel.setText("Please enter a valid word.");
+            errMsgLabel.setVisible(true);
+            return false;
+        } else {
+            state.updateCurrentGuess(guess);
+            return true;
+        }
+    }
+
+    private void colorizeFields() {
+        CharValidity[] letterStatus = state.getCurrentGuess().getCorrect(state.getTargetWord());
+        List<TextField> currentFields = new ArrayList<>();
+
+        for (Node letterField : letterGrid.getChildren()) {
+            if (GridPane.getRowIndex(letterField) == currentGuessRow) {
+                currentFields.add((TextField) letterField);
+                letterField.setDisable(true);
+            }
+        }
+
+        String cssColor = null;
+        for (int i = 0 ; i < letterStatus.length; ++i) {
+            switch (letterStatus[i]) {
+                case INCORRECT -> {
+                    cssColor = String.format("#%02X%02X%02X",
+                            (int) (GREY.getRed() * 255),
+                            (int) (GREY.getGreen() * 255),
+                            (int) (GREY.getBlue() * 255));
+                }
+                case PRESENT_CHAR -> {
+                    cssColor = String.format("#%02X%02X%02X",
+                            (int) (YELLOW.getRed() * 255),
+                            (int) (YELLOW.getGreen() * 255),
+                            (int) (YELLOW.getBlue() * 255));
+                }
+                case CORRECT_POSITION -> {
+                    cssColor = String.format("#%02X%02X%02X",
+                            (int) (GREEN.getRed() * 255),
+                            (int) (GREEN.getGreen() * 255),
+                            (int) (GREEN.getBlue() * 255));
+                }
+            }
+
+            currentFields.get(i).setStyle("-fx-control-inner-background: " + cssColor + ";");
+        }
+
+        for (Node letterField: letterFields) {
+            if (GridPane.getRowIndex(letterField) == currentGuessRow &&
+                    GridPane.getColumnIndex(letterField) == 0) {
+                letterField.requestFocus();
+                break;
+            }
+        }
+    }
+
+    /**
+     * Helper method that moves cursor to next row once enter is pressed after a valid guess, additionally d
+     */
+    private void moveCursorToNextRow() {
+        int nextRow = currentGuessRow + 1;
+        for (Node node : letterGrid.getChildren()) {
+            if (GridPane.getRowIndex(node) == nextRow && GridPane.getColumnIndex(node) == 0) {
+                node.requestFocus();
+                break;
+            }
+        }
+
+        for (Node node : letterGrid.getChildren()) {
+            node.setFocusTraversable(GridPane.getRowIndex(node) == nextRow);
+        }
+
     }
 
     /**
@@ -225,6 +246,7 @@ public class Controller implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         letterFields = letterGrid.getChildren();
+        int numCols = letterGrid.getColumnCount();
         for  (int i = 0; i < letterFields.size(); ++i) {
             TextField letterField =  ((TextField) letterFields.get(i));
             letterField.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
@@ -246,7 +268,29 @@ public class Controller implements Initializable {
             }
 
             filterTextField(prevField, letterField, nextField);
+
+            int rowIndex = i / numCols;
+            GridPane.setRowIndex(letterField, rowIndex);
+
+            int colIndex = i % numCols;
+            GridPane.setColumnIndex(letterField, colIndex);
         }
+
+        stackPane.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
+            if (errMsgLabel.isVisible()) {
+                errMsgLabel.setVisible(false);
+            }
+        });
+
+        stackPane.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                if (validateGuess()) {
+                    colorizeFields();
+                    moveCursorToNextRow();
+                    currentGuessRow++;
+                }
+            }
+        });
     }
 
     /**
@@ -276,7 +320,7 @@ public class Controller implements Initializable {
                 } else {
                     textField.clear();
                 }
-                //event.consume();
+                event.consume();
                 //textField.positionCaret(0);
             } else {
                 textField.setText(event.getText());
