@@ -3,6 +3,8 @@ import java.util.Arrays;
 
 /**
  * A unit class which handles the comparison of words and their current state.
+ * @author Jack Rosenbecker
+ * @version created on 2/8/24
  */
 public class Word {
     private final char[] chars;
@@ -87,6 +89,10 @@ public class Word {
         return correctness;
     }
 
+    /** Verifies the two objects are equal in value
+     * @param o Other object/word to compare against
+     * @return True if they're equal, false otherwise
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -100,6 +106,9 @@ public class Word {
         return word.toString().equals(this.toString());
     }
 
+    /** Get the word as a string
+     * @return The string of the current chars in the word
+     */
     @Override
     public String toString() {
         if (bufferInd <= 0) {
