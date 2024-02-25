@@ -16,6 +16,7 @@ public class GameState {
      * @param targetWord Target word the user is trying to guess for
      */
     public GameState(Word targetWord) {
+        this.guesses = new HashMap<>();
         this.targetWord = targetWord;
     }
 
@@ -23,7 +24,7 @@ public class GameState {
      * @return The word the user is trying to guess
      */
     public Word getTargetWord() {
-        return targetWord;
+        return targetWord; //TODO: Implement me!
     }
 
     /** Returns a copy of the current guesses
@@ -55,13 +56,14 @@ public class GameState {
         return guesses.size();
     }
 
-    /**
-     * Sets the current guess. Used for debugging purposes
-     * @param word Word object
-     */
-    public void setCurrentGuess(Word word) {
-        this.currentGuess = word;
+    public void updateCurrentGuess(Word guess) {
+        this.currentGuess = guess;
+        String guessStr = guess.toString();
+        if (guesses.containsKey(guessStr)) {
+            int count = guesses.get(guessStr);
+            guesses.put(guessStr, count + 1);
+        } else {
+            guesses.put(guessStr, 1);
+        }
     }
-
-
 }
