@@ -35,3 +35,9 @@ Within a particular ecosystem, there may be a common way of installing things, s
 
 ## Usage
 TODO
+
+## Credits
+- Lazar Jovanovic (GitLab Tag: @lazar_j)
+- Duaa "DJ" Aljalous (GitLab Tag: @aljalousd)
+- Theresa Kettner (GitLab Tag: @Kettnerd)
+- Jack Rosenbecker (GitLab Tag: @CorneliusCornbread)
