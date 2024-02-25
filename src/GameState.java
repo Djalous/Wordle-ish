@@ -9,10 +9,11 @@ public class GameState {
 
     public GameState(Word targetWord) {
         this.guesses = new HashMap<>();
+        this.targetWord = targetWord;
     }
 
     public Word getTargetWord() {
-        return null; //TODO: Implement me!
+        return targetWord; //TODO: Implement me!
     }
 
     public List<Word> getGuessList() {

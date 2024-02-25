@@ -44,7 +44,7 @@ public class Controller implements Initializable {
     private GameState state;
     private final List<GameState> history = new ArrayList<>();
 
-    private WordBank bank;
+    private WordBank bank = new WordBank();
     private UserType user;
 
     private GridPane keyboard;
@@ -62,6 +62,7 @@ public class Controller implements Initializable {
     private int currentGuessRow = 0;
 
     public Controller() {
+
     }
     
     public void keyboardPressed(KeyEvent key) {
@@ -245,6 +246,11 @@ public class Controller implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        Word targetWord = bank.generateTargetWord(); // this logic should ideally be here
+        state = new GameState(targetWord);
+        gameIsActive = true;
+
         letterFields = letterGrid.getChildren();
         int numCols = letterGrid.getColumnCount();
         for  (int i = 0; i < letterFields.size(); ++i) {
