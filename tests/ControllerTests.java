@@ -9,15 +9,9 @@ import java.io.IOException;
 
 public class ControllerTests {
     static Controller controller;
-    /*@BeforeClass
-    public static void initToolkit() {
-        new JFXPanel();
-    }*/
     @BeforeClass
-    public static void setUp() throws IOException {
+    public static void setUp() {
         controller = new Controller();
-        //FXMLLoader loader = new FXMLLoader(ControllerTests.class.getResource("/view.fxml"));
-        //Parent root = loader.load();
     }
 
     @Test
