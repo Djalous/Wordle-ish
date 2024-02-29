@@ -271,14 +271,13 @@ public class Controller implements Initializable {
     private void moveCursorToNextRow() {
         int nextRow = currentGuessRow + 1;
         for (Node node : letterGrid.getChildren()) {
-            if (GridPane.getRowIndex(node) == nextRow && GridPane.getColumnIndex(node) == 0) {
-                node.requestFocus();
-                break;
-            }
-        }
+            if (GridPane.getRowIndex(node) == nextRow) {
+                if (GridPane.getColumnIndex(node) == 0) {
+                    node.requestFocus();
+                }
 
-        for (Node node : letterGrid.getChildren()) {
-            node.setFocusTraversable(GridPane.getRowIndex(node) == nextRow);
+                node.setDisable(false);
+            }
         }
 
     }
