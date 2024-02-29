@@ -11,6 +11,9 @@ public class GameState {
     private HashMap<String, Integer> guesses;
     private Word currentGuess;
 
+    private int guessesMade = 0;
+
+    private static final int MAX_GUESSES = 6;
 
     /** Constructs a new game with the given word being the correct target word
      * @param targetWord Target word the user is trying to guess for
@@ -53,10 +56,16 @@ public class GameState {
      * @return The current number of guesses the user has made
      */
     public int getGuessCount() {
-        return guesses.size();
+        return guessesMade;
     }
 
     public void updateCurrentGuess(Word guess) {
+        if (guessesMade >= MAX_GUESSES) {
+            throw new ArrayIndexOutOfBoundsException("Game States may only have up to 6 guesses stored within it");
+        }
+
+        guessesMade++;
+
         this.currentGuess = guess;
         String guessStr = guess.toString();
         if (guesses.containsKey(guessStr)) {
