@@ -1,0 +1,18 @@
+.table-view .column-header-background{
+    -fx-background-color: linear-gradient(#131313 0%, #424141 100%);
+}
+
+/* Material Design Style */
+.table-row-cell {
+    -fx-background-color: #fff-fff;
+    -fx-effect: drop shadow(gaussian, rgba(0,0,0,0.2), 0,0,0,1);
+}
+
+.table-row-cell:odd {
+    -fx-background-color: #f5f5f5;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #3498db;
+    -fx-text-fill: white;
+}
