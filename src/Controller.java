@@ -77,22 +77,37 @@ public class Controller implements Initializable {
         state.getCurrentGuess().pushChar(c);
     }
 
+    /** Update the current guess with a new letter
+     * @param letter Letter to add
+     */
     public void updateGuess(String letter) {
         //TODO: Implement me!
     }
 
+    /** Add a new guess to our guesses
+     * @param guess Guess to add
+     */
     public void updateGuesses(Word guess) {
         //TODO: Implement me!
     }
 
+    /** Checks our guess to our target word
+     * @return Does our guess match our target word
+     */
     public boolean isCorrect() {
         return state.getCurrentGuess().equals(state.getTargetWord());
     }
 
+    /**
+     * Initiates the vocab file selection dialogue and loading process
+     */
     public void updateVocab() {
         //TODO: Implement me!
     }
 
+    /**
+     * Starts a new game
+     */
     public void startGame() {
         //TODO: Implement me!
         Word targetWord = bank.generateTargetWord(); // this logic should ideally be here
@@ -100,43 +115,73 @@ public class Controller implements Initializable {
         gameIsActive = true;
     }
 
+    /**
+     * Ends the current game
+     */
     public void endGame() {
         //TODO: Implement me!
     }
 
+    /** Returns the letter frequency data of all the past games
+     * @return Frequency data
+     */
     public HashMap<Character, Integer> getAllLetterFrequencies() {
         return null; //TODO: Implement me!
     }
 
+    /** Returns the average number of guesses used over all games completed
+     * @return Average number of guesses
+     */
     public float getAvgGuesses() {
         return -1; //TODO: Implement me!
     }
 
+    /** Gets the frequency of all words guessed over all games completed
+     * @return The frequency data of guessed words
+     */
     //TODO: Introduce word frequencies data type
     public HashMap<String, Integer> getWordFrequencies() {
         return null; //TODO: Implement me!
     }
 
+    /** Sets a new target bank word file and loads it
+     * @param file File to use for target bank
+     */
     public void setNewTargetBank(File file) {
         //TODO: Implement me!
     }
 
+    /** Sets a new vocab bank word file and loads it
+     * @param file File to use for vocab bank
+     */
     public void setNewVocabBank(File file) {
         //TODO: Implement me!
     }
 
+    /** Takes a file and tests it against our default word bank with a random word
+     * @param file File to test guesses against
+     */
     public void testGuessFile(File file) {
         //TODO: Implement me!
     }
 
+    /**
+     * Writes the results of a test file to another output file
+     */
     public void writeOutputTestFile() {
         //TODO: Implement me!
     }
 
+    /** Change the length of the guessed words
+     * @param length New word length
+     */
     public void updateWordLength(int length) {
         wordLength = length;
     }
 
+    /**
+     *
+     */
     public void selectRandomGuesses() {
         //TODO: Implement me!
     }
