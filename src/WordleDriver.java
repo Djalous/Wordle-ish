@@ -4,6 +4,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Drives the overall word program with its given main()
+ * @author Lazar Jovanovic
+ * @version created on 9/8/24
+ */
 public class WordleDriver extends Application {
 
     public WordleDriver() {
