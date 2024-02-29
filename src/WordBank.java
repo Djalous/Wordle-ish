@@ -55,13 +55,23 @@ public class WordBank {
         }
     }
 
+    /**
+     * Checking for only .txt and .csv
+     * @param file name a file
+     * @param scanner input
+     */
     private void checkFileExtension(File file, Scanner scanner) {
         String filePath = file.getPath();
         if (filePath.endsWith(".csv")) {
+
             scanner.useDelimiter(",");
         } else if (!filePath.endsWith(".txt")) {
+            //TODO
+
+            } else {
             throw new InvalidPathException(filePath, "Unsupported file type.");
         }
+
     }
 
     public Word generateTargetWord() {
