@@ -4,7 +4,9 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.InvalidPathException;
 import java.util.List;
+import java.util.Scanner;
 
 /**
  *
@@ -21,4 +23,13 @@ public class WordFileTest {
       //  Assert.assertTrue(wordbank.updateTargetBank(););
 
     }
+    @Test
+    public void testLoadJava() throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        File testFile = new File("WordTests.java");
+        WordBank wordbank = new WordBank();
+       // Assert.assertThrows(InvalidPathException.class, () -> wordbank.checkFileExtension(testFile,scanner));
+    }
 }
+
+
