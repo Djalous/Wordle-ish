@@ -154,7 +154,7 @@
                </font></TextField>
          </children>
       </GridPane>
-       <Label fx:id="errMsgLabel" alignment="CENTER" textFill="#d40e0e" visible="false" wrapText="true" StackPane.alignment="CENTER">
+       <Label fx:id="msgLabel" alignment="CENTER" textFill="#d40e0e" visible="false" wrapText="true" StackPane.alignment="CENTER">
            <style>
                -fx-background-color: black;
                -fx-text-fill: white;
