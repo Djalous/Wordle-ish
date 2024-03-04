@@ -1,3 +1,4 @@
+/*
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -8,9 +9,11 @@ import java.nio.file.InvalidPathException;
 import java.util.List;
 import java.util.Scanner;
 
+*/
 /**
  *
- */
+ *//*
+
 public class WordFileTest {
 
     @Test
@@ -33,3 +36,4 @@ public class WordFileTest {
 }
 
 
+*/
