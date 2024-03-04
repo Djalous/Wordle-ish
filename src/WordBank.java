@@ -94,6 +94,8 @@ public class WordBank {
         if (filePath.endsWith(".csv")) {
             scanner.useDelimiter(",");
         } else if (!filePath.endsWith(".txt")) {
+            scanner.useDelimiter(System.lineSeparator());
+        } else {
             throw new InvalidPathException(filePath, "Unsupported file type.");
         }
     }
