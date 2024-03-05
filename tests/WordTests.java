@@ -95,7 +95,7 @@ public class WordTests {
         CharValidity[] test3 = new CharValidity[] {
                 CharValidity.PRESENT_CHAR,
                 CharValidity.CORRECT_POSITION,
-                CharValidity.PRESENT_CHAR,
+                CharValidity.INCORRECT,
                 CharValidity.INCORRECT,
                 CharValidity.INCORRECT,
         };
@@ -116,5 +116,18 @@ public class WordTests {
 
         Assert.assertArrayEquals(test4, data4);
 
+        Word w3 = new Word("ooooo");
+
+        CharValidity[] data5 = w3.getCorrect(new Word("cooll"));
+
+        CharValidity[] test5 = new CharValidity[] {
+                CharValidity.PRESENT_CHAR,
+                CharValidity.CORRECT_POSITION,
+                CharValidity.INCORRECT,
+                CharValidity.INCORRECT,
+                CharValidity.INCORRECT,
+        };
+
+        Assert.assertArrayEquals(test4, data4);
     }
 }

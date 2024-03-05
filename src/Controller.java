@@ -12,6 +12,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 import java.io.File;
 import java.net.URL;
@@ -272,14 +273,13 @@ public class Controller implements Initializable {
     private void moveCursorToNextRow() {
         int nextRow = currentGuessRow + 1;
         for (Node node : letterGrid.getChildren()) {
-            if (GridPane.getRowIndex(node) == nextRow && GridPane.getColumnIndex(node) == 0) {
-                node.requestFocus();
-                break;
-            }
-        }
+            if (GridPane.getRowIndex(node) == nextRow) {
+                if (GridPane.getColumnIndex(node) == 0) {
+                    node.requestFocus();
+                }
 
-        for (Node node : letterGrid.getChildren()) {
-            node.setFocusTraversable(GridPane.getRowIndex(node) == nextRow);
+                node.setDisable(false);
+            }
         }
 
     }
@@ -401,18 +401,23 @@ public class Controller implements Initializable {
                 return null;
             }
         }));
-
         textField.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.BACK_SPACE) {
-                if (textField.getText().isEmpty() && prevField != null) {
+            if (event.getCode() == KeyCode.BACK_SPACE && textField.getText().isEmpty()) {
+                if (prevField != null) {
                     prevField.requestFocus();
-                } else {
-                    textField.clear();
+                    prevField.positionCaret(prevField.getLength());
+                    String prevText = prevField.getText();
+                    if (!prevText.isEmpty()) {
+                        prevField.setText(prevText.substring(0, prevText.length() - 1));
+                    }
+                    event.consume();
                 }
-                event.consume();
-                //textField.positionCaret(0);
-            } else {
+            } else if (event.getCode() == KeyCode.BACK_SPACE) {
+                textField.clear();
+            } else if (event.getCode().isLetterKey() && textField.getText().isEmpty()) {
                 textField.setText(event.getText());
+                textField.positionCaret(textField.getLength());
+
                 if (textField.getText().length() == 1 && nextField != null) {
                     nextField.requestFocus();
                 }
