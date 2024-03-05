@@ -11,9 +11,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 
 import java.io.File;
 import java.net.URL;
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +26,7 @@ public class Controller implements Initializable {
     @FXML
     private GridPane letterGrid;
     @FXML
-    private Label errMsgLabel;
+    private Label msgLabel;
     @FXML
     private StackPane stackPane;
     @FXML
@@ -197,8 +199,8 @@ public class Controller implements Initializable {
         int endIndex = startIndex + wordLength;
         for (int i = startIndex; i < endIndex; i++) {
             if (textFieldList.get(i).getText().isEmpty()) {
-                errMsgLabel.setText("Please enter a " + wordLength + " letter word.");
-                errMsgLabel.setVisible(true);
+                msgLabel.setText("Please enter a " + wordLength + " letter word.");
+                msgLabel.setVisible(true);
                 return false;
             } else {
                 temp.add(textFieldList.get(i).getText());
@@ -207,8 +209,8 @@ public class Controller implements Initializable {
         String guessStr = String.join("", temp);
         Word guess = new Word(guessStr);
         if (!bank.isValid(guess)) { // need initialized bank to properly run
-            errMsgLabel.setText("Please enter a valid word.");
-            errMsgLabel.setVisible(true);
+            msgLabel.setText("Please enter a valid word.");
+            msgLabel.setVisible(true);
             return false;
         } else {
             state.updateCurrentGuess(guess);
@@ -262,14 +264,13 @@ public class Controller implements Initializable {
     private void moveCursorToNextRow() {
         int nextRow = currentGuessRow + 1;
         for (Node node : letterGrid.getChildren()) {
-            if (GridPane.getRowIndex(node) == nextRow && GridPane.getColumnIndex(node) == 0) {
-                node.requestFocus();
-                break;
-            }
-        }
+            if (GridPane.getRowIndex(node) == nextRow) {
+                if (GridPane.getColumnIndex(node) == 0) {
+                    node.requestFocus();
+                }
 
-        for (Node node : letterGrid.getChildren()) {
-            node.setFocusTraversable(GridPane.getRowIndex(node) == nextRow);
+                node.setDisable(false);
+            }
         }
 
     }
@@ -318,9 +319,15 @@ public class Controller implements Initializable {
             GridPane.setColumnIndex(letterField, colIndex);
         }
 
-        stackPane.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> {
-            if (errMsgLabel.isVisible()) {
-                errMsgLabel.setVisible(false);
+        stackPane.addEventFilter(MouseEvent.ANY, event -> {
+            if (msgLabel.isVisible()) {
+                msgLabel.setVisible(false);
+            }
+        });
+
+        stackPane.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (msgLabel.isVisible()) {
+                msgLabel.setVisible(false);
             }
         });
 
@@ -328,8 +335,39 @@ public class Controller implements Initializable {
             if (event.getCode() == KeyCode.ENTER) {
                 if (validateGuess()) {
                     colorizeFields();
-                    moveCursorToNextRow();
-                    currentGuessRow++;
+                    if (currentGuessRow == 0 && state.getCurrentGuess().equals(state.getTargetWord())) {
+                        msgLabel.setText("Alright that was pretty cool");
+                        msgLabel.setVisible(true);
+                        endGame();
+                    } else if (currentGuessRow == 1 && state.getCurrentGuess().equals(state.getTargetWord())) {
+                        msgLabel.setText("Not as cool as getting it in 1 but well done");
+                        msgLabel.setVisible(true);
+                        endGame();
+                    } else if (currentGuessRow == 2 && state.getCurrentGuess().equals(state.getTargetWord())) {
+                        msgLabel.setText("Good job buster");
+                        msgLabel.setVisible(true);
+                        endGame();
+                    } else if (currentGuessRow == 3 && state.getCurrentGuess().equals(state.getTargetWord())) {
+                        msgLabel.setText("Woo hoo");
+                        msgLabel.setVisible(true);
+                        endGame();
+                    } else if (currentGuessRow == 4 && state.getCurrentGuess().equals(state.getTargetWord())) {
+                        msgLabel.setText("Congrats on the win");
+                        msgLabel.setVisible(true);
+                        endGame();
+                    } else if (currentGuessRow == 5 && state.getCurrentGuess().equals(state.getTargetWord())) {
+                        msgLabel.setText("Should we even clap for that");
+                        msgLabel.setVisible(true);
+                        endGame();
+                    } else if (currentGuessRow == 5 && !state.getCurrentGuess().equals(state.getTargetWord())) {
+                        msgLabel.setText(state.getTargetWord().toString());
+                        msgLabel.setVisible(true);
+                        endGame();
+                    } else {
+                        moveCursorToNextRow();
+                        currentGuessRow++;
+                    }
+
                 }
             }
         });
@@ -354,18 +392,23 @@ public class Controller implements Initializable {
                 return null;
             }
         }));
-
         textField.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.BACK_SPACE) {
-                if (textField.getText().isEmpty() && prevField != null) {
+            if (event.getCode() == KeyCode.BACK_SPACE && textField.getText().isEmpty()) {
+                if (prevField != null) {
                     prevField.requestFocus();
-                } else {
-                    textField.clear();
+                    prevField.positionCaret(prevField.getLength());
+                    String prevText = prevField.getText();
+                    if (!prevText.isEmpty()) {
+                        prevField.setText(prevText.substring(0, prevText.length() - 1));
+                    }
+                    event.consume();
                 }
-                event.consume();
-                //textField.positionCaret(0);
-            } else {
+            } else if (event.getCode() == KeyCode.BACK_SPACE) {
+                textField.clear();
+            } else if (event.getCode().isLetterKey() && textField.getText().isEmpty()) {
                 textField.setText(event.getText());
+                textField.positionCaret(textField.getLength());
+
                 if (textField.getText().length() == 1 && nextField != null) {
                     nextField.requestFocus();
                 }
@@ -419,7 +462,7 @@ public class Controller implements Initializable {
      * @return String label text
      */
     public String getLabelText() {
-        return errMsgLabel.getText();
+        return msgLabel.getText();
     }
 
     /**

@@ -1,5 +1,6 @@
 import java.security.InvalidParameterException;
 import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  * A unit class which handles the comparison of words and their current state.
@@ -63,6 +64,9 @@ public class Word {
         String wordStr = this.toString();
         String targetStr = targetWord.toString();
 
+        HashMap<Character, Integer> targetFreq = targetWord.getCharFrequency();
+        HashMap<Character, Integer> currentFreq = new HashMap<>();
+
         int length = wordStr.length();
 
         if (length > targetStr.length()) {
@@ -75,18 +79,51 @@ public class Word {
             char c1 = wordStr.charAt(i);
             char c2 = targetStr.charAt(i);
 
+            Integer wordCount = currentFreq.get(c1);
+            if (wordCount == null) {
+                wordCount = 0;
+            }
+            Integer targetCount = targetFreq.get(c1);
+            if (targetCount == null) {
+                targetCount = 0;
+            }
+
             if (c1 == c2) {
                 correctness[i] = CharValidity.CORRECT_POSITION;
             }
-            else if (targetStr.indexOf(c1) != -1) {
+            else if (targetCount > wordCount) {
                 correctness[i] = CharValidity.PRESENT_CHAR;
             }
             else {
                 correctness[i] = CharValidity.INCORRECT;
             }
+
+            currentFreq.put(c1, wordCount + 1);
         }
 
         return correctness;
+    }
+
+    /** Gets the per character frequencies of a word.
+     * Note: this is currently private, feel free to publicize this method if need this. Remove this note
+     * from this method if you publicize it :)
+     * @return Hashmap of the character and its frequency.
+     */
+    private HashMap<Character, Integer> getCharFrequency() {
+        var freq = new HashMap<Character, Integer>();
+
+        for (int i = 0; i < chars.length; i++) {
+            Integer value = freq.get(chars[i]);
+
+            if (value == null) {
+                freq.put(chars[i], 1);
+            }
+            else {
+                freq.put(chars[i], value + 1);
+            }
+        }
+
+        return freq;
     }
 
     /** Verifies the two objects are equal in value
