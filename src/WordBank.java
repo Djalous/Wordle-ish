@@ -75,12 +75,14 @@ public class WordBank {
     private void addToWordList(List<Word> list, Scanner scanner) {
         while (scanner.hasNext()) {
             String wordStr = scanner.nextLine().toLowerCase();
-            Word wordObj = new Word(wordStr.length());
+            if (wordStr.length() == this.wordLength) {
+                Word wordObj = new Word(wordStr.length());
 
-            for (int i = 0; i < wordStr.length(); ++i) {
-                wordObj.pushChar(wordStr.charAt(i));
+                for (int i = 0; i < wordStr.length(); ++i) {
+                    wordObj.pushChar(wordStr.charAt(i));
+                }
+                list.add(wordObj);
             }
-            list.add(wordObj);
         }
     }
 
