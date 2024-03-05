@@ -2,6 +2,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.File;
 import java.util.List;
 
 public class WordBankTests {
@@ -29,5 +30,21 @@ public class WordBankTests {
                 word.pushChar(guess.charAt(i));
             Assert.assertTrue(wordBank.isValid(word));
         }
+    }
+
+    @Test
+    public void testHistory() {
+        wordBank.updateTargetBank(new File("./wordle-official.txt"));
+        wordBank.updateTargetBank(new File("./wordle-official.txt"));
+        wordBank.updateValidBank(new File("./wordle-full.txt"));
+        wordBank.updateValidBank(new File("./wordle-full.txt"));
+
+        Word[][] targetWordHistory = wordBank.getTargetWordHistory();
+        Word[][] validWordHistory = wordBank.getValidWordHistory();
+
+        Assert.assertEquals(targetWordHistory.length, 2);
+        Assert.assertEquals(validWordHistory.length, 2);
+
+
     }
 }

@@ -1,10 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.InvalidPathException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Manages the bank of words a Wordle game will have access to for the
@@ -13,8 +10,13 @@ import java.util.Scanner;
  * @version created on 2/5/23
  */
 public class WordBank {
-    private final List<Word> targetWords = new ArrayList<>();
-    private final List<Word> validWords = new ArrayList<>();
+    private List<Word> targetWords;
+    private List<Word> validWords;
+
+    private final RecentHistory<Word[]> prevTargetWords = new RecentHistory<>(MAX_PREV_STORE);
+    private final RecentHistory<Word[]> prevValidWords = new RecentHistory<>(MAX_PREV_STORE);
+
+    private static final int MAX_PREV_STORE = 10;
 
     public WordBank() {
         updateTargetBank(new File("./wordle-official.txt"));
@@ -35,13 +37,7 @@ public class WordBank {
      * @throws InvalidPathException Thrown if the passed in file cannot be found
      */
     public void updateTargetBank(File targetFile) throws InvalidPathException {
-        try (Scanner in = new Scanner(targetFile)) {
-            checkFileExtension(targetFile, in);
-            targetWords.clear();
-            addToWordList(targetWords, in);
-        } catch (FileNotFoundException e) {
-            System.out.println("File cannot be found or does not exist.");
-        }
+        targetWords = updateBank(targetFile, targetWords, prevTargetWords);
     }
 
     /** Updates the file used for valid words
@@ -49,13 +45,25 @@ public class WordBank {
      * @throws InvalidPathException Thrown if the passed in file cannot be found
      */
     public void updateValidBank(File validFile) throws InvalidPathException {
+        validWords = updateBank(validFile, validWords, prevValidWords);
+    }
+
+    private List<Word> updateBank(File validFile, List<Word> storage, RecentHistory<Word[]> history) {
         try (Scanner in = new Scanner(validFile)) {
             checkFileExtension(validFile, in);
-            validWords.clear();
-            addToWordList(validWords, in);
+
+            if (storage != null) {
+                history.add(storage.toArray(new Word[0]));
+            }
+
+            List<Word> newStorage = new ArrayList<>();
+            addToWordList(newStorage, in);
+            return newStorage;
         } catch (FileNotFoundException e) {
             System.out.println("File cannot be found or does not exist.");
         }
+
+        return null;
     }
 
     /** Does the given word appear in our valid words list?
@@ -103,5 +111,13 @@ public class WordBank {
     public Word generateTargetWord() {
         Random rand = new Random();
         return targetWords.get(rand.nextInt(targetWords.size()));
+    }
+
+    public Word[][] getValidWordHistory() {
+        return prevValidWords.toArray(new Word[0][0]);
+    }
+
+    public Word[][] getTargetWordHistory() {
+        return prevTargetWords.toArray(new Word[0][0]);
     }
 }
