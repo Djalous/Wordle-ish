@@ -7,52 +7,57 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="655.0" prefWidth="690.0" stylesheets="@../style/tableStyle.css" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
+
+<AnchorPane prefHeight="390.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AdminController">
    <children>
-      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="241.0" prefWidth="399.0">
-         <children>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label text="Word Length: " />
-                  <TextField prefHeight="25.0" prefWidth="109.0" />
-               </children>
-            </HBox>
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <Label text="Target Words">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
-                     <padding>
-                        <Insets right="10.0" />
-                     </padding></Label>
-                  <Label text="Valid Words">
-                     <padding>
-                        <Insets left="10.0" />
-                     </padding></Label>
-               </children>
-               <VBox.margin>
-                  <Insets bottom="10.0" top="20.0" />
-               </VBox.margin>
-            </HBox>
-            <TableView prefHeight="200.0" prefWidth="200.0" stylesheets="@../style/tableStyle.css">
-              <columns>
-                <TableColumn editable="false" prefWidth="373.9999949534734" style="-fx-alignment: LEFT; -text-align: CENTER-LEFT;" text="File" />
-              </columns>
-               <styleClass>
-                  <String fx:value="table-view" />
-                  <String fx:value="column-header-background" />
-               </styleClass>
-            </TableView>
-            <Button mnemonicParsing="false" text="New File">
-               <VBox.margin>
-                  <Insets top="15.0" />
-               </VBox.margin></Button>
-         </children>
+      <VBox alignment="CENTER_LEFT" layoutX="30.0" layoutY="46.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="241.0" prefWidth="399.0">
+         <HBox prefHeight="100.0" prefWidth="200.0">
+            <Label text="Word Length: " />
+            <TextField prefHeight="25.0" prefWidth="109.0" />
+            <VBox.margin>
+               <Insets bottom="10.0" />
+            </VBox.margin>
+         </HBox>
+         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <VBox.margin>
+               <Insets bottom="10.0" top="20.0" />
+            </VBox.margin>
+            <Label fx:id="targetWords" alignment="CENTER_RIGHT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="199.0" text="Target Words" textAlignment="RIGHT">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets right="10.0" />
+               </padding>
+            </Label>
+            <Line endX="-99.9999771118164" endY="25.29289436340332" rotate="-4.1" startX="-98.70710754394531" startY="5.171628952026367" />
+            <Label fx:id="validWords" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="199.0" text="Valid Words">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+         </HBox>
+         <TableView fx:id="fileHeader" editable="true" fixedCellSize="0.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@../style/tableStyle.css">
+            <columns>
+               <TableColumn editable="false" minWidth="7.0" prefWidth="219.33334350585938" resizable="false" style="-fx-alignment: LEFT; -text-align: CENTER-LEFT;" text="File" />
+               <TableColumn fx:id="actionHeader" editable="false" minWidth="7.0" prefWidth="162.6666259765625" resizable="false" style="-fx-alignment: RIGHT; -text-align: RIGHT;" text="Action" />
+            </columns>
+            <styleClass>
+               <String fx:value="table-view" />
+               <String fx:value="column-header-background" />
+            </styleClass>
+         </TableView>
+         <Button mnemonicParsing="false" text="New File">
+            <VBox.margin>
+               <Insets top="15.0" />
+            </VBox.margin>
+         </Button>
       </VBox>
+      <Button alignment="CENTER" layoutX="143.0" layoutY="350.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Return to Start" />
    </children>
-</StackPane>
+</AnchorPane>
