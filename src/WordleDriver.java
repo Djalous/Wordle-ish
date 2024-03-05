@@ -21,7 +21,8 @@ public class WordleDriver extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("view.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("view.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("start_page.fxml"));
         stage.setScene(new Scene(root));
         stage.show();
     }
