@@ -91,7 +91,8 @@ public class WordBank {
      */
     private void checkFileExtension(File file, Scanner scanner) {
         String filePath = file.getPath();
-/*        if (filePath.endsWith(".csv")) {
+        //admin menu dependent
+ /*       if (filePath.endsWith(".csv")) {
             scanner.useDelimiter(",");
         } else if (!filePath.endsWith(".txt")) {
             scanner.useDelimiter(System.lineSeparator());
