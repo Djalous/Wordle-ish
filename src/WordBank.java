@@ -98,6 +98,7 @@ public class WordBank {
         } else if (filePath.endsWith(".txt")) {
             scanner.useDelimiter(System.lineSeparator());
         } else {
+            System.out.println("The current file " + filePath + " is an unsupported file type.");
             throw new InvalidPathException(filePath, "Unsupported file type.");
         }
     }
