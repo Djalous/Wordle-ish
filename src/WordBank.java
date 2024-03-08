@@ -19,6 +19,7 @@ public class WordBank {
     public WordBank() {
         updateTargetBank(new File("./wordle-official.txt"));
         updateValidBank(new File("./wordle-full.txt"));
+
     }
 
     /** Create a WordBank from the given target word file and the given valid word file
@@ -92,13 +93,13 @@ public class WordBank {
     private void checkFileExtension(File file, Scanner scanner) {
         String filePath = file.getPath();
         //admin menu dependent
- /*       if (filePath.endsWith(".csv")) {
+        if (filePath.endsWith(".csv")) {
             scanner.useDelimiter(",");
-        } else if (!filePath.endsWith(".txt")) {
+        } else if (filePath.endsWith(".txt")) {
             scanner.useDelimiter(System.lineSeparator());
         } else {
             throw new InvalidPathException(filePath, "Unsupported file type.");
-        }*/
+        }
     }
 
     public Word generateTargetWord() {
