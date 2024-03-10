@@ -5,12 +5,13 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class ControllerTests {
     static Controller controller;
     @BeforeClass
-    public static void setUp() {
+    public static void setUp() throws FileNotFoundException {
         controller = new Controller();
     }
 

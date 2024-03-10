@@ -8,13 +8,45 @@ import java.nio.file.InvalidPathException;
 import java.util.Scanner;
 
 public class WordFileTests {
-    private WordBank wordBank;
+    static WordBank wordBank;
 
     @Before
-    public void setUp() {
+    public void setUp() throws FileNotFoundException {
         wordBank = new WordBank();
     }
 
+    @Test
+    public void updateValidBankWithValidFile() {
+        File validFile = new File("./wordle-full.txt");
+        try {
+            wordBank.updateValidBank(validFile);
+            Assert.assertTrue(wordBank.isValid(new Word("years")));
+        } catch (InvalidPathException e) {
+            Assert.fail("Exception should not be thrown with valid file");
+        }
+    }
+
+/*    @Test
+    public void updateValidBankWithInvalidFile() {
+        File invalidFile = new File("./invalid.txt");
+        try {
+            wordBank.updateValidBank(invalidFile);
+            Assert.fail("Exception should be thrown with invalid file");
+        } catch (InvalidPathException e) {
+            Assert.assertTrue(true);
+        }
+    }*/
+
+/*    @Test
+    public void updateValidBankWithUnsupportedFileType() {
+        File unsupportedFile = new File("./unsupported.docx");
+        try {
+            wordBank.updateValidBank(unsupportedFile);
+            Assert.fail("Exception should be thrown with unsupported file type");
+        } catch (InvalidPathException e) {
+            Assert.assertTrue(true);
+        }
+    }*/
     @Test
     public void checkFileExtensionHandlesCsvFilesCorrectly() throws FileNotFoundException {
         File csvFile = new File("./tests/testFile.csv");

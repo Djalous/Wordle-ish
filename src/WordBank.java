@@ -16,7 +16,7 @@ public class WordBank {
     private final List<Word> targetWords = new ArrayList<>();
     private final List<Word> validWords = new ArrayList<>();
 
-    public WordBank() {
+    public WordBank() throws FileNotFoundException {
         updateTargetBank(new File("./wordle-official.txt"));
         updateValidBank(new File("./wordle-full.txt"));
 
@@ -26,7 +26,7 @@ public class WordBank {
      * @param targetFile File containing the guessable words
      * @param validFile File containing words considered valid
      */
-    public WordBank(File targetFile, File validFile) {
+    public WordBank(File targetFile, File validFile) throws FileNotFoundException {
         updateTargetBank(targetFile);
         updateValidBank(validFile);
     }
@@ -35,14 +35,17 @@ public class WordBank {
      * @param targetFile File to used for guessable words
      * @throws InvalidPathException Thrown if the passed in file cannot be found
      */
-    public void updateTargetBank(File targetFile) throws InvalidPathException {
+    public void updateTargetBank(File targetFile) throws InvalidPathException, FileNotFoundException {
         try (Scanner in = new Scanner(targetFile)) {
             checkFileExtension(targetFile, in);
             targetWords.clear();
             addToWordList(targetWords, in);
         } catch (FileNotFoundException e) {
             System.out.println("File cannot be found or does not exist.");
+            throw new FileNotFoundException("File cannot be found or does not exist.");
+
         }
+        System.out.println("Target words: " + targetWords.size() + " have been added.");
     }
 
     /** Updates the file used for valid words
@@ -57,6 +60,7 @@ public class WordBank {
         } catch (FileNotFoundException e) {
             System.out.println("File cannot be found or does not exist.");
         }
+        System.out.println("Valid words: " + validWords.size() + " have been added.");
     }
 
     /** Does the given word appear in our valid words list?
