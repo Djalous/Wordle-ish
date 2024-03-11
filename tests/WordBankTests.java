@@ -44,7 +44,42 @@ public class WordBankTests {
 
         Assert.assertEquals(targetWordHistory.length, 2);
         Assert.assertEquals(validWordHistory.length, 2);
+    }
 
+    @Test
+    public void testMin10History() {
+        wordBank.updateTargetBank(new File("./wordle-official.txt"));
+        wordBank.updateTargetBank(new File("./wordle-official.txt"));
+        wordBank.updateTargetBank(new File("./wordle-official.txt"));
+        wordBank.updateTargetBank(new File("./wordle-official.txt"));
+        wordBank.updateTargetBank(new File("./wordle-official.txt"));
+        wordBank.updateTargetBank(new File("./wordle-official.txt"));
+        wordBank.updateTargetBank(new File("./wordle-official.txt"));
+        wordBank.updateTargetBank(new File("./wordle-official.txt"));
+        wordBank.updateTargetBank(new File("./wordle-official.txt"));
+        wordBank.updateTargetBank(new File("./wordle-official.txt"));
 
+        wordBank.updateValidBank(new File("./wordle-full.txt"));
+        wordBank.updateValidBank(new File("./wordle-full.txt"));
+        wordBank.updateValidBank(new File("./wordle-full.txt"));
+        wordBank.updateValidBank(new File("./wordle-full.txt"));
+        wordBank.updateValidBank(new File("./wordle-full.txt"));
+        wordBank.updateValidBank(new File("./wordle-full.txt"));
+        wordBank.updateValidBank(new File("./wordle-full.txt"));
+        wordBank.updateValidBank(new File("./wordle-full.txt"));
+        wordBank.updateValidBank(new File("./wordle-full.txt"));
+        wordBank.updateValidBank(new File("./wordle-full.txt"));
+
+        Word[][] targetWordHistory = wordBank.getTargetWordHistory();
+        Word[][] validWordHistory = wordBank.getValidWordHistory();
+
+        Assert.assertEquals(targetWordHistory.length, 10);
+        Assert.assertEquals(validWordHistory.length, 10);
+
+        wordBank.updateValidBank(new File("./wordle-full.txt"));
+        wordBank.updateTargetBank(new File("./wordle-official.txt"));
+
+        Assert.assertTrue(targetWordHistory.length >= 10);
+        Assert.assertTrue(validWordHistory.length >= 10);
     }
 }
