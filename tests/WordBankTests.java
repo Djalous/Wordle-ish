@@ -2,6 +2,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.FileNotFoundException;
 import java.io.File;
 import java.util.List;
 
@@ -10,7 +11,7 @@ public class WordBankTests {
     static final int LENGTH = 5;
 
     @BeforeClass
-    public static void setUp() {
+    public static void setUp() throws FileNotFoundException {
         wordBank = new WordBank();
     }
     @Test
@@ -33,7 +34,7 @@ public class WordBankTests {
     }
 
     @Test
-    public void testHistory() {
+    public void testHistory() throws FileNotFoundException {
         wordBank.updateTargetBank(new File("./wordle-official.txt"));
         wordBank.updateTargetBank(new File("./wordle-official.txt"));
         wordBank.updateValidBank(new File("./wordle-full.txt"));
@@ -47,7 +48,7 @@ public class WordBankTests {
     }
 
     @Test
-    public void testMin10History() {
+    public void testMin10History() throws FileNotFoundException {
         wordBank.updateTargetBank(new File("./wordle-official.txt"));
         wordBank.updateTargetBank(new File("./wordle-official.txt"));
         wordBank.updateTargetBank(new File("./wordle-official.txt"));
