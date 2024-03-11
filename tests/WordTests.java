@@ -130,4 +130,26 @@ public class WordTests {
 
         Assert.assertArrayEquals(test4, data4);
     }
+
+    @Test
+    public void testDittoCorrect() {
+        Word w1 = new Word(5);
+
+        w1.pushChar('t');
+        w1.pushChar('i');
+        w1.pushChar('t');
+        w1.pushChar('t');
+        w1.pushChar('y');
+
+        CharValidity[] data = w1.getCorrect(new Word("ditto"));
+        CharValidity[] test = new CharValidity[] {
+                CharValidity.INCORRECT,
+                CharValidity.CORRECT_POSITION,
+                CharValidity.CORRECT_POSITION,
+                CharValidity.CORRECT_POSITION,
+                CharValidity.INCORRECT,
+        };
+
+        Assert.assertArrayEquals(test, data);
+    }
 }
