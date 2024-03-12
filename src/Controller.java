@@ -12,6 +12,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.io.File;
@@ -298,6 +299,8 @@ public class Controller implements Initializable {
         state = new GameState(targetWord);
         gameIsActive = true;
 
+        initLetterFields();
+
         letterFields = letterGrid.getChildren();
         int numCols = letterGrid.getColumnCount();
         for  (int i = 0; i < letterFields.size(); ++i) {
@@ -383,6 +386,23 @@ public class Controller implements Initializable {
         });
     }
 
+    private void initLetterFields() {
+        //letterFields = new ArrayList<>();
+        letterGrid.getChildren().clear();
+        int numRows = 6;
+        for (int row = 0; row < numRows; row++) {
+            for (int col = 0; col < wordLength; col++) {
+                TextField textField = new TextField();
+                textField.setPrefWidth(80);
+                textField.setPrefHeight(70);
+                textField.setFont(Font.font("Arial Black", 36));
+                GridPane.setRowIndex(textField, row);
+                GridPane.setColumnIndex(textField, col);
+                letterGrid.getChildren().add(textField);
+            }
+        }
+    }
+
     /**
      * Part of the following method was generated using ChatGPT on 2/17 https://chat.openai.com/
      * with the prompt: "how to make textfield in fxml only allow letters, be case-insensitive,
@@ -392,7 +412,7 @@ public class Controller implements Initializable {
      * @param nextField the next textField
      */
     private void filterTextField(TextField prevField, TextField textField, TextField nextField) {
-        textField.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
+        /*textField.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
             String newText = change.getControlNewText();
             if (newText.matches("[a-zA-Z]") || newText.isEmpty()) {
                 change.setText(newText.toUpperCase());
@@ -423,7 +443,53 @@ public class Controller implements Initializable {
                     nextField.requestFocus();
                 }
             }
+        });*/
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.length() > 1 || !newValue.matches("[a-zA-Z]")) {
+                //textField.setText(newValue.substring(0, 1));
+                textField.setText("");
+            } else {
+                textField.setText(newValue.toUpperCase());
+            }
         });
+
+        textField.setOnKeyTyped(event -> {
+            event.consume();
+            if (textField.getText().length() == 1 && nextField != null) {
+                nextField.requestFocus();
+            }
+        });
+
+        textField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.BACK_SPACE) {
+                if (!textField.getText().isEmpty()) {
+                    textField.setText("");
+                } else if (prevField != null) {
+                    prevField.requestFocus();
+                    prevField.setText("");
+                }
+                event.consume();
+            } else if (!event.getText().matches("[a-zA-Z]")) {
+                event.consume();
+            }
+        });
+
+        /*textField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.BACK_SPACE && textField.getText().isEmpty()) {
+                if (prevField != null) {
+                    prevField.requestFocus();
+                    prevField.positionCaret(prevField.getLength());
+                    String prevText = prevField.getText();
+                }
+            } else if (event.getCode().isLetterKey() && textField.getText().isEmpty()) {
+                textField.setText(event.getText().toUpperCase());
+                textField.positionCaret(textField.getLength());
+
+                if (nextField != null) {
+                    nextField.requestFocus();
+                }
+            }
+        });*/
     }
 
     /**
