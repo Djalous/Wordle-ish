@@ -12,13 +12,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 
-
 <AnchorPane prefHeight="390.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AdminController">
    <children>
       <VBox alignment="CENTER_LEFT" layoutX="30.0" layoutY="46.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="241.0" prefWidth="399.0">
          <HBox prefHeight="100.0" prefWidth="200.0">
             <Label text="Word Length: " />
-            <TextField prefHeight="25.0" prefWidth="109.0" />
+            <TextField fx:id="wordLength" prefHeight="25.0" prefWidth="109.0" />
             <VBox.margin>
                <Insets bottom="10.0" />
             </VBox.margin>
@@ -42,17 +41,17 @@
                </padding>
             </Label>
          </HBox>
-         <TableView fx:id="fileHeader" editable="true" fixedCellSize="0.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@../style/tableStyle.css">
+         <TableView fx:id="fileTable" editable="true" fixedCellSize="0.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@tableStyle.css">
             <columns>
-               <TableColumn editable="false" minWidth="7.0" prefWidth="219.33334350585938" resizable="false" style="-fx-alignment: LEFT; -text-align: CENTER-LEFT;" text="File" />
+               <TableColumn fx:id="fileHeader" editable="false" minWidth="7.0" prefWidth="219.33334350585938" resizable="false" style="-fx-alignment: LEFT; -text-align: CENTER-LEFT;" text="File" />
                <TableColumn fx:id="actionHeader" editable="false" minWidth="7.0" prefWidth="162.6666259765625" resizable="false" style="-fx-alignment: RIGHT; -text-align: RIGHT;" text="Action" />
             </columns>
             <styleClass>
-               <String fx:value="table-view" />
                <String fx:value="column-header-background" />
+               <String fx:value="column-header" />
             </styleClass>
          </TableView>
-         <Button mnemonicParsing="false" text="New File">
+         <Button mnemonicParsing="false" onAction="#addNewWordFile" text="New File">
             <VBox.margin>
                <Insets top="15.0" />
             </VBox.margin>

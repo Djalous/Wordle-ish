@@ -15,6 +15,7 @@ import java.util.Scanner;
 public class WordBank {
     private final List<Word> targetWords = new ArrayList<>();
     private final List<Word> validWords = new ArrayList<>();
+    public static int WORD_LENGTH = 5;
 
     public WordBank() {
         updateTargetBank(new File("./wordle-official.txt"));
@@ -28,6 +29,10 @@ public class WordBank {
     public WordBank(File targetFile, File validFile) {
         updateTargetBank(targetFile);
         updateValidBank(validFile);
+    }
+
+    public static void setWordLength(int parseInt) {
+        WORD_LENGTH = parseInt;
     }
 
     /** Updates the file used for guessable words

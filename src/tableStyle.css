@@ -1,0 +1,33 @@
+/* Remove bubbly look of TableView headers */
+.table-view .corner,
+.table-view .column-header,
+.table-view .column-header-background,
+.table-view .column-header-background .filler {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header {
+    -fx-border-width: 0 0 1 0;
+    -fx-border-color: black;
+}
+
+#validWords:hover, #targetWords:hover {
+    -fx-background-color: #f0f0f0;
+}
+
+.table-view .table-cell{
+    -fx-border-color: transparent;
+    -fx-padding: 2 0 2 10px;
+}
+
+#fileHeader .label {
+    -fx-alignment: CENTER-LEFT;
+}
+
+#actionHeader .label {
+    -fx-alignment: CENTER-RIGHT;
+}
+
+.button {
+    -fx-alignment: CENTER-LEFT;
+}
