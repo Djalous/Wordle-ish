@@ -22,8 +22,11 @@ public class GameStateTests {
         Assert.assertEquals(2, gameState.getGuessCount());
         gameState.updateCurrentGuess(new Word("Hello"));
         Assert.assertTrue(gameState.getGuessList().containsKey((new Word("Hello")).toString()));
-        Assert.assertEquals(2, gameState.getGuessList().get(new Word("Hello").toString())); // fix
-        //Assert.assertFalse(gameState.getGuessList().containsKey((new Word("Super")).toString()));
+        int testFreq = gameState.getGuessList().get(new Word("Hello").toString());
+        Assert.assertEquals(2, testFreq);
+        Assert.assertFalse(gameState.getGuessList().containsKey((new Word("Canoe")).toString()));
+        int testFreq1 = gameState.getGuessList().get(new Word("Super").toString());
+        Assert.assertEquals(1, testFreq1);
     }
 
 }
