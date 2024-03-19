@@ -7,9 +7,9 @@
 
 <AnchorPane fx:id="startPage" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="StartPageController">
    <children>
-      <Button layoutX="274.0" layoutY="188.0" mnemonicParsing="false" text="Start Game" onAction="#startGame" />
-       <Label layoutX="267.0" layoutY="276.0" text="Select User Type:" />
-       <ChoiceBox fx:id="userSelection" layoutX="249.0" layoutY="300.0" prefHeight="25.0" prefWidth="125.0">
+      <Button layoutX="274.0" layoutY="188.0" mnemonicParsing="false" onAction="#startGame" text="Start Game" />
+       <Label layoutX="266.0" layoutY="276.0" text="Select User Type:" textAlignment="CENTER" />
+       <ChoiceBox fx:id="userSelection" layoutX="255.0" layoutY="301.0" prefHeight="25.0" prefWidth="125.0" value="User">
            <items>
                <FXCollections fx:factory="observableArrayList">
                    <String fx:value="User" />
