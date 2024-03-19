@@ -16,7 +16,7 @@ public class WordBank {
     private final List<Word> targetWords = new ArrayList<>();
     private final List<Word> validWords = new ArrayList<>();
 
-    private static final int CONFIGURED_WORD_LENGTH = 5;
+    public static int WORD_LENGTH = 5;
 
     public WordBank() throws FileNotFoundException {
         updateTargetBank(new File("./wordle-official.txt"));
@@ -82,7 +82,7 @@ public class WordBank {
     private void addToWordList(List<Word> list, Scanner scanner) {
         while (scanner.hasNext()) {
             String wordStr = scanner.nextLine().toLowerCase();
-            if (wordStr.length() == this.CONFIGURED_WORD_LENGTH) {
+            if (wordStr.length() == this.WORD_LENGTH) {
                 Word wordObj = new Word(wordStr.length());
 
                 for (int i = 0; i < wordStr.length(); ++i) {
