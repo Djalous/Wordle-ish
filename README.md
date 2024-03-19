@@ -3,9 +3,9 @@
 
 ### Prerequisites
 
-Want to contribute to this project?
+Want to contribute to this project? \
+You will need the following: \
 Java SDK 17 and JavaFX 19 is required to run this project.
-Helpful link on install  [these instructions](https://faculty-web.msoe.edu/hasker/swe2410/java-install/)
 
 ### Running the Application
 Double click on the s24-riley-b.jar provided to play the Wordle-Like game
