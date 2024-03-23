@@ -17,16 +17,19 @@ public class WordBank {
     private static final List<Word> validWords = new ArrayList<>();
     public static int WORD_LENGTH = 5;
 
-    public WordBank() {
+    public static int WORD_LENGTH = 5;
+
+    public WordBank() throws FileNotFoundException {
         updateTargetBank(new File("./wordle-official.txt"));
         updateValidBank(new File("./wordle-full.txt"));
+
     }
 
     /** Create a WordBank from the given target word file and the given valid word file
      * @param targetFile File containing the guessable words
      * @param validFile File containing words considered valid
      */
-    public WordBank(File targetFile, File validFile) {
+    public WordBank(File targetFile, File validFile) throws FileNotFoundException {
         updateTargetBank(targetFile);
         updateValidBank(validFile);
     }
@@ -39,14 +42,17 @@ public class WordBank {
      * @param targetFile File to used for guessable words
      * @throws InvalidPathException Thrown if the passed in file cannot be found
      */
-    public static void updateTargetBank(File targetFile) throws InvalidPathException {
+    public static void updateTargetBank(File targetFile) throws InvalidPathException, FileNotFoundException {
         try (Scanner in = new Scanner(targetFile)) {
             checkFileExtension(targetFile, in);
             targetWords.clear();
             addToWordList(targetWords, in);
         } catch (FileNotFoundException e) {
             System.out.println("File cannot be found or does not exist.");
+            throw new FileNotFoundException("File cannot be found or does not exist.");
+
         }
+        System.out.println("Target words: " + targetWords.size() + " have been added.");
     }
 
     /** Updates the file used for valid words
@@ -61,6 +67,7 @@ public class WordBank {
         } catch (FileNotFoundException e) {
             System.out.println("File cannot be found or does not exist.");
         }
+        System.out.println("Valid words: " + validWords.size() + " have been added.");
     }
 
     /** Does the given word appear in our valid words list?
@@ -80,12 +87,14 @@ public class WordBank {
     private static void addToWordList(List<Word> list, Scanner scanner) {
         while (scanner.hasNext()) {
             String wordStr = scanner.nextLine().toLowerCase();
-            Word wordObj = new Word(wordStr.length());
+            if (wordStr.length() == this.WORD_LENGTH) {
+                Word wordObj = new Word(wordStr.length());
 
-            for (int i = 0; i < wordStr.length(); ++i) {
-                wordObj.pushChar(wordStr.charAt(i));
+                for (int i = 0; i < wordStr.length(); ++i) {
+                    wordObj.pushChar(wordStr.charAt(i));
+                }
+                list.add(wordObj);
             }
-            list.add(wordObj);
         }
     }
 
@@ -94,15 +103,17 @@ public class WordBank {
      * @param file File to verify
      * @param scanner Scanner of file to verify and configure
      */
-    private static void checkFileExtension(File file, Scanner scanner) {
+    static void checkFileExtension(File file, Scanner scanner) {
         String filePath = file.getPath();
-/*        if (filePath.endsWith(".csv")) {
+        //admin menu dependent
+        if (filePath.endsWith(".csv")) {
             scanner.useDelimiter(",");
-        } else if (!filePath.endsWith(".txt")) {
+        } else if (filePath.endsWith(".txt")) {
             scanner.useDelimiter(System.lineSeparator());
         } else {
+            System.out.println("The current file " + filePath + " is an unsupported file type.");
             throw new InvalidPathException(filePath, "Unsupported file type.");
-        }*/
+        }
     }
 
     public Word generateTargetWord() {

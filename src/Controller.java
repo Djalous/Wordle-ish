@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.net.URL;
 import java.security.Key;
 import java.util.ArrayList;
@@ -60,7 +61,7 @@ public class Controller implements Initializable {
     private boolean gameIsActive;
     private int currentGuessRow = 0;
 
-    public Controller() {
+    public Controller() throws FileNotFoundException {
 
     }
     

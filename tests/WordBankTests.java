@@ -2,6 +2,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 public class WordBankTests {
@@ -9,7 +10,7 @@ public class WordBankTests {
     static final int LENGTH = 5;
 
     @BeforeClass
-    public static void setUp() {
+    public static void setUp() throws FileNotFoundException {
         wordBank = new WordBank();
     }
     @Test
