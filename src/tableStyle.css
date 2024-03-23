@@ -11,8 +11,16 @@
     -fx-border-color: black;
 }
 
+#validWords, #targetWords {
+    -fx-background-color: transparent;
+}
+
+#targetWords {
+    -fx-alignment: CENTER-RIGHT;
+}
+
 #validWords:hover, #targetWords:hover {
-    -fx-background-color: #f0f0f0;
+    -fx-background-color: grey;
 }
 
 .table-view .table-cell{

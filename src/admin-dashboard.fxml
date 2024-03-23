@@ -22,24 +22,13 @@
                <Insets bottom="10.0" />
             </VBox.margin>
          </HBox>
-         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+         <HBox alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="100.0" prefWidth="400.0" stylesheets="@tableStyle.css">
             <VBox.margin>
                <Insets bottom="10.0" top="20.0" />
             </VBox.margin>
-            <Label fx:id="targetWords" alignment="CENTER_RIGHT" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="199.0" text="Target Words" textAlignment="RIGHT">
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <padding>
-                  <Insets right="10.0" />
-               </padding>
-            </Label>
+            <Button fx:id="targetWords" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" styleClass="targetWords" text="Target Words" />
             <Line endX="-99.9999771118164" endY="25.29289436340332" rotate="-4.1" startX="-98.70710754394531" startY="5.171628952026367" />
-            <Label fx:id="validWords" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="23.0" prefWidth="199.0" text="Valid Words">
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
-            </Label>
+            <Button fx:id="validWords" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Valid Words" />
          </HBox>
          <TableView fx:id="fileTable" editable="true" fixedCellSize="0.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@tableStyle.css">
             <columns>
