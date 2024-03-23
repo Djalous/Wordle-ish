@@ -26,26 +26,26 @@
             <VBox.margin>
                <Insets bottom="10.0" top="20.0" />
             </VBox.margin>
-            <Button fx:id="targetWords" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" styleClass="targetWords" text="Target Words" />
+            <Button fx:id="targetWordsBtn" mnemonicParsing="false" onAction="#switchToTargetTable" prefHeight="25.0" prefWidth="200.0" styleClass="targetWords" text="Target Words" />
             <Line endX="-99.9999771118164" endY="25.29289436340332" rotate="-4.1" startX="-98.70710754394531" startY="5.171628952026367" />
-            <Button fx:id="validWords" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Valid Words" />
+            <Button fx:id="validWordsBtn" mnemonicParsing="false" onAction="#switchToValidTable" prefHeight="25.0" prefWidth="200.0" text="Valid Words" />
          </HBox>
          <TableView fx:id="fileTable" editable="true" fixedCellSize="0.0" prefHeight="200.0" prefWidth="200.0" stylesheets="@tableStyle.css">
             <columns>
-               <TableColumn fx:id="fileHeader" editable="false" minWidth="7.0" prefWidth="219.33334350585938" resizable="false" style="-fx-alignment: LEFT; -text-align: CENTER-LEFT;" text="File" />
-               <TableColumn fx:id="actionHeader" editable="false" minWidth="7.0" prefWidth="162.6666259765625" resizable="false" style="-fx-alignment: RIGHT; -text-align: RIGHT;" text="Action" />
+               <TableColumn fx:id="fileHeader" editable="false" minWidth="7.0" prefWidth="219.33334350585938" resizable="false" text="File" />
+               <TableColumn fx:id="actionHeader" editable="false" minWidth="7.0" prefWidth="162.6666259765625" resizable="false" style="-fx-alignment: CENTER-RIGHT;" text="Action" />
             </columns>
             <styleClass>
                <String fx:value="column-header-background" />
                <String fx:value="column-header" />
             </styleClass>
          </TableView>
-         <Button mnemonicParsing="false" onAction="#addNewWordFile" text="New File">
+         <Button fx:id="addFileBtn" mnemonicParsing="false" onAction="#addNewWordFile" text="New File">
             <VBox.margin>
                <Insets top="15.0" />
             </VBox.margin>
          </Button>
       </VBox>
-      <Button alignment="CENTER" layoutX="143.0" layoutY="350.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Return to Start" />
+      <Button fx:id="returnToStartBtn" alignment="CENTER" layoutX="143.0" layoutY="350.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Return to Start" />
    </children>
 </AnchorPane>

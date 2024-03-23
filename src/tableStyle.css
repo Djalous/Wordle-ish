@@ -11,15 +11,15 @@
     -fx-border-color: black;
 }
 
-#validWords, #targetWords {
+#validWordsBtn, #targetWordsBtn {
     -fx-background-color: transparent;
 }
 
-#targetWords {
+#targetWordsBtn {
     -fx-alignment: CENTER-RIGHT;
 }
 
-#validWords:hover, #targetWords:hover {
+#validWordsBtn:hover, #targetWordsBtn:hover {
     -fx-background-color: grey;
 }
 
