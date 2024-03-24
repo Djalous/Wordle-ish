@@ -65,6 +65,7 @@ public class AdminController implements Initializable {
         addFileBtn.disableProperty().bind(wordLength.textProperty().isEmpty());
 
         returnToStartBtn.setOnAction(actionEvent -> {
+            // Return to the start page (WIP)
             try {
                 loadAdminDashboard((Stage) returnToStartBtn.getScene().getWindow());
             } catch (IOException e) {
