@@ -1,9 +1,10 @@
+import main.Word;
+import main.WordBank;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
-import java.util.List;
 
 public class WordBankTests {
     static WordBank wordBank;
