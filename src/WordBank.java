@@ -17,6 +17,8 @@ public class WordBank {
     private static final List<Word> validWords = new ArrayList<>();
     public static int WORD_LENGTH = 5;
 
+    public static int WORD_LENGTH = 5;
+
     public WordBank() throws FileNotFoundException {
         updateTargetBank(new File("./wordle-official.txt"));
         updateValidBank(new File("./wordle-full.txt"));
@@ -85,12 +87,14 @@ public class WordBank {
     private static void addToWordList(List<Word> list, Scanner scanner) {
         while (scanner.hasNext()) {
             String wordStr = scanner.nextLine().toLowerCase();
-            Word wordObj = new Word(wordStr.length());
+            if (wordStr.length() == this.WORD_LENGTH) {
+                Word wordObj = new Word(wordStr.length());
 
-            for (int i = 0; i < wordStr.length(); ++i) {
-                wordObj.pushChar(wordStr.charAt(i));
+                for (int i = 0; i < wordStr.length(); ++i) {
+                    wordObj.pushChar(wordStr.charAt(i));
+                }
+                list.add(wordObj);
             }
-            list.add(wordObj);
         }
     }
 
@@ -99,7 +103,11 @@ public class WordBank {
      * @param file File to verify
      * @param scanner Scanner of file to verify and configure
      */
+<<<<<<< HEAD
     private static void checkFileExtension(File file, Scanner scanner) {
+=======
+    static void checkFileExtension(File file, Scanner scanner) {
+>>>>>>> 7583a96e31cbf5294c771c61c0d62825cb60e10a
         String filePath = file.getPath();
         //admin menu dependent
         if (filePath.endsWith(".csv")) {
