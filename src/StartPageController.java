@@ -14,6 +14,10 @@ public class StartPageController {
     @FXML
     private void startGame(ActionEvent event) throws IOException {
         String userType = userSelection.getValue();
-        GameController.loadGameView((Stage) startPage.getScene().getWindow());
+        switch (userType) {
+            case "Admin" -> AdminController.loadAdminDashboard((Stage) startPage.getScene().getWindow());
+            case "Player" -> GameController.loadGameView((Stage) startPage.getScene().getWindow());
+        }
+
     }
 }

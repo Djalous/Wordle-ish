@@ -13,8 +13,9 @@ import java.util.Scanner;
  * @version created on 2/5/23
  */
 public class WordBank {
-    private final List<Word> targetWords = new ArrayList<>();
-    private final List<Word> validWords = new ArrayList<>();
+    private static final List<Word> targetWords = new ArrayList<>();
+    private static final List<Word> validWords = new ArrayList<>();
+    public static int WORD_LENGTH = 5;
 
     public static int WORD_LENGTH = 5;
 
@@ -33,11 +34,15 @@ public class WordBank {
         updateValidBank(validFile);
     }
 
+    public static void setWordLength(int parseInt) {
+        WORD_LENGTH = parseInt;
+    }
+
     /** Updates the file used for guessable words
      * @param targetFile File to used for guessable words
      * @throws InvalidPathException Thrown if the passed in file cannot be found
      */
-    public void updateTargetBank(File targetFile) throws InvalidPathException, FileNotFoundException {
+    public static void updateTargetBank(File targetFile) throws InvalidPathException, FileNotFoundException {
         try (Scanner in = new Scanner(targetFile)) {
             checkFileExtension(targetFile, in);
             targetWords.clear();
@@ -54,7 +59,7 @@ public class WordBank {
      * @param validFile File used for valid words
      * @throws InvalidPathException Thrown if the passed in file cannot be found
      */
-    public void updateValidBank(File validFile) throws InvalidPathException {
+    public static void updateValidBank(File validFile) throws InvalidPathException {
         try (Scanner in = new Scanner(validFile)) {
             checkFileExtension(validFile, in);
             validWords.clear();
@@ -79,7 +84,7 @@ public class WordBank {
      * @param list List to add the words to
      * @param scanner Scanner of the word file
      */
-    private void addToWordList(List<Word> list, Scanner scanner) {
+    private static void addToWordList(List<Word> list, Scanner scanner) {
         while (scanner.hasNext()) {
             String wordStr = scanner.nextLine().toLowerCase();
             if (wordStr.length() == this.WORD_LENGTH) {
@@ -98,7 +103,7 @@ public class WordBank {
      * @param file File to verify
      * @param scanner Scanner of file to verify and configure
      */
-    void checkFileExtension(File file, Scanner scanner) {
+    static void checkFileExtension(File file, Scanner scanner) {
         String filePath = file.getPath();
         //admin menu dependent
         if (filePath.endsWith(".csv")) {
