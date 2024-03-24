@@ -1,8 +1,12 @@
+package main;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import main.AdminController;
+import main.GameController;
 
 import java.io.IOException;
 

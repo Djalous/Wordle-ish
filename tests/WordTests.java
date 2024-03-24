@@ -1,5 +1,6 @@
+import main.CharValidity;
+import main.Word;
 import org.junit.Assert;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 public class WordTests {

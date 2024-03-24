@@ -1,24 +1,28 @@
-# SWE WordleFX
+# SWE Team B WordleFX
 ## Getting started
 
 ### Prerequisites
-This project uses IntelliJ 2023 with Java version 17 and JavaFX version 19.
-Make sure you have those prerequisites before trying to build or run this project.
 
-You will also have to follow [these instructions](https://faculty-web.msoe.edu/hasker/swe2410/java-install/)
-to get the project working with JavaFX on your machine.
+Want to contribute to this project? \
+You will need the following: \
+Java SDK 17 and JavaFX 19 is required to run this project.
 
-### Building
-Our app lives inside our driver class, run the project from there to get started.
+### Running the Application
+Double click on the s24-riley-b.jar provided to play the Wordle-Like game
 
-## Description
-This is a Wordle app implemented in Java and JavaFX. Our application has the following features
-- [ ] Guessing 5-letter words
-- [ ] Viewing the correct letters of a guess
-- [ ] Able to enter up to 6 guesses
-- [ ] View the letters you have guessed
-- [ ] View your current number of guesses
-- [ ] View your average guesses over all your games
+### Description
+This is a Wordle-esque app implemented in Java and JavaFX. Our application has the following features
+- [ ] Guessing a 5-letter word from a word bank
+- [ ] Ability to enter up to 6 guesses
+- [ ] Logic to check current guess against valid guess word bank
+- [ ] Store current guess
+- [ ] View correct letters in their places or almost correct places (green right letter, in right place, yellow right letter, in wrong place)
+- [ ] Appropriate error messages depending on what invalidity is present in user's guess
+- [ ] Admin View
+### Future Features
+- [ ] View the letters you have guessed (In Development)
+- [ ] View your current number of guesses (In Development)
+- [ ] View your average guesses over all your games (In Development)
 - [ ] View your past most commonly guessed words and letters (college users only)
 - [ ] View a hint (middle school users only)
 - [ ] View user's guessed words as an Admin
@@ -30,14 +34,17 @@ This is a Wordle app implemented in Java and JavaFX. Our application has the fol
 - [ ] Test Wordle words using AI
 - [ ] Simulate Wordle games using text files
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
 
 ## Usage
-TODO
+
+To start the game, double-click on the s24-riley-b.jar file provided in the repository. 
+This will open the game in a new window.
+### Playing the Game
+Simply use your keyboard to type in a 5-letter word and press enter.\
+You have six chances to guess the word. If you guess the word correctly, you win!
 
 ## Credits
 - Lazar Jovanovic (GitLab Tag: @lazar_j)
 - Duaa "DJ" Aljalous (GitLab Tag: @aljalousd)
-- Theresa Kettner (GitLab Tag: @Kettnerd)
 - Jack Rosenbecker (GitLab Tag: @CorneliusCornbread)
+- Theresa Kettner ([Website](https://lazermaker.wixsite.com/theresakettner/))
