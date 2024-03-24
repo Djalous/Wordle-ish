@@ -15,6 +15,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
@@ -38,6 +39,7 @@ public class AdminController implements Initializable {
 
 
     /**
+     *
      * @param url
      * @param resourceBundle
      */
@@ -71,6 +73,9 @@ public class AdminController implements Initializable {
         });
     }
 
+    /**
+     *
+     */
     public void setWordLength() {
         String length = wordLength.getText();
         if (length.length() > 0) {
@@ -78,6 +83,9 @@ public class AdminController implements Initializable {
         }
     }
 
+    /**
+     *
+     */
     public void addNewWordFile() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select Word File");
@@ -91,6 +99,11 @@ public class AdminController implements Initializable {
         }
     }
 
+    /**
+     *
+     * @param stage
+     * @throws IOException
+     */
     public static void loadAdminDashboard(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(AdminController.class.getResource("admin-dashboard.fxml"));
         Parent root = loader.load();
@@ -98,20 +111,33 @@ public class AdminController implements Initializable {
         stage.setScene(scene);
     }
 
+    /**
+     *
+     */
     public void switchToTargetTable() {
         isTargetTable = true;
         fileTable.setItems(targetFiles);
     }
 
+    /**
+     *
+     */
     public void switchToValidTable() {
         isTargetTable = false;
         fileTable.setItems(validFiles);
     }
 
+    /**
+     *
+     */
     public static class FileModel {
         public final String file;
         public final Button actionButton;
 
+        /**
+         *
+         * @param file
+         */
         public FileModel(String file) {
             this.file = file;
             this.actionButton = new Button("Set");
@@ -120,15 +146,25 @@ public class AdminController implements Initializable {
             updateBtnDisplay();
         }
 
+        /**
+         *
+         */
         private void updateBank() {
             Path filePath = Path.of(file);
-            if (isTargetTable) {
-                WordBank.updateTargetBank(filePath.toFile());
-            } else {
-                WordBank.updateValidBank(filePath.toFile());
+            try {
+                if (isTargetTable) {
+                    WordBank.updateTargetBank(filePath.toFile());
+                } else {
+                    WordBank.updateValidBank(filePath.toFile());
+                }
+            } catch (FileNotFoundException e) {
+                System.out.println("File cannot be found or does not exist.");
             }
         }
 
+        /**
+         *
+         */
         private void updateBtnDisplay() {
             if (isTargetTable) {
                 if (currentTargetBtn != null) {
@@ -149,10 +185,18 @@ public class AdminController implements Initializable {
 
         }
 
+        /**
+         *
+         * @return
+         */
         public String getFile() {
             return file;
         }
 
+        /**
+         *
+         * @return
+         */
         public Button getActionButton() {
             return actionButton;
         }
