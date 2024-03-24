@@ -107,7 +107,7 @@ public class WordBank {
      */
 <<<<<<< HEAD:src/WordBank.java
 <<<<<<< HEAD
-    private static void checkFileExtension(File file, Scanner scanner) {
+    public static void checkFileExtension(File file, Scanner scanner) {
 =======
     static void checkFileExtension(File file, Scanner scanner) {
 >>>>>>> 7583a96e31cbf5294c771c61c0d62825cb60e10a
