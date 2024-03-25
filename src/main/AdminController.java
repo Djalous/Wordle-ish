@@ -55,16 +55,20 @@ public class AdminController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         wordLength.addEventFilter(KeyEvent.KEY_TYPED, keyEvent -> {
+            // Adds an event filter to the wordLength Textfield to only allow numbers to be entered
             if (!"0123456789".contains(keyEvent.getCharacter())) {
                 keyEvent.consume();
             }
         });
+        // Sets the word length when the user presses enter
         wordLength.setOnAction(actionEvent -> setWordLength());
-
+        // Initialize the targetFiles and validFiles ObservableLists
         targetFiles = FXCollections.observableArrayList();
         validFiles = FXCollections.observableArrayList();
+        // Set the items in the fileTable to targetFiles list
         fileTable.setItems(targetFiles);
 
+        //Get the first and second columns in the fileTable
         TableColumn<FileModel, ?> fileColumn = fileTable.getColumns().get(0);
         TableColumn<FileModel, ?> actionColumn = fileTable.getColumns().get(1);
 
@@ -138,7 +142,9 @@ public class AdminController implements Initializable {
     }
 
     /**
-     *
+     * Switches view in Admin dashboard to display valid word files
+     * This is done by changing the items in the fileTable,
+     * which is a TableView object, to display the validFiles list
      */
     public void switchToValidTable() {
         isTargetTable = false;
