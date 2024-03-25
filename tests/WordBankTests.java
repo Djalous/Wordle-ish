@@ -5,6 +5,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
+import java.io.File;
+import java.util.List;
 
 public class WordBankTests {
     static WordBank wordBank;
@@ -31,5 +33,56 @@ public class WordBankTests {
                 word.pushChar(guess.charAt(i));
             Assert.assertTrue(wordBank.isValid(word));
         }
+    }
+
+    @Test
+    public void testHistory() throws FileNotFoundException {
+        wordBank.updateTargetBank(new File("./wordle-official.txt"));
+        wordBank.updateTargetBank(new File("./wordle-official.txt"));
+        wordBank.updateValidBank(new File("./wordle-full.txt"));
+        wordBank.updateValidBank(new File("./wordle-full.txt"));
+
+        Word[][] targetWordHistory = wordBank.getTargetWordHistory();
+        Word[][] validWordHistory = wordBank.getValidWordHistory();
+
+        Assert.assertEquals(targetWordHistory.length, 2);
+        Assert.assertEquals(validWordHistory.length, 2);
+    }
+
+    @Test
+    public void testMin10History() throws FileNotFoundException {
+        wordBank.updateTargetBank(new File("./wordle-official.txt"));
+        wordBank.updateTargetBank(new File("./wordle-official.txt"));
+        wordBank.updateTargetBank(new File("./wordle-official.txt"));
+        wordBank.updateTargetBank(new File("./wordle-official.txt"));
+        wordBank.updateTargetBank(new File("./wordle-official.txt"));
+        wordBank.updateTargetBank(new File("./wordle-official.txt"));
+        wordBank.updateTargetBank(new File("./wordle-official.txt"));
+        wordBank.updateTargetBank(new File("./wordle-official.txt"));
+        wordBank.updateTargetBank(new File("./wordle-official.txt"));
+        wordBank.updateTargetBank(new File("./wordle-official.txt"));
+
+        wordBank.updateValidBank(new File("./wordle-full.txt"));
+        wordBank.updateValidBank(new File("./wordle-full.txt"));
+        wordBank.updateValidBank(new File("./wordle-full.txt"));
+        wordBank.updateValidBank(new File("./wordle-full.txt"));
+        wordBank.updateValidBank(new File("./wordle-full.txt"));
+        wordBank.updateValidBank(new File("./wordle-full.txt"));
+        wordBank.updateValidBank(new File("./wordle-full.txt"));
+        wordBank.updateValidBank(new File("./wordle-full.txt"));
+        wordBank.updateValidBank(new File("./wordle-full.txt"));
+        wordBank.updateValidBank(new File("./wordle-full.txt"));
+
+        Word[][] targetWordHistory = wordBank.getTargetWordHistory();
+        Word[][] validWordHistory = wordBank.getValidWordHistory();
+
+        Assert.assertEquals(targetWordHistory.length, 10);
+        Assert.assertEquals(validWordHistory.length, 10);
+
+        wordBank.updateValidBank(new File("./wordle-full.txt"));
+        wordBank.updateTargetBank(new File("./wordle-official.txt"));
+
+        Assert.assertTrue(targetWordHistory.length >= 10);
+        Assert.assertTrue(validWordHistory.length >= 10);
     }
 }

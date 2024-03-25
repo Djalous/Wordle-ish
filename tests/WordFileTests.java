@@ -36,6 +36,8 @@ public class WordFileTests {
             Assert.assertTrue(wordBank.isValid(new Word("years")));
         } catch (InvalidPathException e) {
             Assert.fail("Exception should not be thrown with valid file");
+        } catch (FileNotFoundException e) {
+            Assert.fail("Exception should not be thrown with valid file. File was not found.");
         }
     }    /**
      * This test checks if the updateValidBank method throws an exception with an invalid file.
