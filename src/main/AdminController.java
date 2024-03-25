@@ -36,12 +36,14 @@ public class AdminController implements Initializable {
     private static boolean isTargetTable = true;
     private static Button currentTargetBtn;
     private static Button currentValidBtn;
+    private final static Stage STAGE = new Stage();
 
 
     /**
+     * Initializes the admin dashboard
      *
-     * @param url
-     * @param resourceBundle
+     * @param url URL of the resource file
+     * @param resourceBundle Resource bundle
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -63,19 +65,10 @@ public class AdminController implements Initializable {
         actionColumn.setCellValueFactory(new PropertyValueFactory<>("actionButton"));
 
         addFileBtn.disableProperty().bind(wordLength.textProperty().isEmpty());
-
-        returnToStartBtn.setOnAction(actionEvent -> {
-            // Return to the start page (WIP)
-            try {
-                loadAdminDashboard((Stage) returnToStartBtn.getScene().getWindow());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
     }
 
     /**
-     *
+     * Sets the word length for the game
      */
     public void setWordLength() {
         String length = wordLength.getText();
@@ -101,15 +94,28 @@ public class AdminController implements Initializable {
     }
 
     /**
+     * Loads the admin dashboard
      *
-     * @param stage
      * @throws IOException
      */
-    public static void loadAdminDashboard(Stage stage) throws IOException {
+    public void loadAdminDashboard() throws IOException {
         FXMLLoader loader = new FXMLLoader(AdminController.class.getResource("/resources/admin-dashboard.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        stage.setScene(scene);
+        STAGE.setScene(scene);
+        STAGE.show();
+    }
+
+    @FXML
+    private void returnToStartPage() {
+        try {
+            FXMLLoader loader = new FXMLLoader(AdminController.class.getResource("/resources/start_page.fxml"));
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            STAGE.setScene(scene);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
