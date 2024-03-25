@@ -17,11 +17,19 @@ public class StartPageController {
     private ChoiceBox<String> userSelection;
     @FXML
     private void startGame(ActionEvent event) throws IOException {
+        Stage stage = (Stage) startPage.getScene().getWindow();
         String userType = userSelection.getValue();
         switch (userType) {
-            case "Admin" -> AdminController.loadAdminDashboard((Stage) startPage.getScene().getWindow());
-            case "User" -> GameController.loadGameView((Stage) startPage.getScene().getWindow());
+            case "Admin" -> {
+                stage.close();
+                new AdminController().loadAdminDashboard();
+            }
+            case "User" -> {
+                stage.close();
+                GameController.loadGameView();
+            }
         }
-
     }
+
+
 }

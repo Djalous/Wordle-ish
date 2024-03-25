@@ -19,8 +19,12 @@
     -fx-alignment: CENTER-RIGHT;
 }
 
-#validWordsBtn:hover, #targetWordsBtn:hover {
-    -fx-background-color: grey;
+#validWordsBtn:hover {
+    -fx-background-color: linear-gradient(to right, #d3d3d3, white);
+}
+
+#targetWordsBtn:hover {
+    -fx-background-color: linear-gradient(to left, #d3d3d3, white);
 }
 
 .table-view .table-cell{
