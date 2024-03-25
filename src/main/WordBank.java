@@ -1,10 +1,11 @@
+package main;
+
+import main.Word;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.InvalidPathException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Manages the bank of words a Wordle game will have access to for the
@@ -13,9 +14,12 @@ import java.util.Scanner;
  * @version created on 2/5/23
  */
 public class WordBank {
-    private final List<Word> targetWords = new ArrayList<>();
-    private final List<Word> validWords = new ArrayList<>();
+    private static final int MAX_PREV_STORE = 10;
 
+    private static final RecentHistory<Word[]> prevTargetWords = new RecentHistory<>(MAX_PREV_STORE);
+    private static final RecentHistory<Word[]> prevValidWords = new RecentHistory<>(MAX_PREV_STORE);
+    private static List<Word> targetWords = new ArrayList<>();
+    private static List<Word> validWords = new ArrayList<>();
     public static int WORD_LENGTH = 5;
 
     public WordBank() throws FileNotFoundException {
@@ -24,7 +28,7 @@ public class WordBank {
 
     }
 
-    /** Create a WordBank from the given target word file and the given valid word file
+    /** Create a main.WordBank from the given target word file and the given valid word file
      * @param targetFile File containing the guessable words
      * @param validFile File containing words considered valid
      */
@@ -33,40 +37,45 @@ public class WordBank {
         updateValidBank(validFile);
     }
 
+    public static void setWordLength(int parseInt) {
+        WORD_LENGTH = parseInt;
+    }
+
     /** Updates the file used for guessable words
      * @param targetFile File to used for guessable words
      * @throws InvalidPathException Thrown if the passed in file cannot be found
      */
-    public void updateTargetBank(File targetFile) throws InvalidPathException, FileNotFoundException {
-        try (Scanner in = new Scanner(targetFile)) {
-            checkFileExtension(targetFile, in);
-            targetWords.clear();
-            addToWordList(targetWords, in);
-        } catch (FileNotFoundException e) {
-            System.out.println("File cannot be found or does not exist.");
-            throw new FileNotFoundException("File cannot be found or does not exist.");
-
-        }
-        System.out.println("Target words: " + targetWords.size() + " have been added.");
+    public static void updateTargetBank(File targetFile) throws InvalidPathException, FileNotFoundException {
+        targetWords = updateBank(targetFile, targetWords, prevTargetWords);
     }
 
     /** Updates the file used for valid words
      * @param validFile File used for valid words
      * @throws InvalidPathException Thrown if the passed in file cannot be found
      */
-    public void updateValidBank(File validFile) throws InvalidPathException {
+    public static void updateValidBank(File validFile) throws InvalidPathException, FileNotFoundException {
+        validWords = updateBank(validFile, validWords, prevValidWords);
+    }
+
+    private static List<Word> updateBank(File validFile, List<Word> storage, RecentHistory<Word[]> history) throws InvalidPathException, FileNotFoundException {
         try (Scanner in = new Scanner(validFile)) {
             checkFileExtension(validFile, in);
-            validWords.clear();
-            addToWordList(validWords, in);
+
+            if (storage != null) {
+                history.add(storage.toArray(new Word[0]));
+            }
+
+            List<Word> newStorage = new ArrayList<>();
+            addToWordList(newStorage, in);
+            return newStorage;
         } catch (FileNotFoundException e) {
             System.out.println("File cannot be found or does not exist.");
+            throw new FileNotFoundException("File cannot be found or does not exist.");
         }
-        System.out.println("Valid words: " + validWords.size() + " have been added.");
     }
 
     /** Does the given word appear in our valid words list?
-     * @param word Word to check
+     * @param word main.Word to check
      * @return True if the word is present. False otherwise
      */
     public boolean isValid(Word word) {
@@ -79,10 +88,10 @@ public class WordBank {
      * @param list List to add the words to
      * @param scanner Scanner of the word file
      */
-    private void addToWordList(List<Word> list, Scanner scanner) {
+    private static void addToWordList(List<Word> list, Scanner scanner) {
         while (scanner.hasNext()) {
             String wordStr = scanner.nextLine().toLowerCase();
-            if (wordStr.length() == this.WORD_LENGTH) {
+            if (wordStr.length() == WORD_LENGTH) {
                 Word wordObj = new Word(wordStr.length());
 
                 for (int i = 0; i < wordStr.length(); ++i) {
@@ -98,7 +107,7 @@ public class WordBank {
      * @param file File to verify
      * @param scanner Scanner of file to verify and configure
      */
-    void checkFileExtension(File file, Scanner scanner) {
+    public static void checkFileExtension(File file, Scanner scanner) {
         String filePath = file.getPath();
         //admin menu dependent
         if (filePath.endsWith(".csv")) {
@@ -114,5 +123,13 @@ public class WordBank {
     public Word generateTargetWord() {
         Random rand = new Random();
         return targetWords.get(rand.nextInt(targetWords.size()));
+    }
+
+    public Word[][] getValidWordHistory() {
+        return prevValidWords.toArray(new Word[0][0]);
+    }
+
+    public Word[][] getTargetWordHistory() {
+        return prevTargetWords.toArray(new Word[0][0]);
     }
 }

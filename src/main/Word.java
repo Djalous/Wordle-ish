@@ -1,3 +1,5 @@
+package main;
+
 import java.security.InvalidParameterException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -83,38 +85,28 @@ public class Word {
             char c1 = wordStr.charAt(i);
             char c2 = targetStr.charAt(i);
 
-            Integer wordCount = currentFreq.get(c1);
-            if (wordCount == null) {
-                wordCount = 0;
-            }
-
-            if (c1 == c2) {
-                correctness[i] = CharValidity.CORRECT_POSITION;
-            }
+            currentFreq.putIfAbsent(c1, 0);
+            int wordCount = currentFreq.get(c1);
 
             currentFreq.put(c1, wordCount + 1);
+            if (c1 == c2) {
+                correctness[i] = CharValidity.CORRECT_POSITION;
+                currentFreq.put(c1, wordCount - 1);
+            }
         }
 
         for (int i = 0; i < length; i++) {
+            if (correctness[i] == CharValidity.CORRECT_POSITION) {
+                continue;
+            }
+
             char c1 = wordStr.charAt(i);
-
-            Integer wordCount = currentFreq.get(c1);
-            if (wordCount == null) {
-                wordCount = 0;
-            }
-            Integer targetCount = targetFreq.get(c1);
-            if (targetCount == null) {
-                targetCount = 0;
-            }
-
-            if (targetCount > wordCount) {
-                correctness[i] = CharValidity.PRESENT_CHAR;
-            }
-            else {
+            if (targetFreq.get(c1) == null || currentFreq.get(c1) == 0) {
                 correctness[i] = CharValidity.INCORRECT;
+            } else {
+                correctness[i] = CharValidity.PRESENT_CHAR;
+                currentFreq.put(c1, currentFreq.get(c1) - 1);
             }
-
-            currentFreq.put(c1, wordCount + 1);
         }
 
         return correctness;
