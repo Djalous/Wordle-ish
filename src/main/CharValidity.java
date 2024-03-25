@@ -1,3 +1,5 @@
+package main;
+
 public enum CharValidity {
     /**
      * When the character guessed is both the correct character

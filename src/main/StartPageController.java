@@ -1,8 +1,12 @@
+package main;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import main.AdminController;
+import main.GameController;
 
 import java.io.IOException;
 
@@ -16,7 +20,7 @@ public class StartPageController {
         String userType = userSelection.getValue();
         switch (userType) {
             case "Admin" -> AdminController.loadAdminDashboard((Stage) startPage.getScene().getWindow());
-            case "Player" -> GameController.loadGameView((Stage) startPage.getScene().getWindow());
+            case "User" -> GameController.loadGameView((Stage) startPage.getScene().getWindow());
         }
 
     }

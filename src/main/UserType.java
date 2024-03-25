@@ -1,3 +1,5 @@
+package main;
+
 /**
  * A type enum for the type of user interacting with the program.
  * This will determine what functionality the user has access to.

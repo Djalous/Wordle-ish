@@ -1,3 +1,7 @@
+package main;
+
+import main.Word;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.InvalidPathException;
@@ -24,7 +28,7 @@ public class WordBank {
 
     }
 
-    /** Create a WordBank from the given target word file and the given valid word file
+    /** Create a main.WordBank from the given target word file and the given valid word file
      * @param targetFile File containing the guessable words
      * @param validFile File containing words considered valid
      */
@@ -84,7 +88,7 @@ public class WordBank {
     }
 
     /** Does the given word appear in our valid words list?
-     * @param word Word to check
+     * @param word main.Word to check
      * @return True if the word is present. False otherwise
      */
     public boolean isValid(Word word) {
@@ -100,7 +104,7 @@ public class WordBank {
     private static void addToWordList(List<Word> list, Scanner scanner) {
         while (scanner.hasNext()) {
             String wordStr = scanner.nextLine().toLowerCase();
-            if (wordStr.length() == this.WORD_LENGTH) {
+            if (wordStr.length() == WORD_LENGTH) {
                 Word wordObj = new Word(wordStr.length());
 
                 for (int i = 0; i < wordStr.length(); ++i) {
@@ -116,7 +120,7 @@ public class WordBank {
      * @param file File to verify
      * @param scanner Scanner of file to verify and configure
      */
-    static void checkFileExtension(File file, Scanner scanner) {
+    public static void checkFileExtension(File file, Scanner scanner) {
         String filePath = file.getPath();
         //admin menu dependent
         if (filePath.endsWith(".csv")) {
