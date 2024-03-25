@@ -75,7 +75,10 @@ public class AdminController implements Initializable {
     }
 
     /**
-     *
+     * This method sets the word length in the WordBank class
+     * It first retrieves the text from the TextField named wordLength
+     * If the retrieved test is not empyy, it parses the text to an integer and sets it
+     * as the word length in the WordBank class.
      */
     public void setWordLength() {
         String length = wordLength.getText();
