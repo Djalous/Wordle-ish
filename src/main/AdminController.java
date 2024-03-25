@@ -85,6 +85,7 @@ public class AdminController implements Initializable {
     }
 
     /**
+     * Adds a new word file to the appropriate List(targetFiles or validFiles)
      *
      */
     public void addNewWordFile() {
@@ -113,6 +114,9 @@ public class AdminController implements Initializable {
         STAGE.show();
     }
 
+    /**
+     * Returns to the start page
+     */
     @FXML
     private void returnToStartPage() {
         try {
@@ -126,7 +130,7 @@ public class AdminController implements Initializable {
     }
 
     /**
-     *
+     * Switches the fileTables items to targetFiles and sets isTargetTable to true
      */
     public void switchToTargetTable() {
         isTargetTable = true;
