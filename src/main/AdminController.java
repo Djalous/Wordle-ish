@@ -106,7 +106,7 @@ public class AdminController implements Initializable {
      * @throws IOException
      */
     public static void loadAdminDashboard(Stage stage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(AdminController.class.getResource("resources/admin-dashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(AdminController.class.getResource("/resources/admin-dashboard.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         stage.setScene(scene);

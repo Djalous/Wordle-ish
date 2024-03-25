@@ -20,7 +20,7 @@ public class StartPageController {
         String userType = userSelection.getValue();
         switch (userType) {
             case "Admin" -> AdminController.loadAdminDashboard((Stage) startPage.getScene().getWindow());
-            case "Player" -> GameController.loadGameView((Stage) startPage.getScene().getWindow());
+            case "User" -> GameController.loadGameView((Stage) startPage.getScene().getWindow());
         }
 
     }
