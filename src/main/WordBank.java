@@ -14,12 +14,12 @@ import java.util.*;
  * @version created on 2/5/23
  */
 public class WordBank {
-    private final RecentHistory<Word[]> prevTargetWords = new RecentHistory<>(MAX_PREV_STORE);
-    private final RecentHistory<Word[]> prevValidWords = new RecentHistory<>(MAX_PREV_STORE);
-
     private static final int MAX_PREV_STORE = 10;
-    private static final List<Word> targetWords = new ArrayList<>();
-    private static final List<Word> validWords = new ArrayList<>();
+
+    private static final RecentHistory<Word[]> prevTargetWords = new RecentHistory<>(MAX_PREV_STORE);
+    private static final RecentHistory<Word[]> prevValidWords = new RecentHistory<>(MAX_PREV_STORE);
+    private static List<Word> targetWords = new ArrayList<>();
+    private static List<Word> validWords = new ArrayList<>();
     public static int WORD_LENGTH = 5;
 
     public WordBank() throws FileNotFoundException {
@@ -46,31 +46,18 @@ public class WordBank {
      * @throws InvalidPathException Thrown if the passed in file cannot be found
      */
     public static void updateTargetBank(File targetFile) throws InvalidPathException, FileNotFoundException {
-        try (Scanner in = new Scanner(targetFile)) {
-            checkFileExtension(targetFile, in);
-            targetWords.clear();
-            addToWordList(targetWords, in);
-        } catch (FileNotFoundException e) {
-            System.out.println("File cannot be found or does not exist.");
-            throw new FileNotFoundException("File cannot be found or does not exist.");
-
-        }
-        System.out.println("Target words: " + targetWords.size() + " have been added.");
+        targetWords = updateBank(targetFile, targetWords, prevTargetWords);
     }
 
     /** Updates the file used for valid words
      * @param validFile File used for valid words
      * @throws InvalidPathException Thrown if the passed in file cannot be found
      */
-<<<<<<< src/WordBank.java
-    public void updateValidBank(File validFile) throws InvalidPathException, FileNotFoundException {
+    public static void updateValidBank(File validFile) throws InvalidPathException, FileNotFoundException {
         validWords = updateBank(validFile, validWords, prevValidWords);
     }
 
-    private List<Word> updateBank(File validFile, List<Word> storage, RecentHistory<Word[]> history) throws InvalidPathException, FileNotFoundException {
-=======
-    public static void updateValidBank(File validFile) throws InvalidPathException {
->>>>>>> src/WordBank.java
+    private static List<Word> updateBank(File validFile, List<Word> storage, RecentHistory<Word[]> history) throws InvalidPathException, FileNotFoundException {
         try (Scanner in = new Scanner(validFile)) {
             checkFileExtension(validFile, in);
 
