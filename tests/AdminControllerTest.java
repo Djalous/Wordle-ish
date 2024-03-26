@@ -1,5 +1,6 @@
 import main.Word;
 import main.WordBank;
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
@@ -27,11 +28,11 @@ public class AdminControllerTest {
         File validVocabBankFile = new File("./wordle-official.txt");
 
         wordBank = new WordBank(validTargetBankFile, validVocabBankFile);
-        assertTrue(wordBank.isValid(word));
+        Assert.assertTrue(wordBank.isValid(word));
 
         // we expect false here because abcde is not a valid word
         Word invalidWord = new Word("abcde");
-        assertFalse(wordBank.isValid(invalidWord));
+        Assert.assertFalse(wordBank.isValid(invalidWord));
 
 
     }
