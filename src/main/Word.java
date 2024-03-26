@@ -78,35 +78,37 @@ public class Word {
         CharValidity[] correctness = new CharValidity[length];
 
         // Correct position pass
-        // TODO: Refactor, this can be refactored in such way to likely do functional programming to do each pass
-        // as a functional operation. That's a lot of work though and is going to require an almost complete
-        // rewrite of this function. This is fine for now, even if its not the cleanest solution
         for (int i = 0; i < length; i++) {
             char c1 = wordStr.charAt(i);
             char c2 = targetStr.charAt(i);
 
-            currentFreq.putIfAbsent(c1, 0);
-            int wordCount = currentFreq.get(c1);
+            int wordCount = currentFreq.getOrDefault(c1, 0);
 
-            currentFreq.put(c1, wordCount + 1);
             if (c1 == c2) {
                 correctness[i] = CharValidity.CORRECT_POSITION;
-                currentFreq.put(c1, wordCount - 1);
+                currentFreq.put(c1, wordCount + 1);
             }
         }
 
+        // Present character pass
         for (int i = 0; i < length; i++) {
             if (correctness[i] == CharValidity.CORRECT_POSITION) {
                 continue;
             }
 
             char c1 = wordStr.charAt(i);
-            if (targetFreq.get(c1) == null || currentFreq.get(c1) == 0) {
-                correctness[i] = CharValidity.INCORRECT;
-            } else {
+
+            int wordCount = currentFreq.getOrDefault(c1, 0);
+            int targetCount = targetFreq.getOrDefault(c1, 0);
+
+            if (targetCount > wordCount) {
                 correctness[i] = CharValidity.PRESENT_CHAR;
-                currentFreq.put(c1, currentFreq.get(c1) - 1);
             }
+            else {
+                correctness[i] = CharValidity.INCORRECT;
+            }
+
+            currentFreq.put(c1, wordCount + 1);
         }
 
         return correctness;

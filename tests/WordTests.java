@@ -153,4 +153,26 @@ public class WordTests {
 
         Assert.assertArrayEquals(test, data);
     }
+
+    @Test
+    public void testAppleCorrect() {
+        Word w1 = new Word(5);
+
+        w1.pushChar('l');
+        w1.pushChar('e');
+        w1.pushChar('v');
+        w1.pushChar('e');
+        w1.pushChar('l');
+
+        CharValidity[] data = w1.getCorrect(new Word("apple"));
+        CharValidity[] test = new CharValidity[] {
+                CharValidity.PRESENT_CHAR,
+                CharValidity.PRESENT_CHAR,
+                CharValidity.INCORRECT,
+                CharValidity.INCORRECT,
+                CharValidity.INCORRECT,
+        };
+
+        Assert.assertArrayEquals(test, data);
+    }
 }

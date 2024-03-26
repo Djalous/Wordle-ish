@@ -18,7 +18,8 @@ This is a Wordle-esque app implemented in Java and JavaFX. Our application has t
 - [ ] Store current guess
 - [ ] View correct letters in their places or almost correct places (green right letter, in right place, yellow right letter, in wrong place)
 - [ ] Appropriate error messages depending on what invalidity is present in user's guess
-- [ ] Admin View
+- [ ] Toggle between Admin/USer View
+- [ ] Admin Dashboard 
 ### Future Features
 - [ ] View the letters you have guessed (In Development)
 - [ ] View your current number of guesses (In Development)
