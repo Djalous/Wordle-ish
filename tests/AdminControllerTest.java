@@ -32,7 +32,7 @@ public class AdminControllerTest {
         // we expect false here because abcde is not a valid word
         Word invalidWord = new Word("abcde");
         assertFalse(wordBank.isValid(invalidWord));
-        
+
 
     }
 }
