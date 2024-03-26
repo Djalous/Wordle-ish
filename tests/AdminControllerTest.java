@@ -1,12 +1,10 @@
 import main.Word;
 import main.WordBank;
 import org.junit.Assert;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import static org.junit.Assert.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AdminControllerTest {
     static WordBank wordBank;
