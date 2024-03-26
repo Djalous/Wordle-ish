@@ -305,14 +305,27 @@ public class Controller implements Initializable {
         int numCols = letterGrid.getColumnCount();
         for  (int i = 0; i < letterFields.size(); ++i) {
             TextField letterField =  ((TextField) letterFields.get(i));
+            TextField prevField = null;
+            TextField nextField = null;
+            // letter fields being assigned was originally here
             letterField.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
                 if (change.isContentChange() && change.getControlNewText().length() > 1) {
                     return null;
                 }
                 return change;
             }));
+            if (i != 0 && i != letterFields.size() - 1) {
+                prevField = ((TextField) letterFields.get(i - 1));
+                nextField = ((TextField) letterFields.get(i + 1));
+            } else if (i == 0) {
+                nextField = ((TextField) letterFields.get(i + 1));
+            } else if (i == letterFields.size() - 1) {
+                prevField = ((TextField) letterFields.get(i - 1));
+            }
+            filterTextField(prevField, letterField, nextField);
 
-            int count = (i+1) % wordLength;
+
+            /*int count = (i+1) % wordLength;
 
             TextField nextField = null;
             TextField prevField = null;
@@ -323,7 +336,7 @@ public class Controller implements Initializable {
                 nextField = (TextField) letterFields.get(i+1);
             }
 
-            filterTextField(prevField, letterField, nextField);
+            filterTextField(prevField, letterField, nextField);*/
 
             int rowIndex = i / numCols;
             GridPane.setRowIndex(letterField, rowIndex);
@@ -421,8 +434,8 @@ public class Controller implements Initializable {
             } else {
                 return null;
             }
-        }));
-        textField.setOnKeyPressed(event -> {
+        }));*/
+        /*textField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.BACK_SPACE && textField.getText().isEmpty()) {
                 if (prevField != null) {
                     prevField.requestFocus();
@@ -444,9 +457,8 @@ public class Controller implements Initializable {
                 }
             }
         });*/
-        textField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.length() > 1 || !newValue.matches("[a-zA-Z]")) {
-                //textField.setText(newValue.substring(0, 1));
+        textField.textProperty().addListener((obervable, oldValue, newValue) -> {
+            if (!newValue.matches("[a-zA-Z]")) {
                 textField.setText("");
             } else {
                 textField.setText(newValue.toUpperCase());
@@ -454,42 +466,36 @@ public class Controller implements Initializable {
         });
 
         textField.setOnKeyTyped(event -> {
-            event.consume();
             if (textField.getText().length() == 1 && nextField != null) {
                 nextField.requestFocus();
-            }
-        });
-
-        textField.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.BACK_SPACE) {
-                if (!textField.getText().isEmpty()) {
-                    textField.setText("");
-                } else if (prevField != null) {
-                    prevField.requestFocus();
-                    prevField.setText("");
-                }
-                event.consume();
-            } else if (!event.getText().matches("[a-zA-Z]")) {
-                event.consume();
             }
         });
 
         /*textField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.BACK_SPACE && textField.getText().isEmpty()) {
                 if (prevField != null) {
-                    prevField.requestFocus();
-                    prevField.positionCaret(prevField.getLength());
-                    String prevText = prevField.getText();
-                }
-            } else if (event.getCode().isLetterKey() && textField.getText().isEmpty()) {
-                textField.setText(event.getText().toUpperCase());
-                textField.positionCaret(textField.getLength());
+                    if (textField.getCaretPosition() == 0 && !textField.equals(prevField)) {
+                        prevField.requestFocus();
+                        prevField.setText("");
 
-                if (nextField != null) {
-                    nextField.requestFocus();
+                    }
                 }
+
+            } else if (event.getCode() == KeyCode.BACK_SPACE && !textField.getText().isEmpty()) {
+                textField.setText("");
             }
         });*/
+
+        textField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.BACK_SPACE) {
+                if (textField.getText().isEmpty()) {
+                    prevField.setText("");
+                    prevField.requestFocus();
+                } else {
+                    textField.setText("");
+                }
+            }
+        });
     }
 
     /**
