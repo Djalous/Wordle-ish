@@ -6,7 +6,7 @@
 
 <AnchorPane fx:id="startPage" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.StartPageController">
    <children>
-      <Button layoutX="308.0" layoutY="257.0" mnemonicParsing="false" onAction="#startGame" text="Play" />
+      <Button layoutX="308.0" layoutY="257.0" mnemonicParsing="false" onAction="#loadGameView" text="Play" />
       <Label layoutX="237.0" layoutY="100.0" prefHeight="51.0" prefWidth="125.0" text="Wordle">
          <font>
             <Font name="System Bold" size="35.0" />
@@ -16,6 +16,6 @@
          <font>
             <Font size="20.0" />
          </font></Label>
-      <Button layoutX="237.0" layoutY="257.0" mnemonicParsing="false" text="Log in" />
+      <Button layoutX="237.0" layoutY="257.0" mnemonicParsing="false" onAction="#loadLoginPage" text="Log in" />
    </children>
 </AnchorPane>

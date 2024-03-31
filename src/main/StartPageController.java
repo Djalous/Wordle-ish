@@ -18,23 +18,24 @@ public class StartPageController {
     private AnchorPane startPage;
     @FXML
     private ChoiceBox<String> userSelection;
-    @FXML
-    private void startGame(ActionEvent event) throws IOException {
-        Stage stage = (Stage) startPage.getScene().getWindow();
-        String userType = userSelection.getValue();
-        switch (userType) {
-            case "Admin" -> {
-                stage.close();
-                loadAdminDashboard();
-            }
-            case "User" -> {
-                stage.close();
-                loadGameView();
-            }
-        }
-    }
+//    @FXML
+//    private void startGame(ActionEvent event) throws IOException {
+//        Stage stage = (Stage) startPage.getScene().getWindow();
+//        String userType = userSelection.getValue();
+//        switch (userType) {
+//            case "Admin" -> {
+//                stage.close();
+//                loadAdminDashboard();
+//            }
+//            case "User" -> {
+//                stage.close();
+//                loadGameView();
+//            }
+//        }
+//    }
 
-    public static void loadGameView() throws IOException {
+    @FXML
+    private void loadGameView() throws IOException {
         FXMLLoader loader = new FXMLLoader(StartPageController.class.getResource("/resources/view.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
@@ -54,5 +55,15 @@ public class StartPageController {
         Scene scene = new Scene(root);
         STAGE.setScene(scene);
         STAGE.show();
+    }
+
+    @FXML
+    private void loadLoginPage() throws IOException {
+        FXMLLoader loader = new FXMLLoader(StartPageController.class.getResource("/resources/login.fxml"));
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
     }
 }
