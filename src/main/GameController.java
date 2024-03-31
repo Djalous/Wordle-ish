@@ -45,7 +45,7 @@ public class GameController implements Initializable {
     private final List<GameState> history = new ArrayList<>();
 
     private final WordBank bank = new WordBank();
-    private UserType user;
+    private static UserType user;
 
     private GridPane keyboard;
     private GridPane letterBoxes;
@@ -184,6 +184,10 @@ public class GameController implements Initializable {
      */
     public void selectRandomGuesses() {
         //TODO: Implement me!
+    }
+
+    public static void setUser(UserType userType) {
+        user = userType;
     }
 
     /**

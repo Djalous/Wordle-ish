@@ -11,31 +11,22 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import static main.AdminController.STAGE;
+
+import static main.AdminController.ADMIN_STAGE;
+import static main.LogInController.LOGIN_STAGE;
 
 public class StartPageController {
     @FXML
     private AnchorPane startPage;
     @FXML
     private ChoiceBox<String> userSelection;
-//    @FXML
-//    private void startGame(ActionEvent event) throws IOException {
-//        Stage stage = (Stage) startPage.getScene().getWindow();
-//        String userType = userSelection.getValue();
-//        switch (userType) {
-//            case "Admin" -> {
-//                stage.close();
-//                loadAdminDashboard();
-//            }
-//            case "User" -> {
-//                stage.close();
-//                loadGameView();
-//            }
-//        }
-//    }
+    @FXML
+    private void startGame(ActionEvent event) throws IOException {
+        loadGameView();
+    }
 
     @FXML
-    private void loadGameView() throws IOException {
+    public static void loadGameView() throws IOException {
         FXMLLoader loader = new FXMLLoader(StartPageController.class.getResource("/resources/view.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
@@ -53,8 +44,8 @@ public class StartPageController {
         FXMLLoader loader = new FXMLLoader(StartPageController.class.getResource("/resources/admin-dashboard.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        STAGE.setScene(scene);
-        STAGE.show();
+        ADMIN_STAGE.setScene(scene);
+        ADMIN_STAGE.show();
     }
 
     @FXML
@@ -62,8 +53,7 @@ public class StartPageController {
         FXMLLoader loader = new FXMLLoader(StartPageController.class.getResource("/resources/login.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.show();
+        LOGIN_STAGE.setScene(scene);
+        LOGIN_STAGE.show();
     }
 }
