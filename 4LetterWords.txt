@@ -1,0 +1,14 @@
+java
+bike
+byte
+bite
+bill
+base
+kite
+lore
+mind
+runs
+find
+type
+void
+cold

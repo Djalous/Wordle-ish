@@ -12,16 +12,17 @@ Double click on the s24-riley-b.jar provided to play the Wordle-Like game
 
 ### Description
 This is a Wordle-esque app implemented in Java and JavaFX. Our application has the following features
-- [ ] Guessing a 5-letter word from a word bank
-- [ ] Ability to enter up to 6 guesses
-- [ ] Logic to check current guess against valid guess word bank
-- [ ] Store current guess
-- [ ] View correct letters in their places or almost correct places (green right letter, in right place, yellow right letter, in wrong place)
-- [ ] Appropriate error messages depending on what invalidity is present in user's guess
-- [ ] Admin View
+- [x] Guessing a 5-letter word from a word bank
+- [x] Ability to enter up to 6 guesses
+- [x] Logic to check current guess against valid guess word bank
+- [x] Store current guess
+- [x] View correct letters in their places or almost correct places (green right letter, in right place, yellow right letter, in wrong place)
+- [x] Appropriate error messages depending on what invalidity is present in user's guess
+- [x] Toggle between Admin/User View
+- [x] Admin Dashboard 
 ### Future Features
 - [ ] View the letters you have guessed (In Development)
-- [ ] View your current number of guesses (In Development)
+- [x] View your current number of guesses (In Development)
 - [ ] View your average guesses over all your games (In Development)
 - [ ] View your past most commonly guessed words and letters (college users only)
 - [ ] View a hint (middle school users only)

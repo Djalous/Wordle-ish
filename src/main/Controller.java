@@ -280,8 +280,8 @@ public class Controller implements Initializable {
     /**
      * The following method was generated using ChatGPT on 2/15 <a href="https://chat.openai.com/">...</a>
      * with the prompt: "how to make fxml textfield only accept one character in FXML"
-     * @param url
-     * @param resourceBundle
+     * @param url URL of the resource file
+     * @param resourceBundle Resource bundle
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
