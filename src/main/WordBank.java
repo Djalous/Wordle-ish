@@ -107,15 +107,8 @@ public class WordBank {
      * @param file File to verify
      * @param scanner Scanner of file to verify and configure
      */
-<<<<<<< HEAD:src/WordBank.java
-<<<<<<< HEAD
+
     public static void checkFileExtension(File file, Scanner scanner) {
-=======
-    static void checkFileExtension(File file, Scanner scanner) {
->>>>>>> 7583a96e31cbf5294c771c61c0d62825cb60e10a
-=======
-    public static void checkFileExtension(File file, Scanner scanner) {
->>>>>>> 1d7ddfab1ef05dcec39650c8f93e81c0dbc8a036:src/main/WordBank.java
         String filePath = file.getPath();
         //admin menu dependent
         if (filePath.endsWith(".csv")) {

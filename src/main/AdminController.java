@@ -43,7 +43,7 @@ public class AdminController implements Initializable {
     private static boolean isTargetTable = true;
     private static Button currentTargetBtn;
     private static Button currentValidBtn;
-    private final static Stage STAGE = new Stage();
+    final static Stage STAGE = new Stage();
 
 
     /**
@@ -103,19 +103,6 @@ public class AdminController implements Initializable {
         } else {
             validFiles.add(fileModel);
         }
-    }
-
-    /**
-     * Loads the admin dashboard
-     *
-     * @throws IOException
-     */
-    public void loadAdminDashboard() throws IOException {
-        FXMLLoader loader = new FXMLLoader(AdminController.class.getResource("/resources/admin-dashboard.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        STAGE.setScene(scene);
-        STAGE.show();
     }
 
     /**
