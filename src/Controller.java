@@ -114,9 +114,6 @@ public class Controller implements Initializable {
      */
     public void startGame() {
         //TODO: Implement me!
-        Word targetWord = bank.generateTargetWord(); // this logic should ideally be here
-        state = new GameState(targetWord);
-        gameIsActive = true;
     }
 
     /**
@@ -324,20 +321,6 @@ public class Controller implements Initializable {
             }
             filterTextField(prevField, letterField, nextField);
 
-
-            /*int count = (i+1) % wordLength;
-
-            TextField nextField = null;
-            TextField prevField = null;
-            if (count != 1) {
-                prevField = (TextField) letterFields.get(i-1);
-            }
-            if (count != 0) {
-                nextField = (TextField) letterFields.get(i+1);
-            }
-
-            filterTextField(prevField, letterField, nextField);*/
-
             int rowIndex = i / numCols;
             GridPane.setRowIndex(letterField, rowIndex);
 
@@ -400,7 +383,6 @@ public class Controller implements Initializable {
     }
 
     private void initLetterFields() {
-        //letterFields = new ArrayList<>();
         letterGrid.getChildren().clear();
         int numRows = 6;
         for (int row = 0; row < numRows; row++) {
@@ -408,11 +390,19 @@ public class Controller implements Initializable {
                 TextField textField = new TextField();
                 //textField.setPrefWidth(80); // optimize textfield widths and heights
                 //textField.setPrefHeight(70);
-                textField.setFont(Font.font("Arial Black", 36));
+                //textField.setPrefWidth((double) 473 / wordLength);
+                textField.setPrefHeight(70);
+                //textField.setFont(Font.font("Arial Black", 36));
+                //textField.setFont(Font.font("Arial Black", textField.getWidth()));
                 GridPane.setRowIndex(textField, row);
                 GridPane.setColumnIndex(textField, col);
                 letterGrid.getChildren().add(textField);
             }
+        }
+        letterGrid.setHgap((double) 250 / wordLength);
+        for (int i = 0; i < (long) letterGrid.getChildren().size(); i++) {
+            TextField field = (TextField) letterGrid.getChildren().get(i);
+            field.setFont(Font.font("Arial Black", 36 - (wordLength * -(4 - wordLength))));
         }
     }
 
@@ -425,38 +415,6 @@ public class Controller implements Initializable {
      * @param nextField the next textField
      */
     private void filterTextField(TextField prevField, TextField textField, TextField nextField) {
-        /*textField.setTextFormatter(new TextFormatter<String>((UnaryOperator<TextFormatter.Change>) change -> {
-            String newText = change.getControlNewText();
-            if (newText.matches("[a-zA-Z]") || newText.isEmpty()) {
-                change.setText(newText.toUpperCase());
-                change.setRange(0, change.getControlText().length());
-                return change;
-            } else {
-                return null;
-            }
-        }));*/
-        /*textField.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.BACK_SPACE && textField.getText().isEmpty()) {
-                if (prevField != null) {
-                    prevField.requestFocus();
-                    prevField.positionCaret(prevField.getLength());
-                    String prevText = prevField.getText();
-                    if (!prevText.isEmpty()) {
-                        prevField.setText(prevText.substring(0, prevText.length() - 1));
-                    }
-                    event.consume();
-                }
-            } else if (event.getCode() == KeyCode.BACK_SPACE) {
-                textField.clear();
-            } else if (event.getCode().isLetterKey() && textField.getText().isEmpty()) {
-                textField.setText(event.getText());
-                textField.positionCaret(textField.getLength());
-
-                if (textField.getText().length() == 1 && nextField != null) {
-                    nextField.requestFocus();
-                }
-            }
-        });*/
         textField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("[a-zA-Z]")) {
                 textField.setText("");
@@ -476,22 +434,6 @@ public class Controller implements Initializable {
                 }
             }
         });
-
-        /*textField.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.BACK_SPACE && textField.getText().isEmpty()) {
-                if (prevField != null) {
-                    if (textField.getCaretPosition() == 0 && !textField.equals(prevField)) {
-                        prevField.requestFocus();
-                        prevField.setText("");
-
-                    }
-                }
-
-            } else if (event.getCode() == KeyCode.BACK_SPACE && !textField.getText().isEmpty()) {
-                textField.setText("");
-            }
-        });*/
-
         textField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.BACK_SPACE && prevField != null) {
                 int prevRow = GridPane.getRowIndex(prevField);
