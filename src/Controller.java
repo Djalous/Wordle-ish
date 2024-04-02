@@ -358,7 +358,7 @@ public class Controller implements Initializable {
         });
 
         stackPane.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
+            if (event.getCode() == KeyCode.ENTER && currentGuessRow != 6) {
                 if (validateGuess()) {
                     colorizeFields();
                     if (currentGuessRow == 0 && state.getCurrentGuess().equals(state.getTargetWord())) {
@@ -466,10 +466,14 @@ public class Controller implements Initializable {
         });
 
         textField.setOnKeyTyped(event -> {
-            int curRow = GridPane.getRowIndex(textField);
-            int nextRow = GridPane.getRowIndex(nextField);
-            if (textField.getText().length() == 1 && nextField != null && curRow == nextRow) {
-                nextField.requestFocus();
+            if (nextField != null) {
+                int curRow = GridPane.getRowIndex(textField);
+                int nextRow = GridPane.getRowIndex(nextField);
+                if (textField.getText().length() == 1 && curRow == nextRow) {
+                    nextField.requestFocus();
+                } else if (curRow != nextRow) {
+                    textField.positionCaret(0);
+                }
             }
         });
 
@@ -489,10 +493,13 @@ public class Controller implements Initializable {
         });*/
 
         textField.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.BACK_SPACE) {
-                if (textField.getText().isEmpty() && prevField != null) {
-                    prevField.setText("");
+            if (event.getCode() == KeyCode.BACK_SPACE && prevField != null) {
+                int prevRow = GridPane.getRowIndex(prevField);
+                int curRow = GridPane.getRowIndex(textField);
+                if (textField.getText().isEmpty() && curRow == prevRow) {
                     prevField.requestFocus();
+                    prevField.setText("");
+                    //prevField.requestFocus();
                 } else {
                     textField.setText("");
                 }
