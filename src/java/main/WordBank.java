@@ -1,11 +1,13 @@
 package main;
 
-import main.Word;
-
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.file.InvalidPathException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
 /**
  * Manages the bank of words a Wordle game will have access to for the
@@ -22,9 +24,12 @@ public class WordBank {
     private static List<Word> validWords = new ArrayList<>();
     public static int WORD_LENGTH = 5;
 
+    private static final String TARGET_FILE_PATH = "wordle-official.txt";
+    private static final String VALID_FILE_PATH = "wordle-full.txt";
+
     public WordBank() throws FileNotFoundException {
-        updateTargetBank(new File("./wordle-official.txt"));
-        updateValidBank(new File("./wordle-full.txt"));
+        updateTargetBank(ResourceManager.loadResource(TARGET_FILE_PATH));
+        updateValidBank(ResourceManager.loadResource(VALID_FILE_PATH));
 
     }
 
