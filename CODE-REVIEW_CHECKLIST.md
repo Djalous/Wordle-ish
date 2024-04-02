@@ -46,10 +46,10 @@ Graciously borrowed/adapted from Version 1.1 © Copyright 2016 John Dalbey revis
     [ ] Do all switch statements have a default branch?
     [ ] Check that nested if statements don't have “dangling else” problems.
     [ ] Are all loops correctly formed, appropriate initialization, increment and termination
-   expressions?
+    expressions?
     [ ] Are open-close parentheses and brace pairs properly situated and matched?
-   [ ] Do logical expresssions evaluate to the correct true or false value?
-   [ ] Do boolean functions return the correct value?
+    [ ] Do logical expresssions evaluate to the correct true or false value?
+    [ ] Do boolean functions return the correct value?
 ## Files
     [ ] Are all files properly declared and opened?
     [ ] Are all files closed properly, even in the case of an error?
