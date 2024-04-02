@@ -406,8 +406,8 @@ public class Controller implements Initializable {
         for (int row = 0; row < numRows; row++) {
             for (int col = 0; col < wordLength; col++) {
                 TextField textField = new TextField();
-                textField.setPrefWidth(80);
-                textField.setPrefHeight(70);
+                //textField.setPrefWidth(80); // optimize textfield widths and heights
+                //textField.setPrefHeight(70);
                 textField.setFont(Font.font("Arial Black", 36));
                 GridPane.setRowIndex(textField, row);
                 GridPane.setColumnIndex(textField, col);
@@ -457,7 +457,7 @@ public class Controller implements Initializable {
                 }
             }
         });*/
-        textField.textProperty().addListener((obervable, oldValue, newValue) -> {
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("[a-zA-Z]")) {
                 textField.setText("");
             } else {
@@ -466,7 +466,9 @@ public class Controller implements Initializable {
         });
 
         textField.setOnKeyTyped(event -> {
-            if (textField.getText().length() == 1 && nextField != null) {
+            int curRow = GridPane.getRowIndex(textField);
+            int nextRow = GridPane.getRowIndex(nextField);
+            if (textField.getText().length() == 1 && nextField != null && curRow == nextRow) {
                 nextField.requestFocus();
             }
         });
@@ -488,7 +490,7 @@ public class Controller implements Initializable {
 
         textField.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.BACK_SPACE) {
-                if (textField.getText().isEmpty()) {
+                if (textField.getText().isEmpty() && prevField != null) {
                     prevField.setText("");
                     prevField.requestFocus();
                 } else {
