@@ -11,7 +11,7 @@ Graciously borrowed/adapted from Version 1.1 © Copyright 2016 John Dalbey revis
     [ ] Are all needed import statements included?
     [ ] Variable names are spelled correctly and consistently.
     [ ] Make sure that primitive data types are not set to null or empty
-[ ] Is 'static' keyword used correctly?
+    [ ] Is 'static' keyword used correctly?
 ## Method Calls
     [ ] Are parameters presented in the correct order?
     [ ] Are parameters of the proper type for the method being called?
