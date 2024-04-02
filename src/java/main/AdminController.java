@@ -44,6 +44,7 @@ public class AdminController implements Initializable {
     private static Button currentTargetBtn;
     private static Button currentValidBtn;
     private final static Stage STAGE = new Stage();
+    private static final String FXML_PATH = "start_page.fxml";
 
 
     /**
@@ -111,7 +112,7 @@ public class AdminController implements Initializable {
      * @throws IOException
      */
     public void loadAdminDashboard() throws IOException {
-        FXMLLoader loader = new FXMLLoader(AdminController.class.getResource("/resources/admin-dashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(AdminController.class.getResource("/admin-dashboard.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         STAGE.setScene(scene);
@@ -124,8 +125,7 @@ public class AdminController implements Initializable {
     @FXML
     private void returnToStartPage() {
         try {
-            FXMLLoader loader = new FXMLLoader(AdminController.class.getResource("/resources/start_page.fxml"));
-            Parent root = loader.load();
+            Parent root = ResourceManager.loadFXML(FXML_PATH);
             Scene scene = new Scene(root);
             STAGE.setScene(scene);
         } catch (IOException e) {
