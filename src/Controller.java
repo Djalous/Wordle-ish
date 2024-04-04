@@ -1,5 +1,6 @@
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -8,12 +9,11 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -56,7 +56,7 @@ public class Controller implements Initializable {
 
     private final List<Button> changedButtons = new ArrayList<>();
     private List<Node> letterFields;
-    private int wordLength = 5;
+    private int wordLength = 7;
 
     private static final Color GREEN = Color.color(0.1, 0.7, 0.1);
     private static final Color GREY = Color.color(0.6, 0.6, 0.6);
@@ -384,25 +384,31 @@ public class Controller implements Initializable {
 
     private void initLetterFields() {
         letterGrid.getChildren().clear();
+        /*RowConstraints rc = new RowConstraints(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+        rc.setVgrow(Priority.ALWAYS);
+        ColumnConstraints cc = new ColumnConstraints(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
+        cc.setHgrow(Priority.ALWAYS);
+        letterGrid.getRowConstraints().add(rc);
+        letterGrid.getColumnConstraints().add(cc);*/
         int numRows = 6;
         for (int row = 0; row < numRows; row++) {
             for (int col = 0; col < wordLength; col++) {
                 TextField textField = new TextField();
-                //textField.setPrefWidth(80); // optimize textfield widths and heights
-                //textField.setPrefHeight(70);
-                //textField.setPrefWidth((double) 473 / wordLength);
+                //textField.setPrefWidth(80);
                 textField.setPrefHeight(70);
-                //textField.setFont(Font.font("Arial Black", 36));
-                //textField.setFont(Font.font("Arial Black", textField.getWidth()));
+                textField.setAlignment(Pos.CENTER);
+                textField.setStyle("-fx-display-caret: false");
                 GridPane.setRowIndex(textField, row);
                 GridPane.setColumnIndex(textField, col);
                 letterGrid.getChildren().add(textField);
             }
         }
-        letterGrid.setHgap((double) 250 / wordLength);
+        letterGrid.setHgap((double) 250 / wordLength); // was 250
+        //letterGrid.setHgap(80);
         for (int i = 0; i < (long) letterGrid.getChildren().size(); i++) {
             TextField field = (TextField) letterGrid.getChildren().get(i);
-            field.setFont(Font.font("Arial Black", 36 - (wordLength * -(4 - wordLength))));
+           // field.setFont(Font.font("Century", 36 - (wordLength * -(4 - wordLength))));
+            field.setFont(Font.font("Century", field.getWidth() + 30));
         }
     }
 
