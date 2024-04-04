@@ -19,8 +19,6 @@ public class StartPageController {
     @FXML
     private AnchorPane startPage;
     @FXML
-    private ChoiceBox<String> userSelection;
-    @FXML
     private void startGame(ActionEvent event) throws IOException {
         loadGameView();
     }
@@ -41,7 +39,7 @@ public class StartPageController {
      * @throws IOException
      */
     public void loadAdminDashboard() throws IOException {
-        FXMLLoader loader = new FXMLLoader(StartPageController.class.getResource("/resources/admin-dashboard.fxml"));
+        FXMLLoader loader = new FXMLLoader(AdminController.class.getResource("/resources/admin-dashboard.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         ADMIN_STAGE.setScene(scene);
@@ -50,7 +48,7 @@ public class StartPageController {
 
     @FXML
     private void loadLoginPage() throws IOException {
-        FXMLLoader loader = new FXMLLoader(StartPageController.class.getResource("/resources/login.fxml"));
+        FXMLLoader loader = new FXMLLoader(LogInController.class.getResource("/resources/login.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
         LOGIN_STAGE.setScene(scene);
