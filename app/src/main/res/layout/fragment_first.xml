@@ -47,7 +47,7 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/editTextText"
+                        android:id="@+id/r1c1"
                         android:layout_width="54dp"
                         android:layout_height="42dp"
                         android:layout_marginLeft="6dp"
@@ -58,7 +58,7 @@
                         android:textAlignment="center" />
 
                     <EditText
-                        android:id="@+id/editTextText"
+                        android:id="@+id/r1c2"
                         android:layout_width="54dp"
                         android:layout_height="42dp"
                         android:layout_marginLeft="6dp"
@@ -69,7 +69,7 @@
                         android:textAlignment="center" />
 
                     <EditText
-                        android:id="@+id/editTextText"
+                        android:id="@+id/r1c3"
                         android:layout_width="54dp"
                         android:layout_height="42dp"
                         android:layout_marginLeft="6dp"
@@ -80,7 +80,7 @@
                         android:textAlignment="center" />
 
                     <EditText
-                        android:id="@+id/editTextText"
+                        android:id="@+id/r1c4"
                         android:layout_width="54dp"
                         android:layout_height="42dp"
                         android:layout_marginLeft="6dp"
@@ -91,71 +91,7 @@
                         android:textAlignment="center" />
 
                     <EditText
-                        android:id="@+id/editTextText"
-                        android:layout_width="54dp"
-                        android:layout_height="42dp"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginRight="6dp"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:inputType="text"
-                        android:textAlignment="center" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginVertical="12dp"
-                    android:gravity="center|center_horizontal"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/editTextText"
-                        android:layout_width="54dp"
-                        android:layout_height="42dp"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginRight="6dp"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:inputType="text"
-                        android:textAlignment="center" />
-
-                    <EditText
-                        android:id="@+id/editTextText"
-                        android:layout_width="54dp"
-                        android:layout_height="42dp"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginRight="6dp"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:inputType="text"
-                        android:textAlignment="center" />
-
-                    <EditText
-                        android:id="@+id/editTextText"
-                        android:layout_width="54dp"
-                        android:layout_height="42dp"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginRight="6dp"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:inputType="text"
-                        android:textAlignment="center" />
-
-                    <EditText
-                        android:id="@+id/editTextText"
-                        android:layout_width="54dp"
-                        android:layout_height="42dp"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginRight="6dp"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:inputType="text"
-                        android:textAlignment="center" />
-
-                    <EditText
-                        android:id="@+id/editTextText"
+                        android:id="@+id/r1c5"
                         android:layout_width="54dp"
                         android:layout_height="42dp"
                         android:layout_marginLeft="6dp"
@@ -175,7 +111,7 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/editTextText"
+                        android:id="@+id/r2c1"
                         android:layout_width="54dp"
                         android:layout_height="42dp"
                         android:layout_marginLeft="6dp"
@@ -186,7 +122,7 @@
                         android:textAlignment="center" />
 
                     <EditText
-                        android:id="@+id/editTextText"
+                        android:id="@+id/r2c2"
                         android:layout_width="54dp"
                         android:layout_height="42dp"
                         android:layout_marginLeft="6dp"
@@ -197,7 +133,7 @@
                         android:textAlignment="center" />
 
                     <EditText
-                        android:id="@+id/editTextText"
+                        android:id="@+id/r2c3"
                         android:layout_width="54dp"
                         android:layout_height="42dp"
                         android:layout_marginLeft="6dp"
@@ -208,7 +144,7 @@
                         android:textAlignment="center" />
 
                     <EditText
-                        android:id="@+id/editTextText"
+                        android:id="@+id/r2c4"
                         android:layout_width="54dp"
                         android:layout_height="42dp"
                         android:layout_marginLeft="6dp"
@@ -219,71 +155,7 @@
                         android:textAlignment="center" />
 
                     <EditText
-                        android:id="@+id/editTextText"
-                        android:layout_width="54dp"
-                        android:layout_height="42dp"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginRight="6dp"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:inputType="text"
-                        android:textAlignment="center" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginVertical="12dp"
-                    android:gravity="center|center_horizontal"
-                    android:orientation="horizontal">
-
-                    <EditText
-                        android:id="@+id/editTextText"
-                        android:layout_width="54dp"
-                        android:layout_height="42dp"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginRight="6dp"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:inputType="text"
-                        android:textAlignment="center" />
-
-                    <EditText
-                        android:id="@+id/editTextText"
-                        android:layout_width="54dp"
-                        android:layout_height="42dp"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginRight="6dp"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:inputType="text"
-                        android:textAlignment="center" />
-
-                    <EditText
-                        android:id="@+id/editTextText"
-                        android:layout_width="54dp"
-                        android:layout_height="42dp"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginRight="6dp"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:inputType="text"
-                        android:textAlignment="center" />
-
-                    <EditText
-                        android:id="@+id/editTextText"
-                        android:layout_width="54dp"
-                        android:layout_height="42dp"
-                        android:layout_marginLeft="6dp"
-                        android:layout_marginRight="6dp"
-                        android:layout_weight="1"
-                        android:ems="10"
-                        android:inputType="text"
-                        android:textAlignment="center" />
-
-                    <EditText
-                        android:id="@+id/editTextText"
+                        android:id="@+id/r2c5"
                         android:layout_width="54dp"
                         android:layout_height="42dp"
                         android:layout_marginLeft="6dp"
@@ -303,7 +175,7 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/editTextText"
+                        android:id="@+id/r3c1"
                         android:layout_width="54dp"
                         android:layout_height="42dp"
                         android:layout_marginLeft="6dp"
@@ -314,7 +186,7 @@
                         android:textAlignment="center" />
 
                     <EditText
-                        android:id="@+id/editTextText"
+                        android:id="@+id/r3c2"
                         android:layout_width="54dp"
                         android:layout_height="42dp"
                         android:layout_marginLeft="6dp"
@@ -325,7 +197,7 @@
                         android:textAlignment="center" />
 
                     <EditText
-                        android:id="@+id/editTextText"
+                        android:id="@+id/r3c3"
                         android:layout_width="54dp"
                         android:layout_height="42dp"
                         android:layout_marginLeft="6dp"
@@ -336,7 +208,7 @@
                         android:textAlignment="center" />
 
                     <EditText
-                        android:id="@+id/editTextText"
+                        android:id="@+id/r3c4"
                         android:layout_width="54dp"
                         android:layout_height="42dp"
                         android:layout_marginLeft="6dp"
@@ -347,7 +219,7 @@
                         android:textAlignment="center" />
 
                     <EditText
-                        android:id="@+id/editTextText"
+                        android:id="@+id/r3c5"
                         android:layout_width="54dp"
                         android:layout_height="42dp"
                         android:layout_marginLeft="6dp"
@@ -367,7 +239,7 @@
                     android:orientation="horizontal">
 
                     <EditText
-                        android:id="@+id/editTextText"
+                        android:id="@+id/r4c1"
                         android:layout_width="54dp"
                         android:layout_height="42dp"
                         android:layout_marginLeft="6dp"
@@ -378,7 +250,7 @@
                         android:textAlignment="center" />
 
                     <EditText
-                        android:id="@+id/editTextText"
+                        android:id="@+id/r4c2"
                         android:layout_width="54dp"
                         android:layout_height="42dp"
                         android:layout_marginLeft="6dp"
@@ -389,7 +261,7 @@
                         android:textAlignment="center" />
 
                     <EditText
-                        android:id="@+id/editTextText"
+                        android:id="@+id/r4c3"
                         android:layout_width="54dp"
                         android:layout_height="42dp"
                         android:layout_marginLeft="6dp"
@@ -400,7 +272,7 @@
                         android:textAlignment="center" />
 
                     <EditText
-                        android:id="@+id/editTextText"
+                        android:id="@+id/r4c4"
                         android:layout_width="54dp"
                         android:layout_height="42dp"
                         android:layout_marginLeft="6dp"
@@ -411,7 +283,135 @@
                         android:textAlignment="center" />
 
                     <EditText
-                        android:id="@+id/editTextText"
+                        android:id="@+id/r4c5"
+                        android:layout_width="54dp"
+                        android:layout_height="42dp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="6dp"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:textAlignment="center" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginVertical="12dp"
+                    android:gravity="center|center_horizontal"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/r5c1"
+                        android:layout_width="54dp"
+                        android:layout_height="42dp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="6dp"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:textAlignment="center" />
+
+                    <EditText
+                        android:id="@+id/r5c2"
+                        android:layout_width="54dp"
+                        android:layout_height="42dp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="6dp"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:textAlignment="center" />
+
+                    <EditText
+                        android:id="@+id/r5c3"
+                        android:layout_width="54dp"
+                        android:layout_height="42dp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="6dp"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:textAlignment="center" />
+
+                    <EditText
+                        android:id="@+id/r5c4"
+                        android:layout_width="54dp"
+                        android:layout_height="42dp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="6dp"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:textAlignment="center" />
+
+                    <EditText
+                        android:id="@+id/r5c5"
+                        android:layout_width="54dp"
+                        android:layout_height="42dp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="6dp"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:textAlignment="center" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginVertical="12dp"
+                    android:gravity="center|center_horizontal"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/r6c1"
+                        android:layout_width="54dp"
+                        android:layout_height="42dp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="6dp"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:textAlignment="center" />
+
+                    <EditText
+                        android:id="@+id/r6c2"
+                        android:layout_width="54dp"
+                        android:layout_height="42dp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="6dp"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:textAlignment="center" />
+
+                    <EditText
+                        android:id="@+id/r6c3"
+                        android:layout_width="54dp"
+                        android:layout_height="42dp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="6dp"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:textAlignment="center" />
+
+                    <EditText
+                        android:id="@+id/r6c4"
+                        android:layout_width="54dp"
+                        android:layout_height="42dp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginRight="6dp"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="text"
+                        android:textAlignment="center" />
+
+                    <EditText
+                        android:id="@+id/r6c5"
                         android:layout_width="54dp"
                         android:layout_height="42dp"
                         android:layout_marginLeft="6dp"
