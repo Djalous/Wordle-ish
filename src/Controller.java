@@ -56,7 +56,7 @@ public class Controller implements Initializable {
 
     private final List<Button> changedButtons = new ArrayList<>();
     private List<Node> letterFields;
-    private int wordLength = 7;
+    private int wordLength = 5; // optimized for 4-7
 
     private static final Color GREEN = Color.color(0.1, 0.7, 0.1);
     private static final Color GREY = Color.color(0.6, 0.6, 0.6);
@@ -384,17 +384,12 @@ public class Controller implements Initializable {
 
     private void initLetterFields() {
         letterGrid.getChildren().clear();
-        /*RowConstraints rc = new RowConstraints(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
-        rc.setVgrow(Priority.ALWAYS);
-        ColumnConstraints cc = new ColumnConstraints(Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE, Region.USE_COMPUTED_SIZE);
-        cc.setHgrow(Priority.ALWAYS);
-        letterGrid.getRowConstraints().add(rc);
-        letterGrid.getColumnConstraints().add(cc);*/
         int numRows = 6;
         for (int row = 0; row < numRows; row++) {
             for (int col = 0; col < wordLength; col++) {
                 TextField textField = new TextField();
-                //textField.setPrefWidth(80);
+                //textField.setPrefWidth(80); // original field width for reference
+                textField.setPrefWidth(100 - (wordLength*4));
                 textField.setPrefHeight(70);
                 textField.setAlignment(Pos.CENTER);
                 textField.setStyle("-fx-display-caret: false");
@@ -403,12 +398,10 @@ public class Controller implements Initializable {
                 letterGrid.getChildren().add(textField);
             }
         }
-        letterGrid.setHgap((double) 250 / wordLength); // was 250
-        //letterGrid.setHgap(80);
+        letterGrid.setHgap((double) 250 / wordLength);
         for (int i = 0; i < (long) letterGrid.getChildren().size(); i++) {
             TextField field = (TextField) letterGrid.getChildren().get(i);
-           // field.setFont(Font.font("Century", 36 - (wordLength * -(4 - wordLength))));
-            field.setFont(Font.font("Century", field.getWidth() + 30));
+            field.setFont(Font.font("Century", field.getWidth() + 27));
         }
     }
 
@@ -447,7 +440,6 @@ public class Controller implements Initializable {
                 if (textField.getText().isEmpty() && curRow == prevRow) {
                     prevField.requestFocus();
                     prevField.setText("");
-                    //prevField.requestFocus();
                 } else {
                     textField.setText("");
                 }
