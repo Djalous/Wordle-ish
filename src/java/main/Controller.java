@@ -1,5 +1,6 @@
 package main;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -425,6 +426,19 @@ public class Controller implements Initializable {
             }
         }
         return null;
+    }
+
+    @FXML
+    private void buttonPressed(ActionEvent e) {
+        String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"
+                , "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+        Button source = (Button) e.getSource();
+        for (int i = 0; i < alphabet.length; i++) {
+            if (source.getText().equals(i)) {
+                TextField focusedField = getFocusedField();
+                focusedField.setText(source.getText());
+            }
+        }
     }
 
     /**
