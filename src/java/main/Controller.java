@@ -2,6 +2,8 @@ package main;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -27,6 +29,8 @@ public class Controller implements Initializable {
 
     @FXML
     private GridPane letterGrid;
+    @FXML
+    private GridPane keyboardGrid;
     @FXML
     private Label msgLabel;
     @FXML
@@ -58,7 +62,6 @@ public class Controller implements Initializable {
     private static final Color GREEN = Color.color(0.1, 0.7, 0.1);
     private static final Color GREY = Color.color(0.6, 0.6, 0.6);
     private static final Color YELLOW = Color.color(.96, 0.85, 0.21);
-
     private boolean gameIsActive;
     private int currentGuessRow = 0;
 
@@ -285,10 +288,13 @@ public class Controller implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
         Word targetWord = bank.generateTargetWord(); // this logic should ideally be here
         state = new GameState(targetWord);
         gameIsActive = true;
+
+       // stackPane = new StackPane();
+
+        //initKeyboard();
 
         letterFields = letterGrid.getChildren();
         int numCols = letterGrid.getColumnCount();
@@ -320,6 +326,12 @@ public class Controller implements Initializable {
             int colIndex = i % numCols;
             GridPane.setColumnIndex(letterField, colIndex);
         }
+
+        StackPane.setAlignment(letterBoxes, Pos.CENTER);
+        StackPane.setAlignment(keyboardGrid, Pos.BOTTOM_CENTER);
+        StackPane.setMargin(keyboardGrid, new Insets(20));
+
+        stackPane.getChildren().add(keyboardGrid);
 
         stackPane.addEventFilter(MouseEvent.ANY, event -> {
             if (msgLabel.isVisible()) {
@@ -373,6 +385,46 @@ public class Controller implements Initializable {
                 }
             }
         });
+    }
+
+    private void initKeyboard() {
+        keyboardGrid = new GridPane();
+        keyboardGrid.setPadding(new Insets(10));
+        keyboardGrid.setHgap(5);
+        keyboardGrid.setVgap(5);
+
+        String[] row1 = {"Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"};
+        String[] row2 = {"A", "S", "D", "F", "G", "H", "J", "K", "L"};
+        String[] row3 = {"Z", "X", "C", "V", "B", "N", "M"};
+
+        addRow(keyboardGrid, row1, 0);
+        addRow(keyboardGrid, row2, 1);
+        addRow(keyboardGrid, row3, 2);
+
+        //stackPane.getChildren().add(keyboardGrid);
+    }
+
+    private void addRow(GridPane gridPane, String[] rowVals, int rowIndex) {
+        for (int i = 0; i < rowVals.length; i++) {
+            Button button = new Button(rowVals[i]);
+            button.setPrefSize(50, 50);
+            button.setOnAction(event -> {
+                TextField focusedField = getFocusedField();
+                if (focusedField != null) {
+                    focusedField.appendText(button.getText());
+                }
+            });
+            gridPane.add(button, i, rowIndex);
+        }
+    }
+
+    private TextField getFocusedField() {
+        for (Node node : letterBoxes.getChildren()) {
+            if (node.isFocused()) {
+                return (TextField) node;
+            }
+        }
+        return null;
     }
 
     /**
