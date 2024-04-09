@@ -333,6 +333,12 @@ public class Controller implements Initializable {
             }
         });
 
+        stackPane.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.TAB) {
+                event.consume();
+            }
+        });
+
         stackPane.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
                 if (validateGuess()) {
