@@ -1,8 +1,11 @@
 package com.example.androidwordle;
 
+import android.content.res.Resources;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.InvalidPathException;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,9 +30,9 @@ public class WordBank {
     private static final String TARGET_FILE_PATH = "wordle-official.txt";
     private static final String VALID_FILE_PATH = "wordle-full.txt";
 
-    public WordBank() throws FileNotFoundException {
-        updateTargetBank(ResourceManager.loadResource(TARGET_FILE_PATH));
-        updateValidBank(ResourceManager.loadResource(VALID_FILE_PATH));
+    public WordBank(Resources resources) throws IOException {
+        updateTargetBank(resources.getAssets().open(TARGET_FILE_PATH));
+        updateValidBank(resources.getAssets().open(VALID_FILE_PATH));
 
     }
 
@@ -37,7 +40,7 @@ public class WordBank {
      * @param targetFile File containing the guessable words
      * @param validFile File containing words considered valid
      */
-    public WordBank(File targetFile, File validFile) throws FileNotFoundException {
+    public WordBank(InputStream targetFile, InputStream validFile) throws FileNotFoundException {
         updateTargetBank(targetFile);
         updateValidBank(validFile);
     }
@@ -50,7 +53,7 @@ public class WordBank {
      * @param targetFile File to used for guessable words
      * @throws InvalidPathException Thrown if the passed in file cannot be found
      */
-    public static void updateTargetBank(File targetFile) throws InvalidPathException, FileNotFoundException {
+    public static void updateTargetBank(InputStream targetFile) throws InvalidPathException, FileNotFoundException {
         targetWords = updateBank(targetFile, targetWords, prevTargetWords);
     }
 
@@ -58,13 +61,13 @@ public class WordBank {
      * @param validFile File used for valid words
      * @throws InvalidPathException Thrown if the passed in file cannot be found
      */
-    public static void updateValidBank(File validFile) throws InvalidPathException, FileNotFoundException {
+    public static void updateValidBank(InputStream validFile) throws InvalidPathException, FileNotFoundException {
         validWords = updateBank(validFile, validWords, prevValidWords);
     }
 
-    private static List<Word> updateBank(File validFile, List<Word> storage, RecentHistory<Word[]> history) throws InvalidPathException, FileNotFoundException {
+    private static List<Word> updateBank(InputStream validFile, List<Word> storage, RecentHistory<Word[]> history) throws InvalidPathException, FileNotFoundException {
         try (Scanner in = new Scanner(validFile)) {
-            checkFileExtension(validFile, in);
+            in.useDelimiter(System.lineSeparator());
 
             if (storage != null) {
                 history.add(storage.toArray(new Word[0]));
@@ -73,9 +76,6 @@ public class WordBank {
             List<Word> newStorage = new ArrayList<>();
             addToWordList(newStorage, in);
             return newStorage;
-        } catch (FileNotFoundException e) {
-            System.out.println("File cannot be found or does not exist.");
-            throw new FileNotFoundException("File cannot be found or does not exist.");
         }
     }
 
@@ -104,24 +104,6 @@ public class WordBank {
                 }
                 list.add(wordObj);
             }
-        }
-    }
-
-    /** Verifies the file has a supported file extension and configures
-     * the scanner appropriately
-     * @param file File to verify
-     * @param scanner Scanner of file to verify and configure
-     */
-    public static void checkFileExtension(File file, Scanner scanner) {
-        String filePath = file.getPath();
-        //admin menu dependent
-        if (filePath.endsWith(".csv")) {
-            scanner.useDelimiter(",");
-        } else if (filePath.endsWith(".txt")) {
-            scanner.useDelimiter(System.lineSeparator());
-        } else {
-            System.out.println("The current file " + filePath + " is an unsupported file type.");
-            throw new InvalidPathException(filePath, "Unsupported file type.");
         }
     }
 

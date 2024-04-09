@@ -11,7 +11,6 @@ import org.junit.runner.RunWith;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -21,14 +20,13 @@ import java.io.InputStream;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 @RunWith(AndroidJUnit4.class)
-public class ExampleInstrumentedTest {
+public class TestResourceLoading {
     @Test
-    public void useAppContext() throws IOException {
+    public void testResources() throws IOException {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
         assertEquals("com.example.androidwordle", appContext.getPackageName());
         Resources r = appContext.getResources();
         InputStream in = r.getAssets().open("wordle-full.txt");
-        in.
     }
 }
