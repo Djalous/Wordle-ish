@@ -21,13 +21,8 @@ public class UserProfileController {
     @FXML
     TextField usernameField;
 
-    HashMap<String, String> users = new HashMap<>();
+    static HashMap<String, String> users = new HashMap<>();
     final static Stage LOGIN_STAGE = new Stage();
-
-    @FXML
-    public void initializeBindings() {
-        continueBtn.disableProperty().bind(usernameField.textProperty().isEmpty());
-    }
 
     @FXML
     private void continuePressed() {
