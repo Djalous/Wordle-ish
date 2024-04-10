@@ -44,6 +44,7 @@ public class AdminController implements Initializable {
     private static Button currentTargetBtn;
     private static Button currentValidBtn;
     final static Stage ADMIN_STAGE = new Stage();
+    private static final String FXML_PATH = "start_page.fxml";
 
 
     /**
@@ -84,7 +85,7 @@ public class AdminController implements Initializable {
     public void setWordLength() {
         String length = wordLength.getText();
         if (length.length() > 0) {
-            WordBank.setWordLength(Integer.parseInt(length));
+            main.WordBank.setWordLength(Integer.parseInt(length));
         }
     }
 
@@ -110,6 +111,7 @@ public class AdminController implements Initializable {
      */
     @FXML
     private void returnToStartPage() {
+        /**
         try {
             FXMLLoader loader = new FXMLLoader(AdminController.class.getResource("/resources/start_page.fxml"));
             Parent root = loader.load();
@@ -118,6 +120,7 @@ public class AdminController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+         */
     }
 
     /**
