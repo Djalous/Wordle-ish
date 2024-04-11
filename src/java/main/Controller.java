@@ -17,6 +17,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import main.CharValidity;
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -265,7 +266,7 @@ public class Controller implements Initializable {
     }
 
     /**
-     * Helper method that moves cursor to next row once enter is pressed after a valid guess, additionally d
+     * Helper method that moves cursor to next row once enter is pressed after a valid guess
      */
     private void moveCursorToNextRow() {
         int nextRow = currentGuessRow + 1;
@@ -274,11 +275,9 @@ public class Controller implements Initializable {
                 if (GridPane.getColumnIndex(node) == 0) {
                     node.requestFocus();
                 }
-
                 node.setDisable(false);
             }
         }
-
     }
 
     /**
@@ -292,10 +291,6 @@ public class Controller implements Initializable {
         Word targetWord = bank.generateTargetWord(); // this logic should ideally be here
         state = new GameState(targetWord);
         gameIsActive = true;
-
-       // stackPane = new StackPane();
-
-        //initKeyboard();
 
         letterFields = letterGrid.getChildren();
         int numCols = letterGrid.getColumnCount();
@@ -327,12 +322,6 @@ public class Controller implements Initializable {
             int colIndex = i % numCols;
             GridPane.setColumnIndex(letterField, colIndex);
         }
-
-        StackPane.setAlignment(letterBoxes, Pos.CENTER);
-        StackPane.setAlignment(keyboardGrid, Pos.BOTTOM_CENTER);
-        StackPane.setMargin(keyboardGrid, new Insets(20));
-
-        stackPane.getChildren().add(keyboardGrid);
 
         stackPane.addEventFilter(MouseEvent.ANY, event -> {
             if (msgLabel.isVisible()) {
@@ -388,44 +377,14 @@ public class Controller implements Initializable {
         });
     }
 
-    private void initKeyboard() {
-        keyboardGrid = new GridPane();
-        keyboardGrid.setPadding(new Insets(10));
-        keyboardGrid.setHgap(5);
-        keyboardGrid.setVgap(5);
-
-        String[] row1 = {"Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"};
-        String[] row2 = {"A", "S", "D", "F", "G", "H", "J", "K", "L"};
-        String[] row3 = {"Z", "X", "C", "V", "B", "N", "M"};
-
-        addRow(keyboardGrid, row1, 0);
-        addRow(keyboardGrid, row2, 1);
-        addRow(keyboardGrid, row3, 2);
-
-        //stackPane.getChildren().add(keyboardGrid);
-    }
-
-    private void addRow(GridPane gridPane, String[] rowVals, int rowIndex) {
-        for (int i = 0; i < rowVals.length; i++) {
-            Button button = new Button(rowVals[i]);
-            button.setPrefSize(50, 50);
-            button.setOnAction(event -> {
-                TextField focusedField = getFocusedField();
-                if (focusedField != null) {
-                    focusedField.appendText(button.getText());
-                }
-            });
-            gridPane.add(button, i, rowIndex);
-        }
-    }
-
-    private TextField getFocusedField() {
-        for (Node node : letterBoxes.getChildren()) {
-            if (node.isFocused()) {
-                return (TextField) node;
+    private int getFocusedFieldIndex() {
+        for (Node node : letterGrid.getChildren()) {
+            TextField field = (TextField) node;
+            if (field.getText().isEmpty()) {
+                return GridPane.getColumnIndex(field) + (wordLength * GridPane.getRowIndex(field));
             }
         }
-        return null;
+        return 0;
     }
 
     @FXML
@@ -434,9 +393,13 @@ public class Controller implements Initializable {
                 , "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
         Button source = (Button) e.getSource();
         for (int i = 0; i < alphabet.length; i++) {
-            if (source.getText().equals(i)) {
-                TextField focusedField = getFocusedField();
-                focusedField.setText(source.getText());
+            if (source.getText().equals(alphabet[i])) {
+                int curIndex = getFocusedFieldIndex();
+                TextField focusedField = (TextField) letterGrid.getChildren().get(curIndex);
+                focusedField.setText(alphabet[i]);
+                if (curIndex < wordLength) {
+                    letterGrid.getChildren().get(curIndex + 1).requestFocus();
+                }
             }
         }
     }
@@ -476,7 +439,6 @@ public class Controller implements Initializable {
             } else if (event.getCode().isLetterKey() && textField.getText().isEmpty()) {
                 textField.setText(event.getText());
                 textField.positionCaret(textField.getLength());
-
                 if (textField.getText().length() == 1 && nextField != null) {
                     nextField.requestFocus();
                 }
