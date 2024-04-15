@@ -21,14 +21,13 @@ public class UserProfileController {
     @FXML
     TextField usernameField;
 
-    static HashMap<String, String> users = new HashMap<>();
     final static Stage LOGIN_STAGE = new Stage();
 
     @FXML
     private void continuePressed() {
         Stage stage = (Stage) usernameField.getScene().getWindow();
         String username = usernameField.getText();
-        if (users.containsKey(usernameField.getText())) {
+        if (UserBase.containsUser(username)) {
             LogInController.setEnteredUsername(username);
             try {
                 Parent root = ResourceManager.loadFXML("login-1.fxml");

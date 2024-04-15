@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -21,12 +22,17 @@ public class CreateAccController implements Initializable {
     TextField usernameField;
     @FXML
     Button createBtn;
+    @FXML
+    ChoiceBox<String> userType;
     private static String enteredUsername;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         usernameField.setText(enteredUsername);
         usernameField.setEditable(false);
+        userType.getItems().addAll(UserType.ADMIN.toString(),
+                                   UserType.MIDDLE_SCHOOL_STUDENT.toString(),
+                                   UserType.COLLEGE_STUDENT.toString());
         createBtn.disableProperty().bind(passwordField.textProperty().isEmpty());
     }
 
@@ -48,7 +54,16 @@ public class CreateAccController implements Initializable {
 
     @FXML
     public void createAccount(ActionEvent actionEvent) throws IOException {
-        UserProfileController.users.put(enteredUsername, passwordField.getText());
+        UserType type;
+        if (userType.getValue().equals(UserType.MIDDLE_SCHOOL_STUDENT.toString())) {
+            type = UserType.MIDDLE_SCHOOL_STUDENT;
+        } else if (userType.getValue().equals(UserType.COLLEGE_STUDENT.toString())){
+            type = UserType.COLLEGE_STUDENT;
+        } else {
+            type = UserType.USER;
+        }
+
+        UserBase.addUser(enteredUsername, passwordField.getText(),type);
         StartPageController.setStage((Stage)((Button) actionEvent.getSource()).getScene().getWindow());
         StartPageController.loadGameView();
     }
