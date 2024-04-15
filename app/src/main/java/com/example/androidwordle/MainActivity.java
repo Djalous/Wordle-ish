@@ -1,77 +1,190 @@
 package com.example.androidwordle;
 
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
-
-import com.google.android.material.snackbar.Snackbar;
-
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.text.Editable;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.androidwordle.databinding.ActivityMainBinding;
 
-import android.view.Menu;
-import android.view.MenuItem;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
-
-    private AppBarConfiguration appBarConfiguration;
     private ActivityMainBinding binding;
 
+    private WordBank bank;
+    private GameState game;
+    private int currentGuess = 0;
+    private boolean gameIsActive = false;
+
+    ViewGroup[] rows = new ViewGroup[6];
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        Button button = findViewById(R.id.submit_button);
+        button.setOnClickListener(v -> {onSubmit();});
 
-        setSupportActionBar(binding.toolbar);
+        rows[0] = findViewById(R.id.row1_container);
+        rows[1] = findViewById(R.id.row2_container);
+        rows[2] = findViewById(R.id.row3_container);
+        rows[3] = findViewById(R.id.row4_container);
+        rows[4] = findViewById(R.id.row5_container);
+        rows[5] = findViewById(R.id.row6_container);
 
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        appBarConfiguration = new AppBarConfiguration.Builder(navController.getGraph()).build();
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        disableRow(rows[1]);
+        disableRow(rows[2]);
+        disableRow(rows[3]);
+        disableRow(rows[4]);
+        disableRow(rows[5]);
 
-        binding.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAnchorView(R.id.fab)
-                        .setAction("Action", null).show();
-            }
-        });
+        try {
+            startGame();
+        } catch (IOException e) {
+            System.out.println("Error loading word bank files for new game");
+            throw new RuntimeException(e);
+        }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    private void startGame() throws IOException {
+        ResourceManager resource = new ResourceManager(getResources());
+        InputStream validFile = resource.loadResource("wordle-full.txt");
+        InputStream targetFile = resource.loadResource("wordle-official.txt");
+
+        bank = new WordBank(targetFile, validFile);
+        game = new GameState(bank.generateTargetWord());
+
+        gameIsActive = true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    private void disableRow(ViewGroup row) {
+        for (int i = 0; i < row.getChildCount(); i++) {
+            EditText child = (EditText)row.getChildAt(i);
+            child.setEnabled(false);
+        }
+    }
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+    private void enableRow(ViewGroup row) {
+        for (int i = 0; i < row.getChildCount(); i++) {
+            EditText child = (EditText)row.getChildAt(i);
+            child.setEnabled(true);
+        }
+    }
+
+    private void onSubmit() {
+        if (!gameIsActive) {
+            return;
+        }
+
+        if (validateGuess()) {
+            colorizeCorrect(currentGuess);
+        }
+        else {
+            colorizeFields(currentGuess, game.getCurrentGuess().getCorrect(game.getTargetWord()));
+        }
+
+        if (nextGuess()) {
+            displayMessage("Too bad, your word was: '" + game.getTargetWord() + "'");
+        }
+    }
+
+    private boolean validateGuess() {
+        Word currentGuess = getGuessWord();
+        game.updateCurrentGuess(currentGuess);
+
+        if (currentGuess == null) {
+            displayMessage("Please input a 5 letter word");
+            return false;
+        }
+
+        if (!bank.isValid(currentGuess)) {
+            displayMessage("Please input a valid word");
+            return false;
+        }
+
+        if (game.getCurrentGuess().equals(game.getTargetWord())) {
+            displayMessage("Great Job! You got the word correct");
             return true;
         }
 
-        return super.onOptionsItemSelected(item);
+        return false;
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
-        return NavigationUI.navigateUp(navController, appBarConfiguration)
-                || super.onSupportNavigateUp();
+    private boolean nextGuess() {
+        if (currentGuess >= 5) {
+            return true;
+        }
+
+        disableRow(rows[currentGuess]);
+        currentGuess++;
+        enableRow(rows[currentGuess]);
+
+        return false;
+    }
+
+    private Word getGuessWord() {
+        ViewGroup row = rows[currentGuess];
+        int wordLength = row.getChildCount();
+        Word guess = new Word(wordLength);
+
+        for (int i = 0; i < wordLength; i++) {
+            EditText child = (EditText)row.getChildAt(i);
+            Editable edit = child.getText();
+
+            if (edit.length() == 0) {
+                return null;
+            }
+
+            char letter = edit.charAt(0);
+            guess.pushChar(letter);
+        }
+
+        return guess;
+    }
+
+    private void displayMessage(String msg) {
+        TextView text = findViewById(R.id.appMessage);
+        text.setText(msg);
+    }
+
+    private void colorizeFields(int rowInd, CharValidity[] validityData) {
+        ViewGroup row = rows[rowInd];
+
+        for (int i = 0; i < row.getChildCount(); i++) {
+            EditText child = (EditText)row.getChildAt(i);
+            CharValidity valid = validityData[i];
+
+            switch (valid) {
+                case CORRECT_POSITION:
+                    child.getBackground().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_ATOP);
+                    break;
+                case PRESENT_CHAR:
+                    child.getBackground().setColorFilter(Color.YELLOW, PorterDuff.Mode.SRC_ATOP);
+                    break;
+                case INCORRECT:
+                    child.getBackground().setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_ATOP);
+                    break;
+            }
+        }
+    }
+
+    private void colorizeCorrect(int rowInd) {
+        ViewGroup row = rows[rowInd];
+
+        for (int i = 0; i < row.getChildCount(); i++) {
+            EditText child = (EditText)row.getChildAt(i);
+            child.getBackground().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_ATOP);
+        }
     }
 }

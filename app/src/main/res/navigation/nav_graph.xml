@@ -3,11 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/WordleFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.androidwordle.FirstFragment"
+        android:id="@+id/WordleFragment"
+        android:name="com.example.androidwordle.WordleFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first"/>
+        tools:layout="@layout/wordle_fragment">
+        <action
+            android:id="@+id/action_WordleFragment_to_adminFragment"
+            app:destination="@id/adminFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/adminFragment"
+        android:name="com.example.androidwordle.AdminFragment"
+        android:label="admin_fragment"
+        tools:layout="@layout/admin_fragment" />
 </navigation>
