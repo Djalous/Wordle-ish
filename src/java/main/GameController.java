@@ -1,5 +1,7 @@
 package main;
 
+import javafx.animation.PauseTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -11,8 +13,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,6 +28,8 @@ import java.util.ResourceBundle;
 
 public class GameController implements Initializable {
 
+    @FXML
+    private Pane keyboardPane;
     @FXML
     private GridPane letterGrid;
     @FXML
@@ -206,6 +212,9 @@ public class GameController implements Initializable {
             if (textFieldList.get(i).getText().isEmpty()) {
                 msgLabel.setText("Please enter a " + wordLength + " letter word.");
                 msgLabel.setVisible(true);
+                PauseTransition pause = new PauseTransition(Duration.seconds(1));
+                pause.setOnFinished(event -> msgLabel.setVisible(false));
+                pause.play();
                 return false;
             } else {
                 temp.add(textFieldList.get(i).getText());
@@ -216,6 +225,9 @@ public class GameController implements Initializable {
         if (!bank.isValid(guess)) { // need initialized bank to properly run
             msgLabel.setText("Please enter a valid word.");
             msgLabel.setVisible(true);
+            PauseTransition pause = new PauseTransition(Duration.seconds(1));
+            pause.setOnFinished(event -> msgLabel.setVisible(false));
+            pause.play();
             return false;
         } else {
             state.updateCurrentGuess(guess);
@@ -252,6 +264,36 @@ public class GameController implements Initializable {
             }
 
             currentFields.get(i).setStyle("-fx-control-inner-background: " + cssColor + ";");
+            String letter = currentFields.get(i).getText();
+            for (int j = 0; j < keyboardPane.getChildren().size(); j++) {
+                Button button = (Button) keyboardPane.getChildren().get(j);
+                if (button.getText().equals(letter)) {
+                   if (!button.getStyle().isEmpty() && button.getStyle() != null) {
+                       if (extractStyleColor(button.getStyle()).equals(String.format("#%02X%02X%02X",
+                               (int) (GREEN.getRed() * 255),
+                               (int) (GREEN.getGreen() * 255),
+                               (int) (GREEN.getBlue() * 255)))) {
+                           // do nothing
+                       } else if (extractStyleColor(button.getStyle()).equals(String.format("#%02X%02X%02X",
+                               (int) (YELLOW.getRed() * 255),
+                               (int) (YELLOW.getGreen() * 255),
+                               (int) (YELLOW.getBlue() * 255))) &&
+                               cssColor.equals(String.format("#%02X%02X%02X",
+                               (int) (GREY.getRed() * 255),
+                               (int) (GREY.getGreen() * 255),
+                               (int) (GREY.getBlue() * 255)))) {
+                           // do nothing
+                       } else if (cssColor.equals(String.format("#%02X%02X%02X",
+                               (int) (GREEN.getRed() * 255),
+                               (int) (GREEN.getGreen() * 255),
+                               (int) (GREEN.getBlue() * 255)))) {
+                           button.setStyle("-fx-background-color: " + cssColor +";");
+                       }
+                   } else {
+                       button.setStyle("-fx-background-color: " + cssColor + ";");
+                   }
+                }
+            }
         }
 
         for (Node letterField: letterFields) {
@@ -263,8 +305,21 @@ public class GameController implements Initializable {
         }
     }
 
+    private String extractStyleColor(String style) {
+        String[] styleProps = style.split(";");
+        String color = null;
+
+        for (String prop : styleProps) {
+            if (prop.trim().startsWith("-fx-background-color:")) {
+                color = prop.trim().substring("-fx-background-color:".length()).trim();
+                break;
+            }
+        }
+        return color;
+    }
+
     /**
-     * Helper method that moves cursor to next row once enter is pressed after a valid guess, additionally d
+     * Helper method that moves cursor to next row once enter is pressed after a valid guess
      */
     private void moveCursorToNextRow() {
         int nextRow = currentGuessRow + 1;
@@ -376,6 +431,106 @@ public class GameController implements Initializable {
                 }
             }
         });
+    }
+
+    private int getFocusedFieldIndex() {
+        for (Node node : letterGrid.getChildren()) {
+            TextField field = (TextField) node;
+            if (field.getText().isEmpty()) {
+                return GridPane.getColumnIndex(field) + (wordLength * GridPane.getRowIndex(field));
+            }
+        }
+        return 0;
+    }
+
+    @FXML
+    private void buttonPressed(ActionEvent e) {
+        String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"
+                , "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+        Button source = (Button) e.getSource();
+        for (String s : alphabet) {
+            if (source.getText().equals(s)) {
+                int curIndex = getFocusedFieldIndex();
+                TextField focusedField = (TextField) letterGrid.getChildren().get(curIndex);
+                focusedField.setText(s);
+                if (curIndex < ((wordLength - 1) * (currentGuessRow + 1)) + currentGuessRow) {
+                    letterGrid.getChildren().get(curIndex + 1).requestFocus();
+                } else {
+                    letterGrid.getChildren().get(curIndex).requestFocus();
+                }
+            }
+        }
+    }
+
+    @FXML
+    private void onEnterPressed(ActionEvent e) {
+        int curIndex = getFocusedFieldIndex();
+        letterGrid.getChildren().get(curIndex).requestFocus();
+        if (validateGuess()) {
+            colorizeFields();
+            if (currentGuessRow == 0 && state.getCurrentGuess().equals(state.getTargetWord())) {
+                msgLabel.setText("Alright that was pretty cool");
+                msgLabel.setVisible(true);
+                endGame();
+            } else if (currentGuessRow == 1 && state.getCurrentGuess().equals(state.getTargetWord())) {
+                msgLabel.setText("Not as cool as getting it in 1 but well done");
+                msgLabel.setVisible(true);
+                endGame();
+            } else if (currentGuessRow == 2 && state.getCurrentGuess().equals(state.getTargetWord())) {
+                msgLabel.setText("Good job buster");
+                msgLabel.setVisible(true);
+                endGame();
+            } else if (currentGuessRow == 3 && state.getCurrentGuess().equals(state.getTargetWord())) {
+                msgLabel.setText("Woo hoo");
+                msgLabel.setVisible(true);
+                endGame();
+            } else if (currentGuessRow == 4 && state.getCurrentGuess().equals(state.getTargetWord())) {
+                msgLabel.setText("Congrats on the win");
+                msgLabel.setVisible(true);
+                endGame();
+            } else if (currentGuessRow == 5 && state.getCurrentGuess().equals(state.getTargetWord())) {
+                msgLabel.setText("Should we even clap for that");
+                msgLabel.setVisible(true);
+                endGame();
+            } else if (currentGuessRow == 5 && !state.getCurrentGuess().equals(state.getTargetWord())) {
+                msgLabel.setText(state.getTargetWord().toString());
+                msgLabel.setVisible(true);
+                endGame();
+            } else {
+                moveCursorToNextRow();
+                letterGrid.getChildren().get(curIndex).requestFocus();
+                currentGuessRow++;
+            }
+        }
+    }
+
+    @FXML
+    private void onDeletePressed(ActionEvent e) {
+        int curIndex = getFocusedFieldIndex();
+        TextField temp = (TextField) letterGrid.getChildren().get(curIndex);
+        if (GridPane.getRowIndex(temp) != currentGuessRow) {
+            curIndex--;
+        }
+        if (curIndex != 0 && (curIndex) % wordLength != 0) {
+            TextField textField = (TextField) letterGrid.getChildren().get(curIndex);
+            TextField prevField = (TextField) letterGrid.getChildren().get(curIndex - 1);
+            if (textField.getText().isEmpty()) {
+                if (prevField != null) {
+                    prevField.requestFocus();
+                    prevField.positionCaret(prevField.getLength());
+                    String prevText = prevField.getText();
+                    if (!prevText.isEmpty()) {
+                        prevField.setText(prevText.substring(0, prevText.length() - 1));
+                    }
+                    prevField.requestFocus();
+                }
+            } else {
+                textField.clear();
+                textField.requestFocus();
+            }
+        } else {
+            letterGrid.getChildren().get(curIndex).requestFocus();
+        }
     }
 
     /**
