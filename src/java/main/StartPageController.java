@@ -2,34 +2,57 @@ package main;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import main.AdminController;
-import main.GameController;
 
 import java.io.IOException;
 
 public class StartPageController {
     @FXML
-    private AnchorPane startPage;
+    Button logInBtn;
     @FXML
-    private ChoiceBox<String> userSelection;
+    Button playBtn;
+
+    private static Stage stage;
+
     @FXML
     private void startGame(ActionEvent event) throws IOException {
-        Stage stage = (Stage) startPage.getScene().getWindow();
-        String userType = userSelection.getValue();
-        switch (userType) {
-            case "Admin" -> {
-                stage.close();
-                new AdminController().loadAdminDashboard();
-            }
-            case "User" -> {
-                stage.close();
-                GameController.loadGameView();
-            }
-        }
+        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        loadGameView();
     }
 
+    @FXML
+    public static void loadGameView() throws IOException {
+        Parent root = ResourceManager.loadFXML("view.fxml");
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
+    /**
+     * Loads the admin dashboard
+     *
+     * @throws IOException
+     */
+    public void loadAdminDashboard() throws IOException {
+        Parent root = ResourceManager.loadFXML("admin-dashboard.fxml");
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    private void loadLoginPage(ActionEvent event) throws IOException {
+        Parent root = ResourceManager.loadFXML("login.fxml");
+        Scene scene = new Scene(root);
+        stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public static void setStage(Stage stage) {
+        StartPageController.stage = stage;
+    }
 }

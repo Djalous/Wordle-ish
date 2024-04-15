@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.collections.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane fx:id="startPage" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.StartPageController">
    <children>
-      <Button layoutX="274.0" layoutY="188.0" mnemonicParsing="false" onAction="#startGame" text="Start Game" />
-       <Label layoutX="266.0" layoutY="276.0" text="Select User Type:" textAlignment="CENTER" />
-       <ChoiceBox fx:id="userSelection" layoutX="255.0" layoutY="301.0" prefHeight="25.0" prefWidth="125.0" value="User">
-           <items>
-               <FXCollections fx:factory="observableArrayList">
-                   <String fx:value="User" />
-                   <String fx:value="Admin" />
-               </FXCollections>
-           </items>
-       </ChoiceBox>
+      <Button fx:id="playBtn" layoutX="308.0" layoutY="257.0" mnemonicParsing="false" onAction="#startGame" text="Play" />
+      <Label layoutX="237.0" layoutY="100.0" prefHeight="51.0" prefWidth="125.0" text="Wordle">
+         <font>
+            <Font name="System Bold" size="35.0" />
+         </font>
+      </Label>
+      <Label layoutX="191.0" layoutY="161.0" prefHeight="63.0" prefWidth="218.0" text="Get 6 chances to guess a 5-letter word. " textAlignment="CENTER" wrapText="true">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+      <Button fx:id="logInBtn" layoutX="237.0" layoutY="257.0" mnemonicParsing="false" onAction="#loadLoginPage" text="Log in" />
    </children>
 </AnchorPane>

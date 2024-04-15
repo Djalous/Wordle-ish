@@ -8,9 +8,20 @@ public enum UserType {
     /**
      * A regular user
      */
-    USER,
-    MIDDLE_SCHOOL_STUDENT,
-    COLLEGE_STUDENT,
-    ADMIN,
-    TESTER,
+    USER("User"),
+    MIDDLE_SCHOOL_STUDENT("Middle Schooler"),
+    COLLEGE_STUDENT("High Schooler"),
+    ADMIN("Admin"),
+    TESTER("Tester");
+
+    private final String user;
+
+    UserType(String user) {
+        this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return user;
+    }
 }

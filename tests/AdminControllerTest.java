@@ -15,8 +15,8 @@ public class AdminControllerTest {
      */
     @Test
     public void testUpdateWordBank() throws FileNotFoundException {
-        // Create an instance of Controller
-        //Controller controller = new Controller();
+        // Create an instance of GameController
+        //GameController controller = new GameController();
 
         wordBank = new WordBank();
         Word word = new Word("satin");

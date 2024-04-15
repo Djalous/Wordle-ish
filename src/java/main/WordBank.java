@@ -112,6 +112,7 @@ public class WordBank {
      * @param file File to verify
      * @param scanner Scanner of file to verify and configure
      */
+
     public static void checkFileExtension(File file, Scanner scanner) {
         String filePath = file.getPath();
         //admin menu dependent

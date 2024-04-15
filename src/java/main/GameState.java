@@ -16,6 +16,8 @@ public class GameState {
     private int guessesMade = 0;
 
     private static final int MAX_GUESSES = 6;
+    private String username;
+    private UserType userType;
 
     /** Constructs a new game with the given word being the correct target word
      * @param targetWord Target word the user is trying to guess for
