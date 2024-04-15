@@ -51,4 +51,8 @@ public class StartPageController {
         stage.setScene(scene);
         stage.show();
     }
+
+    public static void setStage(Stage stage) {
+        StartPageController.stage = stage;
+    }
 }

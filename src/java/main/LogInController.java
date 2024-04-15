@@ -39,8 +39,8 @@ public class LogInController implements Initializable {
     }
 
     @FXML
-    public void toPreviousView() {
-        Stage stage = (Stage) loginBtn.getScene().getWindow();
+    public void toPreviousView(ActionEvent actionEvent) {
+        Stage stage = (Stage)((Button) actionEvent.getSource()).getScene().getWindow();
         try {
             Parent root = ResourceManager.loadFXML("login.fxml");
             Scene scene = new Scene(root);

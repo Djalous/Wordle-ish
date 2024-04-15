@@ -36,7 +36,7 @@ public class CreateAccController implements Initializable {
 
     @FXML
     public void toPreviousView(ActionEvent actionEvent) {
-        Stage stage = (Stage) createBtn.getScene().getWindow();
+        Stage stage = (Stage)((Button) actionEvent.getSource()).getScene().getWindow();
         try {
             Parent root = ResourceManager.loadFXML("login.fxml");
             Scene scene = new Scene(root);
@@ -44,5 +44,12 @@ public class CreateAccController implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @FXML
+    public void createAccount(ActionEvent actionEvent) throws IOException {
+        UserProfileController.users.put(enteredUsername, passwordField.getText());
+        StartPageController.setStage((Stage)((Button) actionEvent.getSource()).getScene().getWindow());
+        StartPageController.loadGameView();
     }
 }
