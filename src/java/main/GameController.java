@@ -4,6 +4,7 @@ import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -16,6 +17,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 import java.io.File;
@@ -58,7 +60,7 @@ public class GameController implements Initializable {
 
     private final List<Button> changedButtons = new ArrayList<>();
     private List<Node> letterFields;
-    private int wordLength = 5;
+    private int wordLength = 5; //optimized for 4-7
 
     private static final Color GREEN = Color.color(0.1, 0.7, 0.1);
     private static final Color GREY = Color.color(0.6, 0.6, 0.6);
@@ -348,10 +350,15 @@ public class GameController implements Initializable {
         state = new GameState(targetWord);
         gameIsActive = true;
 
+        initLetterFields();
+
         letterFields = letterGrid.getChildren();
         int numCols = letterGrid.getColumnCount();
         for  (int i = 0; i < letterFields.size(); ++i) {
             TextField letterField =  ((TextField) letterFields.get(i));
+            TextField prevField = null;
+            TextField nextField = null;
+            // letter fields originally assigned here
             letterField.setTextFormatter(new TextFormatter<String>(change -> {
                 if (change.isContentChange() && change.getControlNewText().length() > 1) {
                     return null;
@@ -359,15 +366,13 @@ public class GameController implements Initializable {
                 return change;
             }));
 
-            int count = (i+1) % wordLength;
-
-            TextField nextField = null;
-            TextField prevField = null;
-            if (count != 1) {
-                prevField = (TextField) letterFields.get(i-1);
-            }
-            if (count != 0) {
-                nextField = (TextField) letterFields.get(i+1);
+            if (i != 0 && i != letterFields.size() - 1) {
+                prevField = ((TextField) letterFields.get(i - 1));
+                nextField = ((TextField) letterFields.get(i + 1));
+            } else if (i == 0) {
+                nextField = ((TextField) letterFields.get(i + 1));
+            } else if (i == letterFields.size() - 1) {
+                prevField = ((TextField) letterFields.get(i - 1));
             }
 
             filterTextField(prevField, letterField, nextField);
@@ -379,20 +384,8 @@ public class GameController implements Initializable {
             GridPane.setColumnIndex(letterField, colIndex);
         }
 
-        stackPane.addEventFilter(MouseEvent.ANY, event -> {
-            if (msgLabel.isVisible()) {
-                msgLabel.setVisible(false);
-            }
-        });
-
-        stackPane.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (msgLabel.isVisible()) {
-                msgLabel.setVisible(false);
-            }
-        });
-
         stackPane.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.ENTER) {
+            if (event.getCode() == KeyCode.ENTER && currentGuessRow != 6) {
                 if (validateGuess()) {
                     colorizeFields();
                     if (currentGuessRow == 0 && state.getCurrentGuess().equals(state.getTargetWord())) {
@@ -451,12 +444,12 @@ public class GameController implements Initializable {
         for (String s : alphabet) {
             if (source.getText().equals(s)) {
                 int curIndex = getFocusedFieldIndex();
-                TextField focusedField = (TextField) letterGrid.getChildren().get(curIndex);
-                focusedField.setText(s);
-                if (curIndex < ((wordLength - 1) * (currentGuessRow + 1)) + currentGuessRow) {
-                    letterGrid.getChildren().get(curIndex + 1).requestFocus();
-                } else {
-                    letterGrid.getChildren().get(curIndex).requestFocus();
+                if (curIndex < (wordLength * (currentGuessRow + 1))) {
+                    TextField focusedField = (TextField) letterGrid.getChildren().get(curIndex);
+                    focusedField.setText(s);
+                    if (curIndex + 1 < letterGrid.getChildren().size()) {
+                        letterGrid.getChildren().get(curIndex + 1).requestFocus();
+                    }
                 }
             }
         }
@@ -501,6 +494,10 @@ public class GameController implements Initializable {
                 letterGrid.getChildren().get(curIndex).requestFocus();
                 currentGuessRow++;
             }
+        } else {
+            if (curIndex == (wordLength * (currentGuessRow + 1))) {
+                letterGrid.getChildren().get(curIndex - 1).requestFocus();
+            }
         }
     }
 
@@ -533,6 +530,38 @@ public class GameController implements Initializable {
         }
     }
 
+    private void initLetterFields() {
+        letterGrid.getChildren().clear();
+        int numRows = 6;
+        for (int row = 0; row < numRows; row++) {
+            for (int col = 0; col < wordLength; col++) {
+                TextField textField = new TextField();
+                textField.setPrefWidth(56);
+                textField.setPrefHeight(46);
+                textField.setAlignment(Pos.CENTER);
+                textField.setStyle("-fx-display-caret: false");
+                GridPane.setRowIndex(textField, row);
+                GridPane.setColumnIndex(textField, col);
+                if (row > 0) {
+                    textField.setDisable(true);
+                    textField.setEditable(false);
+                }
+                letterGrid.getChildren().add(textField);
+            }
+        }
+        for (int i = 0; i < (long) letterGrid.getChildren().size(); i++) {
+            TextField field = (TextField) letterGrid.getChildren().get(i);
+            if (wordLength == 4 || wordLength == 5) {
+                field.setFont(Font.font("Century", field.getWidth() + 25));
+            } else if (wordLength == 6) {
+                field.setFont(Font.font("Century", field.getWidth() + 23));
+            } else if (wordLength == 7) {
+                field.setFont(Font.font("Century", field.getWidth() + 21));
+            }
+
+        }
+    }
+
     /**
      * Part of the following method was generated using ChatGPT on 2/17 <a href="https://chat.openai.com/">...</a>
      * with the prompt: "how to make textfield in fxml only allow letters, be case-insensitive,
@@ -542,35 +571,35 @@ public class GameController implements Initializable {
      * @param nextField the next textField
      */
     private void filterTextField(TextField prevField, TextField textField, TextField nextField) {
-        textField.setTextFormatter(new TextFormatter<String>(change -> {
-            String newText = change.getControlNewText();
-            if (newText.matches("[a-zA-Z]") || newText.isEmpty()) {
-                change.setText(newText.toUpperCase());
-                change.setRange(0, change.getControlText().length());
-                return change;
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("[a-zA-Z]")) {
+                textField.setText("");
             } else {
-                return null;
+                textField.setText(newValue.toUpperCase());
             }
-        }));
-        textField.setOnKeyPressed(event -> {
-            if (event.getCode() == KeyCode.BACK_SPACE && textField.getText().isEmpty()) {
-                if (prevField != null) {
-                    prevField.requestFocus();
-                    prevField.positionCaret(prevField.getLength());
-                    String prevText = prevField.getText();
-                    if (!prevText.isEmpty()) {
-                        prevField.setText(prevText.substring(0, prevText.length() - 1));
-                    }
-                    event.consume();
-                }
-            } else if (event.getCode() == KeyCode.BACK_SPACE) {
-                textField.clear();
-            } else if (event.getCode().isLetterKey() && textField.getText().isEmpty()) {
-                textField.setText(event.getText());
-                textField.positionCaret(textField.getLength());
+        });
 
-                if (textField.getText().length() == 1 && nextField != null) {
+        textField.setOnKeyTyped(event -> {
+            if (nextField != null) {
+                int curRow = GridPane.getRowIndex(textField);
+                int nextRow = GridPane.getRowIndex(nextField);
+                if (textField.getText().length() == 1 && curRow == nextRow) {
                     nextField.requestFocus();
+                } else if (curRow != nextRow) {
+                    textField.positionCaret(0);
+                }
+            }
+        });
+
+        textField.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.BACK_SPACE && prevField != null) {
+                int prevRow = GridPane.getRowIndex(prevField);
+                int curRow = GridPane.getRowIndex(textField);
+                if (textField.getText().isEmpty() && curRow == prevRow) {
+                    prevField.requestFocus();
+                    prevField.setText("");
+                } else {
+                    textField.setText("");
                 }
             }
         });
