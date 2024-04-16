@@ -556,7 +556,6 @@ public class GameController implements Initializable {
                 GridPane.setColumnIndex(textField, col);
                 if (row > 0) {
                     textField.setDisable(true);
-                    textField.setEditable(false);
                 }
                 letterGrid.getChildren().add(textField);
             }
