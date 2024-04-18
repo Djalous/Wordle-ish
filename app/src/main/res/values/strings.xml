@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Android Wordle</string>
+    <string name="app_name">Wordle-Esque</string>
     <string name="game_menu">Wordle</string>
     <string name="admin_menu">Admin Menu</string>
     <!-- Strings used for fragments for navigation -->
