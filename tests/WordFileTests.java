@@ -30,7 +30,7 @@ public class WordFileTests {
      */
     @Test
     public void updateValidBankWithValidFile() {
-        File validFile = new File("./wordle-full.txt");
+        File validFile = new File("./src/resources/wordle-full.txt");
         try {
             WordBank.updateValidBank(validFile);
             Assert.assertTrue(wordBank.isValid(new Word("years")));
@@ -82,7 +82,7 @@ public class WordFileTests {
      */
     @Test
     public void checkFileExtensionHandlesTxtFilesCorrectly() throws FileNotFoundException {
-        File txtFile = new File("./wordle-full.txt");
+        File txtFile = new File("./src/resources/wordle-full.txt");
         Scanner scanner = new Scanner(txtFile);
         WordBank.checkFileExtension(txtFile, scanner);
         Assert.assertEquals(System.lineSeparator(), scanner.delimiter().toString());
