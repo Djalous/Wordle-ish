@@ -50,7 +50,10 @@ public class Word {
         if (bufferInd >= chars.length) {
             return false;
         }
-        //TODO Test failed for nonalpha
+
+        if (!Character.isLetter(c)) {
+            return false;
+        }
         chars[bufferInd] = Character.toLowerCase(c);
         bufferInd++;
 
