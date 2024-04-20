@@ -39,32 +39,37 @@ public class WordFileTests {
         } catch (FileNotFoundException e) {
             Assert.fail("Exception should not be thrown with valid file. File was not found.");
         }
-    }    /**
+    }
+    /**
      * This test checks if the updateValidBank method throws an exception with an invalid file.
      */
-/*    @Test
+    @Test
     public void updateValidBankWithInvalidFile() {
-        File invalidFile = new File("./invalid.txt");
+        File invalidFile = new File("./src/resources/start_page.fxml");
         try {
             wordBank.updateValidBank(invalidFile);
             Assert.fail("Exception should be thrown with invalid file");
         } catch (InvalidPathException e) {
             Assert.assertTrue(true);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
-    }*/
+    }
+
     /**
      * This test checks if the updateValidBank method throws an exception with an unsupported file type.
      */
-/*    @Test
+    @Test
     public void updateValidBankWithUnsupportedFileType() {
-        File unsupportedFile = new File("./unsupported.docx");
+        File unsupportedFile = new File("./src/resources/start_page.fxml");
         try {
-            wordBank.updateValidBank(unsupportedFile);
+            WordBank.updateValidBank(unsupportedFile);
             Assert.fail("Exception should be thrown with unsupported file type");
-        } catch (InvalidPathException e) {
+        } catch (InvalidPathException | FileNotFoundException e) {
             Assert.assertTrue(true);
         }
-    }*/
+    }
+
     /**
      * This test checks if the checkFileExtension method correctly handles txt files.
      * @throws FileNotFoundException if the file does not exist
