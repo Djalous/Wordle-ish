@@ -22,8 +22,8 @@ public class AdminControllerTest {
         Word word = new Word("satin");
 
         // Create valid File instances
-        File validTargetBankFile = new File("./wordle-full.txt");
-        File validVocabBankFile = new File("./wordle-official.txt");
+        File validTargetBankFile = new File("./src/resources/wordle-full.txt");
+        File validVocabBankFile = new File("./src/resources/wordle-official.txt");
 
         wordBank = new WordBank(validTargetBankFile, validVocabBankFile);
         Assert.assertTrue(wordBank.isValid(word));
