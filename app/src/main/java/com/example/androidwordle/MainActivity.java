@@ -1,5 +1,6 @@
 package com.example.androidwordle;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
@@ -35,6 +36,9 @@ public class MainActivity extends AppCompatActivity {
 
         Button button = findViewById(R.id.submit_button);
         button.setOnClickListener(v -> {onSubmit();});
+
+        Button adminButton = findViewById(R.id.admin_button);
+        adminButton.setOnClickListener(v -> {switchToAdminMenu();});
 
         rows[0] = findViewById(R.id.row1_container);
         rows[1] = findViewById(R.id.row2_container);
@@ -186,5 +190,10 @@ public class MainActivity extends AppCompatActivity {
             EditText child = (EditText)row.getChildAt(i);
             child.getBackground().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_ATOP);
         }
+    }
+
+    private void switchToAdminMenu() {
+        Intent intent = new Intent(MainActivity.this, AdminActivity.class);
+        startActivity(intent);
     }
 }
