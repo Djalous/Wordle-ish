@@ -35,34 +35,34 @@
          </GridPane>
          <Pane fx:id="keyboardPane" prefHeight="200.0" prefWidth="200.0">
             <children>
-               <Button layoutX="165.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="Q" />
-               <Button layoutX="192.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.1" text="W" />
-               <Button layoutX="219.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="E" />
-               <Button layoutX="246.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="R" />
-               <Button layoutX="273.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="T" />
-               <Button layoutX="300.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="Y" />
-               <Button layoutX="327.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="U" />
-               <Button layoutX="354.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="I" />
-               <Button layoutX="381.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="O" />
-               <Button layoutX="408.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="P" />
-               <Button layoutX="179.0" layoutY="69.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="A" />
-               <Button layoutX="206.0" layoutY="69.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="S" />
-               <Button layoutX="233.0" layoutY="69.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="D" />
-               <Button layoutX="260.0" layoutY="69.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="F" />
-               <Button layoutX="287.0" layoutY="69.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="G" />
-               <Button layoutX="314.0" layoutY="69.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="H" />
-               <Button layoutX="341.0" layoutY="69.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="J" />
-               <Button layoutX="368.0" layoutY="69.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="K" />
-               <Button layoutX="395.0" layoutY="69.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="L" />
-               <Button layoutX="154.0" layoutY="94.0" mnemonicParsing="false" onAction="#onEnterPressed" prefWidth="50.0" text="Enter" />
-               <Button layoutX="206.0" layoutY="94.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="Z" />
-               <Button layoutX="233.0" layoutY="94.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="X" />
-               <Button layoutX="260.0" layoutY="94.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="C" />
-               <Button layoutX="287.0" layoutY="94.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="V" />
-               <Button layoutX="314.0" layoutY="94.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="B" />
-               <Button layoutX="341.0" layoutY="94.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="N" />
-               <Button layoutX="368.0" layoutY="94.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="M" />
-               <Button layoutX="396.0" layoutY="94.0" mnemonicParsing="false" onAction="#onDeletePressed" text="Delete" />
+               <Button layoutX="165.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="Q" focusTraversable="false"/>
+               <Button layoutX="192.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.1" text="W" focusTraversable="false"/>
+               <Button layoutX="219.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="E" focusTraversable="false"/>
+               <Button layoutX="246.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="R" focusTraversable="false"/>
+               <Button layoutX="273.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="T" focusTraversable="false"/>
+               <Button layoutX="300.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="Y" focusTraversable="false"/>
+               <Button layoutX="327.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="U" focusTraversable="false"/>
+               <Button layoutX="354.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="I" focusTraversable="false"/>
+               <Button layoutX="381.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="O" focusTraversable="false"/>
+               <Button layoutX="408.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="P" focusTraversable="false"/>
+               <Button layoutX="179.0" layoutY="69.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="A" focusTraversable="false"/>
+               <Button layoutX="206.0" layoutY="69.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="S" focusTraversable="false"/>
+               <Button layoutX="233.0" layoutY="69.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="D" focusTraversable="false"/>
+               <Button layoutX="260.0" layoutY="69.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="F" focusTraversable="false"/>
+               <Button layoutX="287.0" layoutY="69.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="G" focusTraversable="false"/>
+               <Button layoutX="314.0" layoutY="69.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="H" focusTraversable="false"/>
+               <Button layoutX="341.0" layoutY="69.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="J" focusTraversable="false"/>
+               <Button layoutX="368.0" layoutY="69.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="K" focusTraversable="false"/>
+               <Button layoutX="395.0" layoutY="69.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="L" focusTraversable="false"/>
+               <Button layoutX="154.0" layoutY="94.0" mnemonicParsing="false" onAction="#onEnterPressed" prefWidth="50.0" text="Enter" focusTraversable="false"/>
+               <Button layoutX="206.0" layoutY="94.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="Z" focusTraversable="false"/>
+               <Button layoutX="233.0" layoutY="94.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="X" focusTraversable="false"/>
+               <Button layoutX="260.0" layoutY="94.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="C" focusTraversable="false"/>
+               <Button layoutX="287.0" layoutY="94.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="V" focusTraversable="false"/>
+               <Button layoutX="314.0" layoutY="94.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="B" focusTraversable="false"/>
+               <Button layoutX="341.0" layoutY="94.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="N" focusTraversable="false"/>
+               <Button layoutX="368.0" layoutY="94.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="M" focusTraversable="false"/>
+               <Button layoutX="396.0" layoutY="94.0" mnemonicParsing="false" onAction="#onDeletePressed" text="Delete" focusTraversable="false"/>
             </children>
          </Pane>
       </VBox>
