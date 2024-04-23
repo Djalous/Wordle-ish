@@ -453,15 +453,17 @@ public class GameController implements Initializable {
         String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"
                 , "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
         Button source = (Button) e.getSource();
+        source.setFocusTraversable(false);
         for (String s : alphabet) {
             if (source.getText().equals(s)) {
                 int curIndex = getFocusedFieldIndex();
-                if (curIndex < (wordLength * (currentGuessRow + 1))) {
+                if (curIndex == (wordLength * (currentGuessRow + 1)) - 1) {
+                    letterGrid.getChildren().get(curIndex).requestFocus();
+                }
+                if (curIndex < (wordLength * (currentGuessRow + 1)) && curIndex - 1 != (wordLength * (currentGuessRow + 1)) - 1) {
                     TextField focusedField = (TextField) letterGrid.getChildren().get(curIndex);
                     focusedField.setText(s);
-                    if (curIndex + 1 < letterGrid.getChildren().size()) {
-                        letterGrid.getChildren().get(curIndex + 1).requestFocus();
-                    }
+                    letterGrid.getChildren().get(curIndex + 1).requestFocus();
                 }
             }
         }
