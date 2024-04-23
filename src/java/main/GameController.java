@@ -599,6 +599,8 @@ public class GameController implements Initializable {
                 } else if (curRow != nextRow) {
                     textField.positionCaret(0);
                 }
+            } else {
+                textField.positionCaret(0);
             }
         });
 
