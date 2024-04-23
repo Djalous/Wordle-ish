@@ -14,6 +14,7 @@ package main;
 
 import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -445,7 +446,7 @@ public class GameController implements Initializable {
                 return GridPane.getColumnIndex(field) + (wordLength * GridPane.getRowIndex(field));
             }
         }
-        return 0;
+        return (wordLength * 6) - 1;
     }
 
     @FXML
@@ -453,13 +454,17 @@ public class GameController implements Initializable {
         String[] alphabet = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N"
                 , "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
         Button source = (Button) e.getSource();
+        source.setFocusTraversable(false);
+        int curIndex = getFocusedFieldIndex();
         for (String s : alphabet) {
             if (source.getText().equals(s)) {
-                int curIndex = getFocusedFieldIndex();
-                if (curIndex < (wordLength * (currentGuessRow + 1))) {
+                if (curIndex == (wordLength * (currentGuessRow + 1)) - 1) {
+                    letterGrid.getChildren().get(curIndex).requestFocus();
+                }
+                if (curIndex < (wordLength * (currentGuessRow + 1)) && curIndex - 1 != (wordLength * (currentGuessRow + 1)) - 1) {
                     TextField focusedField = (TextField) letterGrid.getChildren().get(curIndex);
                     focusedField.setText(s);
-                    if (curIndex + 1 < letterGrid.getChildren().size()) {
+                    if (curIndex + 1 != wordLength * 6) {
                         letterGrid.getChildren().get(curIndex + 1).requestFocus();
                     }
                 }
@@ -506,10 +511,6 @@ public class GameController implements Initializable {
                 letterGrid.getChildren().get(curIndex).requestFocus();
                 currentGuessRow++;
             }
-        } else {
-            if (curIndex == (wordLength * (currentGuessRow + 1))) {
-                letterGrid.getChildren().get(curIndex - 1).requestFocus();
-            }
         }
     }
 
@@ -552,6 +553,20 @@ public class GameController implements Initializable {
                 textField.setPrefHeight(46);
                 textField.setAlignment(Pos.CENTER);
                 textField.setStyle("-fx-display-caret: false");
+                textField.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+                    @Override
+                    public void handle(KeyEvent event) {
+                        if (event.getCode() == KeyCode.TAB) {
+                            event.consume();
+                        }
+                    }
+                });
+                textField.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        mouseEvent.consume();
+                    }
+                });
                 GridPane.setRowIndex(textField, row);
                 GridPane.setColumnIndex(textField, col);
                 if (row > 0) {
