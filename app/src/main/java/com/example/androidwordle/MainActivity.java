@@ -16,13 +16,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.androidwordle.databinding.ActivityMainBinding;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
-
-    private WordBank bank;
     private GameState game;
     private int currentGuess = 0;
     private boolean gameIsActive = false;
@@ -61,15 +60,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void startGame() throws IOException {
-        ResourceManager resource = new ResourceManager(getResources());
-        InputStream validFile = resource.loadResource("wordle-full.txt");
-        InputStream targetFile = resource.loadResource("wordle-official.txt");
-
-        bank = new WordBank(targetFile, validFile);
+    private void startGame(WordBank bank) throws FileNotFoundException {
         game = new GameState(bank.generateTargetWord());
 
         gameIsActive = true;
+    }
+
+    private void startGame() throws IOException {
+        startGame(getWordBank());
     }
 
     private void disableRow(ViewGroup row) {
@@ -112,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
 
-        if (!bank.isValid(currentGuess)) {
+        if (!getWordBank().isValid(currentGuess)) {
             displayMessage("Please input a valid word");
             return false;
         }
@@ -127,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean nextGuess() {
         if (currentGuess >= 5) {
+            disableRow(rows[rows.length - 1]);
             return true;
         }
 
@@ -195,5 +194,10 @@ public class MainActivity extends AppCompatActivity {
     private void switchToAdminMenu() {
         Intent intent = new Intent(MainActivity.this, AdminActivity.class);
         startActivity(intent);
+    }
+
+    private WordBank getWordBank() {
+        WordleApp app = (WordleApp)getApplicationContext();
+        return app.getCurrentWordBank();
     }
 }

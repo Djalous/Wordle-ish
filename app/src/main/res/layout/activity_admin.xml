@@ -44,20 +44,32 @@
             android:gravity="start|top"
             android:inputType="textMultiLine" />
 
+        <Button
+            android:id="@+id/targetButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Update Target Words" />
+
         <TextView
             android:id="@+id/textView4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
+            android:text="Valid Words"
             android:textSize="24sp" />
 
         <EditText
             android:id="@+id/validWordsInput"
             android:layout_width="match_parent"
-            android:layout_height="377dp"
+            android:layout_height="306dp"
             android:ems="10"
             android:gravity="start|top"
             android:inputType="textMultiLine" />
+
+        <Button
+            android:id="@+id/validWordsButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Update Valid Words" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -112,6 +112,26 @@ public class WordBank {
         return targetWords.get(rand.nextInt(targetWords.size()));
     }
 
+    public String getValidWordsText() {
+        return getWordsAsString(validWords);
+    }
+
+    public String getTargetWordsText() {
+        return getWordsAsString(targetWords);
+    }
+
+    private String getWordsAsString(List<Word> words) {
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 0; i < words.size(); i++) {
+            Word word = words.get(i);
+            builder.append(word.toString());
+            builder.append(", \n");
+        }
+
+        return builder.toString();
+    }
+
     public Word[][] getValidWordHistory() {
         return prevValidWords.toArray(new Word[0][0]);
     }
