@@ -1,3 +1,15 @@
+/**
+ *  Copyright 2024 SWE 2710 111 Team B (Duaa "DJ" Aljalous, Lazar Jovanovic,Theresa Kettner, Jack Rosenbecker)
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 package main;
 
 import java.util.HashMap;
@@ -16,6 +28,8 @@ public class GameState {
     private int guessesMade = 0;
 
     private static final int MAX_GUESSES = 6;
+    private String username;
+    private UserType userType;
 
     /** Constructs a new game with the given word being the correct target word
      * @param targetWord Target word the user is trying to guess for

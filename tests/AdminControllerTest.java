@@ -15,15 +15,15 @@ public class AdminControllerTest {
      */
     @Test
     public void testUpdateWordBank() throws FileNotFoundException {
-        // Create an instance of Controller
-        //Controller controller = new Controller();
+        // Create an instance of GameController
+        //GameController controller = new GameController();
 
         wordBank = new WordBank();
         Word word = new Word("satin");
 
         // Create valid File instances
-        File validTargetBankFile = new File("./wordle-full.txt");
-        File validVocabBankFile = new File("./wordle-official.txt");
+        File validTargetBankFile = new File("./src/resources/wordle-full.txt");
+        File validVocabBankFile = new File("./src/resources/wordle-official.txt");
 
         wordBank = new WordBank(validTargetBankFile, validVocabBankFile);
         Assert.assertTrue(wordBank.isValid(word));

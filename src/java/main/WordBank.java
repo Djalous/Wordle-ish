@@ -1,11 +1,25 @@
+/**
+ *  Copyright 2024 SWE 2710 111 Team B (Duaa "DJ" Aljalous, Lazar Jovanovic,Theresa Kettner, Jack Rosenbecker)
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
 package main;
-
-import main.Word;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.file.InvalidPathException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.Scanner;
 
 /**
  * Manages the bank of words a Wordle game will have access to for the
@@ -22,9 +36,12 @@ public class WordBank {
     private static List<Word> validWords = new ArrayList<>();
     public static int WORD_LENGTH = 5;
 
+    private static final String TARGET_FILE_PATH = "wordle-official.txt";
+    private static final String VALID_FILE_PATH = "wordle-full.txt";
+
     public WordBank() throws FileNotFoundException {
-        updateTargetBank(new File("./wordle-official.txt"));
-        updateValidBank(new File("./wordle-full.txt"));
+        updateTargetBank(ResourceManager.loadResource(TARGET_FILE_PATH));
+        updateValidBank(ResourceManager.loadResource(VALID_FILE_PATH));
 
     }
 
@@ -107,6 +124,7 @@ public class WordBank {
      * @param file File to verify
      * @param scanner Scanner of file to verify and configure
      */
+
     public static void checkFileExtension(File file, Scanner scanner) {
         String filePath = file.getPath();
         //admin menu dependent

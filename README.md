@@ -1,5 +1,17 @@
-# SWE Team B WordleFX
-## Getting started
+# SWE 2710 111 Team B Wordle-esque Game
+# Copyright 2024 SWE 2710 111 Team B ( Duaa "DJ" Aljalous, Lazar Jovanovic,Theresa Kettner, Jack Rosenbecker)
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 
 ### Prerequisites
 
@@ -11,7 +23,7 @@ Java SDK 17 and JavaFX 19 is required to run this project.
 Double click on the s24-riley-b.jar provided to play the Wordle-Like game
 
 ### Description
-This is a Wordle-esque app implemented in Java and JavaFX. Our application has the following features
+This is a Wordle-esque app implemented using Java and JavaFX. Our application has the following features: 
 - [x] Guessing a 5-letter word from a word bank
 - [x] Ability to enter up to 6 guesses
 - [x] Logic to check current guess against valid guess word bank
@@ -20,9 +32,9 @@ This is a Wordle-esque app implemented in Java and JavaFX. Our application has t
 - [x] Appropriate error messages depending on what invalidity is present in user's guess
 - [x] Toggle between Admin/User View
 - [x] Admin Dashboard 
-### Future Features
-- [ ] View the letters you have guessed (In Development)
 - [x] View your current number of guesses (In Development)
+### Future Features
+- [ ] Android Version (In Development)
 - [ ] View your average guesses over all your games (In Development)
 - [ ] View your past most commonly guessed words and letters (college users only)
 - [ ] View a hint (middle school users only)

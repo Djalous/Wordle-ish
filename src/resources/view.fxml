@@ -5,155 +5,67 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<StackPane fx:id="stackPane" prefHeight="601.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.Controller">
+<StackPane fx:id="stackPane" prefHeight="680.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.GameController">
    <children>
-       <GridPane fx:id="letterGrid" layoutX="63.0" layoutY="14.0" prefHeight="510.0" prefWidth="473.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="90.0" vgrow="SOMETIMES" />
-          <RowConstraints fillHeight="false" maxHeight="-Infinity" minHeight="-Infinity" prefHeight="90.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="-Infinity" prefHeight="90.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="-Infinity" prefHeight="90.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="-Infinity" prefHeight="90.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="-Infinity" prefHeight="90.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <TextField fx:id="firstLetterTyped" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.halignment="CENTER">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </TextField>
-            <TextField fx:id="secondLetterTyped" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.columnIndex="1" GridPane.halignment="CENTER">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="thirdLetterTyped" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.columnIndex="2" GridPane.halignment="CENTER">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="fourthLetterTyped" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.columnIndex="3" GridPane.halignment="CENTER">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font>
-            </TextField>
-            <TextField fx:id="fifthLetterTyped" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.columnIndex="4" GridPane.halignment="CENTER">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font>
-            </TextField>
-            <TextField disable="true" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font></TextField>
-            <TextField disable="true" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font></TextField>
-            <TextField disable="true" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font></TextField>
-            <TextField disable="true" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font></TextField>
-            <TextField disable="true" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font></TextField>
-            <TextField disable="true" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font></TextField>
-            <TextField disable="true" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font></TextField>
-            <TextField disable="true" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font></TextField>
-            <TextField disable="true" editable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font></TextField>
-            <TextField disable="true" editable="false" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="2">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font></TextField>
-            <TextField disable="true" editable="false" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font></TextField>
-            <TextField disable="true" editable="false" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font></TextField>
-            <TextField disable="true" editable="false" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font></TextField>
-            <TextField disable="true" editable="false" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font></TextField>
-            <TextField disable="true" editable="false" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="3">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font></TextField>
-            <TextField disable="true" editable="false" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.halignment="CENTER" GridPane.rowIndex="4">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font></TextField>
-            <TextField disable="true" editable="false" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font></TextField>
-            <TextField disable="true" editable="false" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font></TextField>
-            <TextField disable="true" editable="false" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="4">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font></TextField>
-            <TextField disable="true" editable="false" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="4">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font></TextField>
-            <TextField disable="true" editable="false" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.halignment="CENTER" GridPane.rowIndex="5">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font></TextField>
-            <TextField disable="true" editable="false" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font></TextField>
-            <TextField disable="true" editable="false" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font></TextField>
-            <TextField disable="true" editable="false" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="5">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font></TextField>
-            <TextField disable="true" editable="false" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="70.0" prefWidth="80.0" GridPane.columnIndex="4" GridPane.halignment="CENTER" GridPane.rowIndex="5">
-               <font>
-                  <Font name="Arial Black" size="36.0" />
-               </font></TextField>
-         </children>
-      </GridPane>
+      <VBox alignment="TOP_CENTER" spacing="5">
+         <MenuBar>
+           <menus>
+             <Menu mnemonicParsing="false">
+                  <graphic>
+                     <Label />
+                  </graphic>
+             </Menu>
+           </menus>
+         </MenuBar>
+         <GridPane fx:id="letterGrid" alignment="TOP_CENTER" layoutX="63.0" layoutY="14.0" maxWidth="-Infinity" prefHeight="302.0" prefWidth="313.0">
+            <columnConstraints>
+
+            </columnConstraints>
+            <rowConstraints>
+               <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" vgrow="SOMETIMES" />
+               <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+
+            </children>
+         </GridPane>
+         <Pane fx:id="keyboardPane" prefHeight="200.0" prefWidth="200.0">
+            <children>
+               <Button layoutX="165.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="Q" focusTraversable="false"/>
+               <Button layoutX="192.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.1" text="W" focusTraversable="false"/>
+               <Button layoutX="219.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="E" focusTraversable="false"/>
+               <Button layoutX="246.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="R" focusTraversable="false"/>
+               <Button layoutX="273.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="T" focusTraversable="false"/>
+               <Button layoutX="300.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="Y" focusTraversable="false"/>
+               <Button layoutX="327.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="U" focusTraversable="false"/>
+               <Button layoutX="354.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="I" focusTraversable="false"/>
+               <Button layoutX="381.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="O" focusTraversable="false"/>
+               <Button layoutX="408.0" layoutY="44.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="P" focusTraversable="false"/>
+               <Button layoutX="179.0" layoutY="69.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="A" focusTraversable="false"/>
+               <Button layoutX="206.0" layoutY="69.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="S" focusTraversable="false"/>
+               <Button layoutX="233.0" layoutY="69.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="D" focusTraversable="false"/>
+               <Button layoutX="260.0" layoutY="69.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="F" focusTraversable="false"/>
+               <Button layoutX="287.0" layoutY="69.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="G" focusTraversable="false"/>
+               <Button layoutX="314.0" layoutY="69.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="H" focusTraversable="false"/>
+               <Button layoutX="341.0" layoutY="69.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="J" focusTraversable="false"/>
+               <Button layoutX="368.0" layoutY="69.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="K" focusTraversable="false"/>
+               <Button layoutX="395.0" layoutY="69.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="L" focusTraversable="false"/>
+               <Button layoutX="154.0" layoutY="94.0" mnemonicParsing="false" onAction="#onEnterPressed" prefWidth="50.0" text="Enter" focusTraversable="false"/>
+               <Button layoutX="206.0" layoutY="94.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="Z" focusTraversable="false"/>
+               <Button layoutX="233.0" layoutY="94.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="X" focusTraversable="false"/>
+               <Button layoutX="260.0" layoutY="94.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="C" focusTraversable="false"/>
+               <Button layoutX="287.0" layoutY="94.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="V" focusTraversable="false"/>
+               <Button layoutX="314.0" layoutY="94.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="B" focusTraversable="false"/>
+               <Button layoutX="341.0" layoutY="94.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="N" focusTraversable="false"/>
+               <Button layoutX="368.0" layoutY="94.0" mnemonicParsing="false" onAction="#buttonPressed" prefHeight="25.0" prefWidth="27.0" text="M" focusTraversable="false"/>
+               <Button layoutX="396.0" layoutY="94.0" mnemonicParsing="false" onAction="#onDeletePressed" text="Delete" focusTraversable="false"/>
+            </children>
+         </Pane>
+      </VBox>
        <Label fx:id="msgLabel" alignment="CENTER" textFill="#d40e0e" visible="false" wrapText="true" StackPane.alignment="CENTER">
            <style>
                -fx-background-color: black;
