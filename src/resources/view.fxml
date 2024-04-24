@@ -18,13 +18,14 @@
 <StackPane fx:id="stackPane" prefHeight="680.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.GameController">
    <children>
       <VBox alignment="TOP_CENTER" spacing="5">
-         <MenuBar stylesheets="@menuBarStyle.css">
+         <MenuBar>
            <menus>
-             <Menu id="hamburger" mnemonicParsing="false" text="Wordle-esque">
-                  <items>
-                     <MenuItem mnemonicParsing="false" text="Hi" />
-                  </items>
-             </Menu>
+             <Menu mnemonicParsing="false" text="1" />
+               <Menu mnemonicParsing="false" text="2">
+                 <items>
+                   <MenuItem mnemonicParsing="false" text="Action 1" />
+                 </items>
+               </Menu>
            </menus>
          </MenuBar>
          <GridPane fx:id="letterGrid" alignment="TOP_CENTER" layoutX="63.0" layoutY="14.0" maxWidth="-Infinity" prefHeight="302.0" prefWidth="313.0">

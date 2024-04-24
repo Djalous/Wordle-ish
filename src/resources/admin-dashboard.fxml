@@ -1,22 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.String?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Line?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
 
-<AnchorPane prefHeight="390.0" prefWidth="460.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.AdminController">
+<AnchorPane prefHeight="423.0" prefWidth="467.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.AdminController">
    <children>
       <VBox alignment="CENTER_LEFT" layoutX="30.0" layoutY="46.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="241.0" prefWidth="399.0">
          <HBox prefHeight="100.0" prefWidth="200.0">
-            <Label text="main.Word Length: " />
+            <Label text="Word Length: " />
             <TextField fx:id="wordLength" prefHeight="25.0" prefWidth="109.0" />
             <VBox.margin>
                <Insets bottom="10.0" />
@@ -46,6 +40,6 @@
             </VBox.margin>
          </Button>
       </VBox>
-      <Button fx:id="returnToStartBtn" alignment="CENTER" layoutX="143.0" layoutY="350.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="174.0" text="Return to Start" onAction="#returnToStartPage"/>
+      <Button fx:id="returnToStartBtn" alignment="CENTER" layoutX="143.0" layoutY="350.0" mnemonicParsing="false" onAction="#returnToStartPage" prefHeight="25.0" prefWidth="174.0" text="Return to Start" />
    </children>
 </AnchorPane>
