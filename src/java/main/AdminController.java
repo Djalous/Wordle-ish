@@ -28,6 +28,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
@@ -179,9 +180,9 @@ public class AdminController implements Initializable {
             Path filePath = Path.of(file);
             try {
                 if (isTargetTable) {
-                    WordBank.updateTargetBank(filePath.toFile());
+                    WordBank.updateTargetBank(new FileInputStream(filePath.toFile()));
                 } else {
-                    WordBank.updateValidBank(filePath.toFile());
+                    WordBank.updateValidBank(new FileInputStream(filePath.toFile()));
                 }
             } catch (FileNotFoundException e) {
                 System.out.println("File cannot be found or does not exist.");

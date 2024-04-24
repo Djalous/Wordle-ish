@@ -19,6 +19,8 @@ import javafx.scene.Parent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.net.URL;
 
 /**
@@ -33,15 +35,15 @@ public class ResourceManager {
      * @return The file you want to load.
      * @throws FileNotFoundException If the file was not found.
      */
-    public static File loadResource(String filePath) throws FileNotFoundException {
+    public static InputStream loadResource(String filePath) throws FileNotFoundException {
         ClassLoader classloader = getClassLoader();
-        URL url = classloader.getResource(filePath);
+        InputStream stream = classloader.getResourceAsStream(filePath);
 
-        if (url == null) {
+        if (stream == null) {
             throw new FileNotFoundException("Requested resource '" + filePath + "' not found");
         }
 
-        return new File(url.getFile());
+        return stream;
     }
 
     /**
