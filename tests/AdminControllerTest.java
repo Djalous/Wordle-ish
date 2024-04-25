@@ -4,6 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 public class AdminControllerTest {
@@ -25,7 +26,7 @@ public class AdminControllerTest {
         File validTargetBankFile = new File("./src/resources/wordle-full.txt");
         File validVocabBankFile = new File("./src/resources/wordle-official.txt");
 
-        wordBank = new WordBank(validTargetBankFile, validVocabBankFile);
+        wordBank = new WordBank(new FileInputStream(validTargetBankFile), new FileInputStream(validVocabBankFile));
         Assert.assertTrue(wordBank.isValid(word));
 
         // we expect false here because abcde is not a valid word

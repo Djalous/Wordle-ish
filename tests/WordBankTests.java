@@ -4,8 +4,7 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.io.FileNotFoundException;
-import java.io.File;
+import java.io.*;
 import java.util.List;
 
 public class WordBankTests {
@@ -16,10 +15,11 @@ public class WordBankTests {
     public static void setUp() throws FileNotFoundException {
         wordBank = new WordBank();
     }
+
     @Test
     public void checkGuessWords() {
         String[] invalidGuesses = {"abcde, biubl, FBIGJ, vivuw, hFkbS"};
-        for (String guess: invalidGuesses) {
+        for (String guess : invalidGuesses) {
             Word word = new Word(LENGTH);
             for (int i = 0; i < LENGTH; ++i)
                 word.pushChar(guess.charAt(i));
@@ -27,7 +27,7 @@ public class WordBankTests {
         }
 
         String[] validGuesses = {"years", "NEVER", "fAlSe", "walks", "fuzzy"};
-        for (String guess: validGuesses) {
+        for (String guess : validGuesses) {
             Word word = new Word(LENGTH);
             for (int i = 0; i < LENGTH; ++i)
                 word.pushChar(guess.charAt(i));
@@ -38,10 +38,16 @@ public class WordBankTests {
     //TODO Expecting 10 and getting 2 ???
     @Test
     public void testHistory() throws FileNotFoundException {
-        wordBank.updateTargetBank(new File("./src/resources/wordle-official.txt"));
-        wordBank.updateTargetBank(new File("./src/resources/wordle-official.txt"));
-        wordBank.updateValidBank(new File("./src/resources/wordle-full.txt"));
-        wordBank.updateValidBank(new File("./src/resources/wordle-full.txt"));
+        try (InputStream targetFileStream = new FileInputStream(new File("./src/resources/wordle-official.txt"));
+             InputStream validFileStream = new FileInputStream(new File("./src/resources/wordle-full.txt"))) {
+            WordBank.updateTargetBank(targetFileStream);
+            WordBank.updateTargetBank(targetFileStream);
+
+            WordBank.updateValidBank(validFileStream);
+            WordBank.updateValidBank(validFileStream);
+        } catch (IOException e) {
+            System.out.println("Issue loading file(s).");
+        }
 
         Word[][] targetWordHistory = wordBank.getTargetWordHistory();
         Word[][] validWordHistory = wordBank.getValidWordHistory();
@@ -52,38 +58,44 @@ public class WordBankTests {
 
     @Test
     public void testMin10History() throws FileNotFoundException {
-        wordBank.updateTargetBank(new File("./src/resources/wordle-official.txt"));
-        wordBank.updateTargetBank(new File("./src/resources/wordle-official.txt"));
-        wordBank.updateTargetBank(new File("./src/resources/wordle-official.txt"));
-        wordBank.updateTargetBank(new File("./src/resources/wordle-official.txt"));
-        wordBank.updateTargetBank(new File("./src/resources/wordle-official.txt"));
-        wordBank.updateTargetBank(new File("./src/resources/wordle-official.txt"));
-        wordBank.updateTargetBank(new File("./src/resources/wordle-official.txt"));
-        wordBank.updateTargetBank(new File("./src/resources/wordle-official.txt"));
-        wordBank.updateTargetBank(new File("./src/resources/wordle-official.txt"));
-        wordBank.updateTargetBank(new File("./src/resources/wordle-official.txt"));
+        try (InputStream targetFileStream = new FileInputStream(new File("./src/resources/wordle-official.txt"));
+             InputStream validFileStream = new FileInputStream(new File("./src/resources/wordle-full.txt"))) {
 
-        wordBank.updateValidBank(new File("./src/resources/wordle-full.txt"));
-        wordBank.updateValidBank(new File("./src/resources/wordle-full.txt"));
-        wordBank.updateValidBank(new File("./src/resources/wordle-full.txt"));
-        wordBank.updateValidBank(new File("./src/resources/wordle-full.txt"));
-        wordBank.updateValidBank(new File("./src/resources/wordle-full.txt"));
-        wordBank.updateValidBank(new File("./src/resources/wordle-full.txt"));
-        wordBank.updateValidBank(new File("./src/resources/wordle-full.txt"));
-        wordBank.updateValidBank(new File("./src/resources/wordle-full.txt"));
-        wordBank.updateValidBank(new File("./src/resources/wordle-full.txt"));
-        wordBank.updateValidBank(new File("./src/resources/wordle-full.txt"));
+            WordBank.updateTargetBank(targetFileStream);
+            WordBank.updateTargetBank(targetFileStream);
+            WordBank.updateTargetBank(targetFileStream);
+            WordBank.updateTargetBank(targetFileStream);
+            WordBank.updateTargetBank(targetFileStream);
+            WordBank.updateTargetBank(targetFileStream);
+            WordBank.updateTargetBank(targetFileStream);
+            WordBank.updateTargetBank(targetFileStream);
+            WordBank.updateTargetBank(targetFileStream);
+            WordBank.updateTargetBank(targetFileStream);
 
-        Word[][] targetWordHistory = wordBank.getTargetWordHistory();
-        Word[][] validWordHistory = wordBank.getValidWordHistory();
+            WordBank.updateValidBank(validFileStream);
+            WordBank.updateValidBank(validFileStream);
+            WordBank.updateValidBank(validFileStream);
+            WordBank.updateValidBank(validFileStream);
+            WordBank.updateValidBank(validFileStream);
+            WordBank.updateValidBank(validFileStream);
+            WordBank.updateValidBank(validFileStream);
+            WordBank.updateValidBank(validFileStream);
+            WordBank.updateValidBank(validFileStream);
+            WordBank.updateValidBank(validFileStream);
 
-        Assert.assertEquals(targetWordHistory.length, 10);
-        Assert.assertEquals(validWordHistory.length, 10);
+            Word[][] targetWordHistory = wordBank.getTargetWordHistory();
+            Word[][] validWordHistory = wordBank.getValidWordHistory();
 
-        wordBank.updateValidBank(new File("./src/resources/wordle-full.txt"));
-        wordBank.updateTargetBank(new File("./src/resources/wordle-official.txt"));
+            Assert.assertEquals(targetWordHistory.length, 10);
+            Assert.assertEquals(validWordHistory.length, 10);
 
-        Assert.assertTrue(targetWordHistory.length >= 10);
-        Assert.assertTrue(validWordHistory.length >= 10);
+            WordBank.updateValidBank(validFileStream);
+            WordBank.updateTargetBank(targetFileStream);
+
+            Assert.assertTrue(targetWordHistory.length >= 10);
+            Assert.assertTrue(validWordHistory.length >= 10);
+        } catch (IOException e) {
+            throw new FileNotFoundException("File not found");
+        }
     }
 }
