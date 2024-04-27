@@ -14,19 +14,25 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ## Known Bugs/Issues/Defects/Trouble
 
-Game Play
-Error Message - when entering an invalid guess in last row which prompts the error message label
+During Game Play
+1. Error Message - when entering an invalid guess in last row which prompts the error message label
 to display and then the user quickly enters a valid guess that is NOT the target word within the same duration
 that the error message label is still visible, the target word that then shows after losing a game will be integrated
 into the delay of the previous error message label and will delete after a short amount of time (it should stay there indefinitely)
 
 Creating an Account
 
-if you dont select user type when creating a new user, the program will crash (stack trace will show)
-
+1. If you don't select user type when creating a new user, the program will crash (stack trace will show)
 Doesn't save user credentials...YET
 
-  
+### Bugs discovered from Bug Bounty 4/25/2024
+1. Even after you win the game, you can delete the row of letters you guessed
+2. When I go to make a new account (specifically one that is a middle schooler), I am not able to make it (the window doesn't move to the game; it's stuck at the create account screen).
+   Reproduction Steps
+   go to log in, pick a random user name (not "admin"), put in a random password, pick middle schooler as the User Type and then press enter.
+3. Once I have entered six guesses and the game provides the correct reference word, I am still able to delete characters from the last row on the gameboard when pressing the 'Delete' button in the GUI.
+4. On Screen keyboard "W" key shows 3 dots.
+5. Allows typing after game is over and can change letters on last guess row.
 
 ### Prerequisites
 
@@ -35,7 +41,7 @@ You will need the following: \
 Java SDK 17 and JavaFX 19 is required to run this project.
 
 ### Running the Application
-Double click on the s24-riley-b.jar provided to play the Wordle-Like game
+Double click on the s24-riley-b.jar provided to play the Wordle-esque game.
 
 ### Description
 This is a Wordle-esque app implemented using Java and JavaFX. Our application has the following features: 
