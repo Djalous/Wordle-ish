@@ -89,11 +89,15 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        if (validateGuess()) {
-            colorizeCorrect(currentGuess);
-        }
-        else {
-            colorizeFields(currentGuess, game.getCurrentGuess().getCorrect(game.getTargetWord()));
+        switch (validateGuess()) {
+            case CORRECT:
+                colorizeCorrect(currentGuess);
+                break;
+            case INCORRECT:
+                colorizeFields(currentGuess, game.getCurrentGuess().getCorrect(game.getTargetWord()));
+                break;
+            case INVALID:
+                return;
         }
 
         if (nextGuess()) {
@@ -101,26 +105,26 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private boolean validateGuess() {
+    private ValidGuess validateGuess() {
         Word currentGuess = getGuessWord();
         game.updateCurrentGuess(currentGuess);
 
         if (currentGuess == null) {
             displayMessage("Please input a 5 letter word");
-            return false;
+            return ValidGuess.INCORRECT;
         }
 
         if (!getWordBank().isValid(currentGuess)) {
             displayMessage("Please input a valid word");
-            return false;
+            return ValidGuess.INVALID;
         }
 
         if (game.getCurrentGuess().equals(game.getTargetWord())) {
             displayMessage("Great Job! You got the word correct");
-            return true;
+            return ValidGuess.CORRECT;
         }
 
-        return false;
+        return ValidGuess.INCORRECT;
     }
 
     private boolean nextGuess() {
@@ -199,5 +203,11 @@ public class MainActivity extends AppCompatActivity {
     private WordBank getWordBank() {
         WordleApp app = (WordleApp)getApplicationContext();
         return app.getCurrentWordBank();
+    }
+
+    private enum ValidGuess {
+        CORRECT,
+        INCORRECT,
+        INVALID
     }
 }

@@ -11,6 +11,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.io.ByteArrayInputStream;
+import java.io.FileNotFoundException;
+import java.nio.charset.StandardCharsets;
+
 public class AdminActivity extends AppCompatActivity {
 
     @Override
@@ -26,6 +30,12 @@ public class AdminActivity extends AppCompatActivity {
 
         Button wordleButton = findViewById(R.id.wordle_button);
         wordleButton.setOnClickListener(v -> {switchToWordleMenu();});
+
+        Button targetWordsButton = findViewById(R.id.targetWordsButton);
+        targetWordsButton.setOnClickListener(v -> {readInTargetWords();});
+
+        Button validWordsButton = findViewById(R.id.validWordsButton);
+        validWordsButton.setOnClickListener(v -> {readInValidWords();});
 
         updateTargetWordsField();
         updateValidWordsField();
@@ -47,6 +57,26 @@ public class AdminActivity extends AppCompatActivity {
         WordBank bank = app.getCurrentWordBank();
 
         validWords.setText(bank.getValidWordsText());
+    }
+
+    private void readInTargetWords() {
+        EditText targetWords = findViewById(R.id.targetWordsInput);
+        String words = targetWords.getText().toString();
+        try {
+            WordBank.updateTargetBank(new ByteArrayInputStream(words.getBytes(StandardCharsets.UTF_8)));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e); //This shouldn't actually be possible as the input stream is not a file
+        }
+    }
+
+    private void readInValidWords() {
+        EditText validWords = findViewById(R.id.validWordsInput);
+        String words = validWords.getText().toString();
+        try {
+            WordBank.updateValidBank(new ByteArrayInputStream(words.getBytes(StandardCharsets.UTF_8)));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e); //This shouldn't actually be possible as the input stream is not a file
+        }
     }
 
     private void switchToWordleMenu() {
