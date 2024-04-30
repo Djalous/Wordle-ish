@@ -404,30 +404,51 @@ public class GameController implements Initializable {
                     if (currentGuessRow == 0 && state.getCurrentGuess().equals(state.getTargetWord())) {
                         msgLabel.setText("Alright that was pretty cool");
                         msgLabel.setVisible(true);
+                        for (int i = 0; i < keyboardPane.getChildren().size(); i++) {
+                            keyboardPane.getChildren().get(i).setDisable(true);
+                        }
                         endGame();
                     } else if (currentGuessRow == 1 && state.getCurrentGuess().equals(state.getTargetWord())) {
                         msgLabel.setText("Not as cool as getting it in 1 but well done");
                         msgLabel.setVisible(true);
+                        for (int i = 0; i < keyboardPane.getChildren().size(); i++) {
+                            keyboardPane.getChildren().get(i).setDisable(true);
+                        }
                         endGame();
                     } else if (currentGuessRow == 2 && state.getCurrentGuess().equals(state.getTargetWord())) {
                         msgLabel.setText("Good job buster");
                         msgLabel.setVisible(true);
+                        for (int i = 0; i < keyboardPane.getChildren().size(); i++) {
+                            keyboardPane.getChildren().get(i).setDisable(true);
+                        }
                         endGame();
                     } else if (currentGuessRow == 3 && state.getCurrentGuess().equals(state.getTargetWord())) {
                         msgLabel.setText("Woo hoo");
                         msgLabel.setVisible(true);
+                        for (int i = 0; i < keyboardPane.getChildren().size(); i++) {
+                            keyboardPane.getChildren().get(i).setDisable(true);
+                        }
                         endGame();
                     } else if (currentGuessRow == 4 && state.getCurrentGuess().equals(state.getTargetWord())) {
                         msgLabel.setText("Congrats on the win");
                         msgLabel.setVisible(true);
+                        for (int i = 0; i < keyboardPane.getChildren().size(); i++) {
+                            keyboardPane.getChildren().get(i).setDisable(true);
+                        }
                         endGame();
                     } else if (currentGuessRow == 5 && state.getCurrentGuess().equals(state.getTargetWord())) {
                         msgLabel.setText("Should we even clap for that");
                         msgLabel.setVisible(true);
+                        for (int i = 0; i < keyboardPane.getChildren().size(); i++) {
+                            keyboardPane.getChildren().get(i).setDisable(true);
+                        }
                         endGame();
                     } else if (currentGuessRow == 5 && !state.getCurrentGuess().equals(state.getTargetWord())) {
                         msgLabel.setText(state.getTargetWord().toString());
                         msgLabel.setVisible(true);
+                        for (int i = 0; i < keyboardPane.getChildren().size(); i++) {
+                            keyboardPane.getChildren().get(i).setDisable(true);
+                        }
                         endGame();
                     } else {
                         moveCursorToNextRow();
@@ -481,30 +502,51 @@ public class GameController implements Initializable {
             if (currentGuessRow == 0 && state.getCurrentGuess().equals(state.getTargetWord())) {
                 msgLabel.setText("Alright that was pretty cool");
                 msgLabel.setVisible(true);
+                for (int i = 0; i < keyboardPane.getChildren().size(); i++) {
+                    keyboardPane.getChildren().get(i).setDisable(true);
+                }
                 endGame();
             } else if (currentGuessRow == 1 && state.getCurrentGuess().equals(state.getTargetWord())) {
                 msgLabel.setText("Not as cool as getting it in 1 but well done");
                 msgLabel.setVisible(true);
+                for (int i = 0; i < keyboardPane.getChildren().size(); i++) {
+                    keyboardPane.getChildren().get(i).setDisable(true);
+                }
                 endGame();
             } else if (currentGuessRow == 2 && state.getCurrentGuess().equals(state.getTargetWord())) {
                 msgLabel.setText("Good job buster");
                 msgLabel.setVisible(true);
+                for (int i = 0; i < keyboardPane.getChildren().size(); i++) {
+                    keyboardPane.getChildren().get(i).setDisable(true);
+                }
                 endGame();
             } else if (currentGuessRow == 3 && state.getCurrentGuess().equals(state.getTargetWord())) {
                 msgLabel.setText("Woo hoo");
                 msgLabel.setVisible(true);
+                for (int i = 0; i < keyboardPane.getChildren().size(); i++) {
+                    keyboardPane.getChildren().get(i).setDisable(true);
+                }
                 endGame();
             } else if (currentGuessRow == 4 && state.getCurrentGuess().equals(state.getTargetWord())) {
                 msgLabel.setText("Congrats on the win");
                 msgLabel.setVisible(true);
+                for (int i = 0; i < keyboardPane.getChildren().size(); i++) {
+                    keyboardPane.getChildren().get(i).setDisable(true);
+                }
                 endGame();
             } else if (currentGuessRow == 5 && state.getCurrentGuess().equals(state.getTargetWord())) {
                 msgLabel.setText("Should we even clap for that");
                 msgLabel.setVisible(true);
+                for (int i = 0; i < keyboardPane.getChildren().size(); i++) {
+                    keyboardPane.getChildren().get(i).setDisable(true);
+                }
                 endGame();
             } else if (currentGuessRow == 5 && !state.getCurrentGuess().equals(state.getTargetWord())) {
                 msgLabel.setText(state.getTargetWord().toString());
                 msgLabel.setVisible(true);
+                for (int i = 0; i < keyboardPane.getChildren().size(); i++) {
+                    keyboardPane.getChildren().get(i).setDisable(true);
+                }
                 endGame();
             } else {
                 moveCursorToNextRow();
