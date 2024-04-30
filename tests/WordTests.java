@@ -175,4 +175,30 @@ public class WordTests {
 
         Assert.assertArrayEquals(test, data);
     }
+
+    /**
+     * Added the following edge Cases with assistance from GitHub Copilot on 4/28/2024
+     * checking for empty word, case sensitivity, and full buffer
+     */
+    @Test
+    public void testEmptyWord() {
+        Word w1 = new Word(0);
+        Assert.assertEquals("", w1.toString());
+        Assert.assertFalse(w1.pushChar('a'));
+        w1.backspace();
+        Assert.assertEquals("", w1.toString());
+    }
+    @Test
+    public void testCaseSensitivity() {
+        Word w1 = new Word("AbC");
+        Assert.assertEquals("abc", w1.toString());
+    }
+    @Test
+    public void testFullBuffer() {
+        Word w1 = new Word(3);
+        w1.pushChar('a');
+        w1.pushChar('b');
+        w1.pushChar('c');
+        Assert.assertFalse(w1.pushChar('d'));
+    }
 }

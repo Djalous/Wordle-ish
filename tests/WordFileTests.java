@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.nio.file.InvalidPathException;
 import java.util.Scanner;
@@ -32,7 +33,7 @@ public class WordFileTests {
     public void updateValidBankWithValidFile() {
         File validFile = new File("./src/resources/wordle-full.txt");
         try {
-            WordBank.updateValidBank(validFile);
+            WordBank.updateValidBank(new FileInputStream(validFile));
             Assert.assertTrue(wordBank.isValid(new Word("years")));
         } catch (InvalidPathException e) {
             Assert.fail("Exception should not be thrown with valid file");
@@ -47,7 +48,7 @@ public class WordFileTests {
     public void updateValidBankWithInvalidFile() {
         File invalidFile = new File("./src/resources/start_page.fxml");
         try {
-            wordBank.updateValidBank(invalidFile);
+            WordBank.updateValidBank(new FileInputStream(invalidFile));
             Assert.fail("Exception should be thrown with invalid file");
         } catch (InvalidPathException e) {
             Assert.assertTrue(true);
@@ -63,44 +64,44 @@ public class WordFileTests {
     public void updateValidBankWithUnsupportedFileType() {
         File unsupportedFile = new File("./src/resources/start_page.fxml");
         try {
-            WordBank.updateValidBank(unsupportedFile);
+            WordBank.updateValidBank(new FileInputStream(unsupportedFile));
             Assert.fail("Exception should be thrown with unsupported file type");
         } catch (InvalidPathException | FileNotFoundException e) {
             Assert.assertTrue(true);
         }
     }
 
-    /**
-     * This test checks if the checkFileExtension method correctly handles txt files.
-     * @throws FileNotFoundException if the file does not exist
-     */
-    @Test
-    public void checkFileExtensionHandlesCsvFilesCorrectly() throws FileNotFoundException {
-        File csvFile = new File("./tests/testFile.csv");
-        Scanner scanner = new Scanner(csvFile);
-        WordBank.checkFileExtension(csvFile, scanner);
-        Assert.assertEquals(",", scanner.delimiter().toString());
-    }
-    /**
-     * This test checks if the checkFileExtension method correctly handles txt files.
-     * @throws FileNotFoundException if the file does not exist
-     */
-    @Test
-    public void checkFileExtensionHandlesTxtFilesCorrectly() throws FileNotFoundException {
-        File txtFile = new File("./src/resources/wordle-full.txt");
-        Scanner scanner = new Scanner(txtFile);
-        WordBank.checkFileExtension(txtFile, scanner);
-        Assert.assertEquals(System.lineSeparator(), scanner.delimiter().toString());
-    }
-    /**
-     * This test checks if the checkFileExtension method throws an exception for unsupported file types.
-     * @throws FileNotFoundException if the file does not exist
-     */
-
-    @Test(expected = InvalidPathException.class)
-    public void checkFileExtensionThrowsExceptionForUnsupportedFileType() throws FileNotFoundException {
-        File unsupportedFile = new File("./readme.md");
-        Scanner scanner = new Scanner(unsupportedFile);
-        WordBank.checkFileExtension(unsupportedFile, scanner);
-    }
+//    /**
+//     * This test checks if the checkFileExtension method correctly handles txt files.
+//     * @throws FileNotFoundException if the file does not exist
+//     */
+//    @Test
+//    public void checkFileExtensionHandlesCsvFilesCorrectly() throws FileNotFoundException {
+//        File csvFile = new File("./tests/testFile.csv");
+//        Scanner scanner = new Scanner(csvFile);
+//        WordBank.checkFileExtension(csvFile, scanner);
+//        Assert.assertEquals(",", scanner.delimiter().toString());
+//    }
+//    /**
+//     * This test checks if the checkFileExtension method correctly handles txt files.
+//     * @throws FileNotFoundException if the file does not exist
+//     */
+//    @Test
+//    public void checkFileExtensionHandlesTxtFilesCorrectly() throws FileNotFoundException {
+//        File txtFile = new File("./src/resources/wordle-full.txt");
+//        Scanner scanner = new Scanner(txtFile);
+//        WordBank.checkFileExtension(txtFile, scanner);
+//        Assert.assertEquals(System.lineSeparator(), scanner.delimiter().toString());
+//    }
+//    /**
+//     * This test checks if the checkFileExtension method throws an exception for unsupported file types.
+//     * @throws FileNotFoundException if the file does not exist
+//     */
+//
+//    @Test(expected = InvalidPathException.class)
+//    public void checkFileExtensionThrowsExceptionForUnsupportedFileType() throws FileNotFoundException {
+//        File unsupportedFile = new File("./readme.md");
+//        Scanner scanner = new Scanner(unsupportedFile);
+//        WordBank.checkFileExtension(unsupportedFile, scanner);
+//    }
 }
