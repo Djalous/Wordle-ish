@@ -40,7 +40,7 @@ public class WordBank {
      * @param targetFile File containing the guessable words
      * @param validFile File containing words considered valid
      */
-    public WordBank(InputStream targetFile, InputStream validFile) throws FileNotFoundException {
+    public WordBank(InputStream targetFile, InputStream validFile) {
         updateTargetBank(targetFile);
         updateValidBank(validFile);
     }
@@ -53,7 +53,7 @@ public class WordBank {
      * @param targetFile File to used for guessable words
      * @throws InvalidPathException Thrown if the passed in file cannot be found
      */
-    public static void updateTargetBank(InputStream targetFile) throws InvalidPathException, FileNotFoundException {
+    public static void updateTargetBank(InputStream targetFile) throws InvalidPathException {
         targetWords = updateBank(targetFile, targetWords, prevTargetWords);
     }
 
@@ -61,11 +61,11 @@ public class WordBank {
      * @param validFile File used for valid words
      * @throws InvalidPathException Thrown if the passed in file cannot be found
      */
-    public static void updateValidBank(InputStream validFile) throws InvalidPathException, FileNotFoundException {
+    public static void updateValidBank(InputStream validFile) throws InvalidPathException {
         validWords = updateBank(validFile, validWords, prevValidWords);
     }
 
-    private static List<Word> updateBank(InputStream validFile, List<Word> storage, RecentHistory<Word[]> history) throws InvalidPathException, FileNotFoundException {
+    private static List<Word> updateBank(InputStream validFile, List<Word> storage, RecentHistory<Word[]> history) throws InvalidPathException {
         try (Scanner in = new Scanner(validFile)) {
             in.useDelimiter(System.lineSeparator());
 

@@ -62,21 +62,15 @@ public class AdminActivity extends AppCompatActivity {
     private void readInTargetWords() {
         EditText targetWords = findViewById(R.id.targetWordsInput);
         String words = targetWords.getText().toString();
-        try {
-            WordBank.updateTargetBank(new ByteArrayInputStream(words.getBytes(StandardCharsets.UTF_8)));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e); //This shouldn't actually be possible as the input stream is not a file
-        }
+        WordBank.updateTargetBank(new ByteArrayInputStream(words.getBytes(StandardCharsets.UTF_8)));
     }
 
     private void readInValidWords() {
         EditText validWords = findViewById(R.id.validWordsInput);
         String words = validWords.getText().toString();
-        try {
-            WordBank.updateValidBank(new ByteArrayInputStream(words.getBytes(StandardCharsets.UTF_8)));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e); //This shouldn't actually be possible as the input stream is not a file
-        }
+        words = words.replace("," , "");
+        words = words.replace(" " , "");
+        WordBank.updateValidBank(new ByteArrayInputStream(words.getBytes(StandardCharsets.UTF_8)));
     }
 
     private void switchToWordleMenu() {

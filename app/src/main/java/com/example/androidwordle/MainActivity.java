@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.Editable;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,9 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.androidwordle.databinding.ActivityMainBinding;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
@@ -60,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void startGame(WordBank bank) throws FileNotFoundException {
+    private void startGame(WordBank bank) {
         game = new GameState(bank.generateTargetWord());
 
         gameIsActive = true;
@@ -107,17 +104,18 @@ public class MainActivity extends AppCompatActivity {
 
     private ValidGuess validateGuess() {
         Word currentGuess = getGuessWord();
-        game.updateCurrentGuess(currentGuess);
 
         if (currentGuess == null) {
             displayMessage("Please input a 5 letter word");
-            return ValidGuess.INCORRECT;
+            return ValidGuess.INVALID;
         }
 
         if (!getWordBank().isValid(currentGuess)) {
             displayMessage("Please input a valid word");
             return ValidGuess.INVALID;
         }
+
+        game.updateCurrentGuess(currentGuess);
 
         if (game.getCurrentGuess().equals(game.getTargetWord())) {
             displayMessage("Great Job! You got the word correct");
