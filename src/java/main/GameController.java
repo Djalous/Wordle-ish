@@ -1,6 +1,7 @@
 package main;
 
 import javafx.animation.PauseTransition;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,9 +13,7 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
@@ -46,6 +45,8 @@ public class GameController implements Initializable {
     private TextField fourthLetterTyped;
     @FXML
     private TextField fifthLetterTyped;
+    @FXML
+    private AnchorPane slideMenu;
 
     private GameState state;
     private final List<GameState> history = new ArrayList<>();
@@ -427,10 +428,16 @@ public class GameController implements Initializable {
                         moveCursorToNextRow();
                         currentGuessRow++;
                     }
-
                 }
             }
         });
+
+        prepareSlideMenuAnimation();
+    }
+
+    private void prepareSlideMenuAnimation() {
+        TranslateTransition openNav = new TranslateTransition(new Duration(350), slideMenu);
+        //slideMenu.set
     }
 
     private int getFocusedFieldIndex() {
@@ -632,5 +639,9 @@ public class GameController implements Initializable {
      */
     public int getWordLength() {
         return wordLength;
+    }
+
+    public void onBurgerClicked(MouseEvent mouseEvent) {
+
     }
 }
