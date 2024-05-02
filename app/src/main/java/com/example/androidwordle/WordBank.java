@@ -1,3 +1,16 @@
+/**
+ *  Copyright 2024 SWE 2710 111 Team B (Duaa "DJ" Aljalous, Lazar Jovanovic,Theresa Kettner, Jack Rosenbecker)
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package com.example.androidwordle;
 
 import android.content.res.Resources;
@@ -40,7 +53,7 @@ public class WordBank {
      * @param targetFile File containing the guessable words
      * @param validFile File containing words considered valid
      */
-    public WordBank(InputStream targetFile, InputStream validFile) throws FileNotFoundException {
+    public WordBank(InputStream targetFile, InputStream validFile) {
         updateTargetBank(targetFile);
         updateValidBank(validFile);
     }
@@ -53,7 +66,7 @@ public class WordBank {
      * @param targetFile File to used for guessable words
      * @throws InvalidPathException Thrown if the passed in file cannot be found
      */
-    public static void updateTargetBank(InputStream targetFile) throws InvalidPathException, FileNotFoundException {
+    public static void updateTargetBank(InputStream targetFile) throws InvalidPathException {
         targetWords = updateBank(targetFile, targetWords, prevTargetWords);
     }
 
@@ -61,11 +74,11 @@ public class WordBank {
      * @param validFile File used for valid words
      * @throws InvalidPathException Thrown if the passed in file cannot be found
      */
-    public static void updateValidBank(InputStream validFile) throws InvalidPathException, FileNotFoundException {
+    public static void updateValidBank(InputStream validFile) throws InvalidPathException {
         validWords = updateBank(validFile, validWords, prevValidWords);
     }
 
-    private static List<Word> updateBank(InputStream validFile, List<Word> storage, RecentHistory<Word[]> history) throws InvalidPathException, FileNotFoundException {
+    private static List<Word> updateBank(InputStream validFile, List<Word> storage, RecentHistory<Word[]> history) throws InvalidPathException {
         try (Scanner in = new Scanner(validFile)) {
             in.useDelimiter(System.lineSeparator());
 
@@ -110,6 +123,34 @@ public class WordBank {
     public Word generateTargetWord() {
         Random rand = new Random();
         return targetWords.get(rand.nextInt(targetWords.size()));
+    }
+
+    /**
+     * Gets all the valid words as viewable text. Comma and new line separated.
+     * @return String of valid words.
+     */
+    public String getValidWordsText() {
+        return getWordsAsString(validWords);
+    }
+
+    /**
+     * Gets all the target words as viewable text. Comma and new line separated.
+     * @return String of target words.
+     */
+    public String getTargetWordsText() {
+        return getWordsAsString(targetWords);
+    }
+
+    private String getWordsAsString(List<Word> words) {
+        StringBuilder builder = new StringBuilder();
+
+        for (int i = 0; i < words.size(); i++) {
+            Word word = words.get(i);
+            builder.append(word.toString());
+            builder.append(", \n");
+        }
+
+        return builder.toString();
     }
 
     public Word[][] getValidWordHistory() {

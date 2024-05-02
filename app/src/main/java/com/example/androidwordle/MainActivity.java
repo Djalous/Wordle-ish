@@ -1,10 +1,23 @@
+/**
+ *  Copyright 2024 SWE 2710 111 Team B (Duaa "DJ" Aljalous, Lazar Jovanovic,Theresa Kettner, Jack Rosenbecker)
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *  http://www.apache.org/licenses/LICENSE-2.0
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ */
+
 package com.example.androidwordle;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.text.Editable;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,12 +29,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.androidwordle.databinding.ActivityMainBinding;
 
 import java.io.IOException;
-import java.io.InputStream;
 
+/**
+ * The binding class for the main activity xml.
+ * @author Jack Rosenbecker
+ * @version created on 4/16/23
+ */
 public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
-
-    private WordBank bank;
     private GameState game;
     private int currentGuess = 0;
     private boolean gameIsActive = false;
@@ -35,6 +50,9 @@ public class MainActivity extends AppCompatActivity {
 
         Button button = findViewById(R.id.submit_button);
         button.setOnClickListener(v -> {onSubmit();});
+
+        Button adminButton = findViewById(R.id.admin_button);
+        adminButton.setOnClickListener(v -> {switchToAdminMenu();});
 
         rows[0] = findViewById(R.id.row1_container);
         rows[1] = findViewById(R.id.row2_container);
@@ -57,15 +75,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void startGame() throws IOException {
-        ResourceManager resource = new ResourceManager(getResources());
-        InputStream validFile = resource.loadResource("wordle-full.txt");
-        InputStream targetFile = resource.loadResource("wordle-official.txt");
-
-        bank = new WordBank(targetFile, validFile);
+    private void startGame(WordBank bank) {
         game = new GameState(bank.generateTargetWord());
 
         gameIsActive = true;
+    }
+
+    private void startGame() throws IOException {
+        startGame(getWordBank());
     }
 
     private void disableRow(ViewGroup row) {
@@ -87,11 +104,15 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        if (validateGuess()) {
-            colorizeCorrect(currentGuess);
-        }
-        else {
-            colorizeFields(currentGuess, game.getCurrentGuess().getCorrect(game.getTargetWord()));
+        switch (validateGuess()) {
+            case CORRECT:
+                colorizeCorrect(currentGuess);
+                break;
+            case INCORRECT:
+                colorizeFields(currentGuess, game.getCurrentGuess().getCorrect(game.getTargetWord()));
+                break;
+            case INVALID:
+                return;
         }
 
         if (nextGuess()) {
@@ -99,30 +120,32 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private boolean validateGuess() {
+    private ValidGuess validateGuess() {
         Word currentGuess = getGuessWord();
-        game.updateCurrentGuess(currentGuess);
 
         if (currentGuess == null) {
             displayMessage("Please input a 5 letter word");
-            return false;
+            return ValidGuess.INVALID;
         }
 
-        if (!bank.isValid(currentGuess)) {
+        if (!getWordBank().isValid(currentGuess)) {
             displayMessage("Please input a valid word");
-            return false;
+            return ValidGuess.INVALID;
         }
+
+        game.updateCurrentGuess(currentGuess);
 
         if (game.getCurrentGuess().equals(game.getTargetWord())) {
             displayMessage("Great Job! You got the word correct");
-            return true;
+            return ValidGuess.CORRECT;
         }
 
-        return false;
+        return ValidGuess.INCORRECT;
     }
 
     private boolean nextGuess() {
         if (currentGuess >= 5) {
+            disableRow(rows[rows.length - 1]);
             return true;
         }
 
@@ -186,5 +209,21 @@ public class MainActivity extends AppCompatActivity {
             EditText child = (EditText)row.getChildAt(i);
             child.getBackground().setColorFilter(Color.GREEN, PorterDuff.Mode.SRC_ATOP);
         }
+    }
+
+    private void switchToAdminMenu() {
+        Intent intent = new Intent(MainActivity.this, AdminActivity.class);
+        startActivity(intent);
+    }
+
+    private WordBank getWordBank() {
+        WordleApp app = (WordleApp)getApplicationContext();
+        return app.getCurrentWordBank();
+    }
+
+    private enum ValidGuess {
+        CORRECT,
+        INCORRECT,
+        INVALID
     }
 }
